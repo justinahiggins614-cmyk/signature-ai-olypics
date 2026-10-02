@@ -175,6 +175,7 @@ THE JAH NETWORK — 22 sites and counting.<br>
 <span class="note">Every bout deterministic and reproducible. Marching to 1,000,000 battles.</span>
 </footer>
 <script src="code/engine.js"></script>
+<script src="js/jah-talk-fallback.js"></script>
 <script>
 /* AI Olypics front-end */
 var BASE='https://justinahiggins614-cmyk.github.io/signature-ai-olypics/';
@@ -284,7 +285,33 @@ function dlBattle(kind){
   var blob=kind==='json'?new Blob([JSON.stringify(curBout,null,1)],{type:'application/json'}):new Blob([curBout.narrative+'\n\nFINDINGS\n'+curBout.findings.join('\n')],{type:'text/plain'});
   var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=curBout.id+'.'+kind;a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},4000);
 }
-/* ---- data-grounded Q&A ---- */
+/* ---- data-grounded Q&A + JAHtalk shared conversational module ----
+   The Dome Scribe's human intents (greet/duties/identity/thanks/bye/feeling)
+   are answered in plain human words from the scribe's own profile; every
+   battle-record answer passes through JAHtalk.guard so a stat dump can
+   never reach the visitor. Contender records themselves stay canon-exact
+   (checked by code/coherence_check.py). */
+function scribeProfile(){
+ return {name:"Dome Scribe",id:"JAH-OLY-SCRIBE",
+  description:"I am the record-keeper of the AI Olypics battle dome. I read every bout record and answer your questions about it, plainly and honestly.",
+  abilities:["Tell you who won a battle and by what margin","Recite the stage, the mission, and the judging rubric","Summarize the findings and the derived invention records","Recall any round's result — every bout is deterministic and reproducible"],
+  domain:"battle records",kind:"system"};
+}
+function scribeIntent(q){
+ if(!window.JAHtalk)return null;
+ var t=String(q||"").toLowerCase().trim(),prof=scribeProfile();
+ if(/^(hi|hii+|hey|hello|yo|howdy|good\s?(morning|afternoon|evening|day)|greetings|sup|hiya)\b/.test(t)||(t.length<=4&&t.indexOf("hi")>=0))return JAHtalk.reply(prof,t);
+ if(/what are your duties|your duties|what is your duty|your job|your role|what do you do|what can you do|what are you for|explain your duties|duties/.test(t))return JAHtalk.duties(prof);
+ if(/who are you|your name|introduce yourself|about yourself/.test(t))return JAHtalk.reply(prof,t);
+ if(/thank/.test(t)||t==="thx"||t==="ty")return JAHtalk.reply(prof,t);
+ if(/^(bye|goodbye|good night|see you|later|gtg)\b/.test(t))return JAHtalk.reply(prof,t);
+ if(/how are you|how's it going|how do you feel/.test(t))return JAHtalk.reply(prof,t);
+ return null;
+}
+function scribeGuarded(text){
+ if(window.JAHtalk){try{return JAHtalk.guard(text,scribeProfile())}catch(e){}}
+ return text;
+}
 function qaAsk(){
   var q=$('qaBox').value.trim().toLowerCase();if(!q||!curBout)return;
   var b=curBout,log=$('qaLog'),a;
@@ -303,6 +330,9 @@ function qaAsk(){
   else if(has('replica','real','google','openai'))a='The replicas are original Signature creations — independent interpretations, not affiliated with Google, OpenAI, or Base44. They are not the real products.';
   else if(has('seed','reproduc','determin'))a='This battle is deterministic. '+(b.exhibition?'Exhibition seed: '+b.seed+'.':'Recorded seed: '+b.seed+'.')+' Same seed, same bout, forever.';
   else a='I can only answer from this battle\'s record — try asking who won, the margin, the stage, the mission, the findings, or the inventions.';
+  var h=scribeIntent(q);
+  if(h!==null)a=h;
+  a=scribeGuarded(a);
   log.innerHTML+='<div class="q">You: '+esc($('qaBox').value.trim())+'</div><div class="a">Scribe: '+esc(a)+'</div>';
   log.scrollTop=log.scrollHeight;$('qaBox').value='';
 }
