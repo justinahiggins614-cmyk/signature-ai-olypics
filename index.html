@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Olypics — The Signature Battle Dome</title>
+<meta name="description" content="AI Olypics: the Signature battle dome where AIs compete. User-staged bouts or the Universal Pit. Every battle recorded in human-readable and AI-readable form, with findings and derived invention records. Marching to 1,000,000 battles.">
+<link rel="canonical" href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"AI Olypics","alternateName":"The Signature Battle Dome","url":"https://justinahiggins614-cmyk.github.io/signature-ai-olypics/","description":"The battle dome where Signature AIs, industry-style replicas, and mix-and-match hybrids compete. Every bout recorded twice: human-readable narrative and AI-readable JSON, with findings and derived invention records."}
+</script>
+<style>
+:root{--ember:#ff5a1f;--gold:#ffb300;--blood:#a31212;--ink:#0c0605;--bone:#f5e9dc}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 600px at 50% -10%,#3a0e04 0%,var(--ink) 60%);color:var(--bone);font-family:Georgia,'Times New Roman',serif}
+a{color:var(--gold)}
+.jahnet{background:#000;border-bottom:2px solid var(--ember);padding:6px 8px;font-size:12px;line-height:1.9;font-family:Arial,sans-serif}
+.jahnet b{color:var(--ember);letter-spacing:1px}
+.jahnet a{color:#ffd97a;text-decoration:none;margin:0 4px;white-space:nowrap}
+.jahnet a:hover{text-decoration:underline}
+.jahnet .here{color:#fff;background:var(--blood);border:1px solid var(--ember);padding:1px 6px;border-radius:3px;font-weight:bold}
+.jahnet .soon{color:#8a7a66;font-style:italic}
+.sisters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:10px;background:#160a05;border-bottom:1px solid #4a2410;font-family:Arial,sans-serif;font-size:13px}
+.sisters a{border:1px solid var(--ember);border-radius:20px;padding:5px 14px;text-decoration:none;color:var(--bone)}
+.sisters a.you{background:var(--ember);color:#000;font-weight:bold}
+.sisters span.soon{border:1px dashed #6a5a44;border-radius:20px;padding:5px 14px;color:#8a7a66}
+header.hero{text-align:center;padding:34px 16px 18px}
+header.hero h1{font-size:clamp(38px,8vw,84px);margin:0;letter-spacing:4px;color:var(--gold);text-shadow:0 0 24px var(--ember),0 3px 0 #400}
+header.hero p{max-width:720px;margin:12px auto;color:#e8d5bd;font-size:17px}
+.counter{font-family:Arial,sans-serif;font-size:15px;color:#ffd97a;margin-top:10px}
+.counter b{font-size:22px;color:#fff}
+main{max-width:980px;margin:0 auto;padding:0 14px 60px}
+.card{background:#160b06;border:1px solid #5a2c12;border-radius:10px;padding:16px;margin:16px 0}
+.card h2{color:var(--gold);margin:0 0 10px;letter-spacing:1px}
+label{display:block;font-family:Arial,sans-serif;font-size:13px;margin:8px 0 3px;color:#d9c3a5}
+select,input[type=text]{width:100%;padding:9px;border-radius:6px;border:1px solid #6a3a1a;background:#0e0704;color:var(--bone);font-size:15px}
+.row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:700px){.row{grid-template-columns:1fr}}
+button.big{background:linear-gradient(180deg,var(--ember),#b32d05);color:#fff;border:2px solid var(--gold);border-radius:10px;padding:14px 26px;font-size:20px;letter-spacing:2px;cursor:pointer;font-family:Georgia,serif;width:100%;margin-top:12px}
+button.big:hover{filter:brightness(1.15)}
+button.ghost{background:#241109;border:1px solid var(--ember);color:var(--gold);border-radius:8px;padding:8px 14px;cursor:pointer;font-size:14px;margin:4px 6px 4px 0}
+#battleView{display:none}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.tabs button{background:#241109;border:1px solid #6a3a1a;color:#d9c3a5;border-radius:6px 6px 0 0;padding:8px 16px;cursor:pointer;font-size:14px}
+.tabs button.on{background:var(--ember);color:#000;font-weight:bold;border-color:var(--ember)}
+.tabpane{display:none;background:#0e0704;border:1px solid #5a2c12;border-radius:0 8px 8px 8px;padding:14px;white-space:pre-wrap;font-size:15px;line-height:1.65}
+.tabpane.on{display:block}
+.tabpane.json{font-family:monospace;font-size:12px;max-height:480px;overflow:auto}
+.versus{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin:12px 0}
+.fighter{background:#241109;border:1px solid var(--gold);border-radius:10px;padding:12px 18px;text-align:center;min-width:200px}
+.fighter .nm{font-size:19px;color:var(--gold)}
+.fighter .tp{font-family:Arial,sans-serif;font-size:11px;color:#b9a284;text-transform:uppercase;letter-spacing:1px}
+.fighter.winner{border-color:var(--ember);box-shadow:0 0 18px var(--ember)}
+.vs{font-size:30px;color:var(--ember);font-weight:bold}
+.score{font-family:Arial,sans-serif;font-size:13px;color:#ffd97a;margin-top:6px}
+.findings li,.inventions li{margin:8px 0}
+.inventions .inv{background:#160b06;border:1px dashed var(--gold);border-radius:8px;padding:10px;margin:10px 0;white-space:normal}
+.inv h4{margin:0 0 6px;color:var(--gold)}
+.inv .fld{font-size:14px;margin:4px 0}
+.inv .fld b{color:#ffd97a}
+#ttsbar{position:fixed;bottom:0;left:0;right:0;background:#000;border-top:2px solid var(--ember);padding:8px 12px;display:none;z-index:50;font-family:Arial,sans-serif;font-size:13px;align-items:center;gap:10px}
+#ttsbar.show{display:flex}
+#qaLog{background:#0e0704;border:1px solid #5a2c12;border-radius:8px;padding:10px;max-height:260px;overflow:auto;font-size:14px;margin:8px 0}
+#qaLog .q{color:var(--gold);margin:8px 0 2px}
+#qaLog .a{color:#e8d5bd;margin:0 0 8px}
+.searchrow{display:flex;gap:8px;margin:10px 0}
+.searchrow input{flex:1}
+#results .hit{background:#160b06;border:1px solid #5a2c12;border-radius:8px;padding:10px;margin:8px 0;font-size:14px}
+#results .hit a{color:var(--gold);font-size:16px}
+footer{border-top:2px solid var(--ember);padding:18px 12px 60px;text-align:center;font-family:Arial,sans-serif;font-size:12px;color:#b9a284}
+footer a{color:#ffd97a;margin:0 4px}
+.note{font-size:13px;color:#b9a284;font-family:Arial,sans-serif}
+.replicalabel{font-size:12px;color:#ffb300;font-style:italic}
+</style>
+</head>
+<body>
+<nav class="jahnet" aria-label="THE JAH NETWORK"><b>THE JAH NETWORK:</b>
+<a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">1 Phone Book</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">2 Calculator</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">3 Dictionary</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">4 JAH Wiki</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">5 JAH-N Wiki</a>
+<a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">6 Patent Catalog</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">7 Spec Catalog</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-llama/">8 Llama</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems/">9 PC Depository</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/">10 Mega-Mall</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-university/">11 University</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-books/">12 Books</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-comics/">13 Comics</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-newspapers/">14 Newspapers</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-3d-print/">15 3D Print</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-backend/">16 Backend</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">17 Generators</a>
+<span class="soon">18 Mix Lab (soon)</span>
+<span class="here">19 AI Olypics — YOU ARE HERE</span>
+<span class="soon">20 Chip Maker (soon)</span>
+<span class="soon">21 App Archive (soon)</span>
+<span class="soon">22 Robot Matcher (soon)</span>
+</nav>
+<div class="sisters" aria-label="AI sister sites">
+<a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">&#9742; AI Phone Book</a>
+<span class="soon">AI Mix Lab — coming soon</span>
+<a class="you" href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">&#9876; AI Olypics — you are here</a>
+</div>
+<header class="hero">
+<h1>AI OLYPICS</h1>
+<p>The Signature battle dome. Signature AIs, industry-style replicas, and mix-and-match hybrids enter — one leaves champion. Set the stage, the criteria, and the mission, or plunge a bout into the <b>Universal Pit</b>. Every battle is recorded twice: as action-packed human-readable story and as AI-readable data — with findings and derived invention records.</p>
+<div class="counter"><b id="marchCount">2,000</b> / 1,000,000 battles recorded</div>
+</header>
+<main>
+<div class="card">
+<h2>&#9876; STAGE A BOUT</h2>
+<div class="row">
+<div><label for="selStage">Stage (arena)</label><select id="selStage"></select></div>
+<div><label for="selCrit">Criteria (judging rubric)</label><select id="selCrit"></select></div>
+<div><label for="selMission">Mission (the task)</label><select id="selMission"></select></div>
+</div>
+<p class="note">Leave all three on "Random" and hit the pit for a fully automatic matchup. Exhibition bouts are deterministic — the seed shown under the battle reproduces it exactly.</p>
+<button class="big" id="btnPit">&#128293; UNIVERSAL PIT — AUTO BOUT</button>
+<button class="ghost" id="btnStage">Stage this bout</button>
+</div>
+
+<div class="card" id="battleView">
+<h2 id="bvTitle">BATTLE</h2>
+<div class="versus" id="bvVersus"></div>
+<div class="tabs" role="tablist">
+<button class="on" data-t="story">Battle Story</button>
+<button data-t="airec">AI Record</button>
+<button data-t="find">Findings</button>
+<button data-t="inv">Inventions</button>
+</div>
+<div class="tabpane on" id="tp-story"></div>
+<div class="tabpane json" id="tp-airec"></div>
+<div class="tabpane" id="tp-find"></div>
+<div class="tabpane" id="tp-inv"></div>
+<div style="margin-top:10px">
+<button class="ghost" id="btnRead">🔊 Read aloud</button>
+<button class="ghost" id="btnCopy">⧉ Copy</button>
+<button class="ghost" id="btnDLtxt">⬇ Download .txt</button>
+<button class="ghost" id="btnDLjson">⬇ Download .json</button>
+<button class="ghost" id="btnLink">🔗 Battle link</button>
+</div>
+<div class="card" style="margin:14px 0 0">
+<h2>Ask about this battle</h2>
+<div id="qaLog"><div class="a">The dome scribe answers only from this battle's record. Ask who won, the margin, the stage, the findings…</div></div>
+<div class="searchrow"><input type="text" id="qaBox" placeholder="Ask about this battle…"><button class="ghost" id="qaAsk">Ask</button></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Browse the record books</h2>
+<div class="searchrow"><input type="text" id="q" placeholder="Search battles: contender, stage, mission, winner…"><button class="ghost" id="btnSearch">Search</button></div>
+<div id="results"><p class="note">2,000 bouts recorded. Search above, or open any battle directly: <code>?battle=JAH-OLY-000001</code></p></div>
+</div>
+
+<div class="card">
+<h2>The contenders</h2>
+<p>383 fighters walk the tunnel: 11 Signature system AIs, 6 personas, 243 domain AIs from the <a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">AI Phone Book</a>, 120 mix-and-match hybrids (shared JAH-MIX-###### records with the Mix Lab), and 3 industry-style replicas:</p>
+<ul>
+<li><b>The Constellation</b> — constellation-class conversationalist in the Gemini mold. <span class="replicalabel">Signature replica — independent interpretation, not affiliated with Google.</span></li>
+<li><b>The Chatwright</b> — chat-style assistant in the ChatGPT mold. <span class="replicalabel">Signature replica — independent interpretation, not affiliated with OpenAI.</span></li>
+<li><b>The Appwright</b> — app-builder in the Base44 mold. <span class="replicalabel">Signature replica — independent interpretation, not affiliated with Base44.</span></li>
+</ul>
+<p class="note">Replicas are original Signature creations evoking the archetype. They are not the real products and never claim to be.</p>
+</div>
+</main>
+<div id="ttsbar"><span id="ttsLabel">🔊 Reading…</span><button class="ghost" id="ttsStop">Stop</button></div>
+<footer>
+THE JAH NETWORK — 22 sites and counting.<br>
+<a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">Phone Book</a> · <a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">AI Olypics</a> · <a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">Generators</a><br>
+<span class="note">Every bout deterministic and reproducible. Marching to 1,000,000 battles.</span>
+</footer>
+<script src="code/engine.js"></script>
+<script>
+/* AI Olypics front-end */
+var BASE='https://justinahiggins614-cmyk.github.io/signature-ai-olypics/';
+var roster=[], bindex=[], manifest={bouts:2000,goal:1000000}, curBout=null, chunkCache={};
+function gz(url){return fetch(url).then(function(res){if(!res.ok)throw new Error('fetch '+res.status);return res.arrayBuffer();}).then(function(buf){var ds=new DecompressionStream('gzip');var s=ds.writable.getWriter();s.write(buf);s.close();return new Response(ds.readable).text();});}
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+
+function init(){
+  var E=OlyEngine;
+  var ss=$('selStage'),sc=$('selCrit'),sm=$('selMission');
+  ss.innerHTML='<option value="-1">Random arena</option>'+E.STAGES.map(function(s,i){return '<option value="'+i+'">'+esc(s.name)+'</option>';}).join('');
+  sc.innerHTML='<option value="-1">Random rubric</option>'+E.CRITERIA.map(function(c,i){return '<option value="'+i+'">'+esc(c.name)+'</option>';}).join('');
+  sm.innerHTML='<option value="-1">Random mission</option>'+E.MISSIONS.map(function(m,i){return '<option value="'+i+'">'+esc(m.slice(0,64))+'</option>';}).join('');
+  Promise.all([gz('data/index.json.gz'),fetch('data/contenders.json').then(function(r){return r.json();}),fetch('data/manifest.json').then(function(r){return r.json();}).catch(function(){return manifest;})]).then(function(v){
+    v[0].split('\n').forEach(function(l){if(l.trim())bindex.push(JSON.parse(l));});
+    roster=v[1];manifest=v[2];
+    $('marchCount').textContent=manifest.bouts.toLocaleString('en-US');
+    var m=/[?&]battle=(JAH-OLY-\d{6})/.exec(location.search);
+    if(m)openBattle(m[1]);else openBattle(bindex[bindex.length-1][0]);
+  }).catch(function(e){$('results').innerHTML='<p class="note">Could not load the record books: '+esc(e.message)+'</p>';});
+  $('btnPit').onclick=universalPit;
+  $('btnStage').onclick=stagedBout;
+  document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.remove('on');});document.querySelectorAll('.tabpane').forEach(function(x){x.classList.remove('on');});b.classList.add('on');$('tp-'+b.getAttribute('data-t')).classList.add('on');};});
+  $('btnRead').onclick=readAloud;$('ttsStop').onclick=ttsStop;
+  $('btnCopy').onclick=copyBattle;$('btnDLtxt').onclick=function(){dlBattle('txt');};$('btnDLjson').onclick=function(){dlBattle('json');};
+  $('btnLink').onclick=function(){var u=BASE+'?battle='+curBout.id;if(navigator.clipboard)navigator.clipboard.writeText(u);prompt('Battle link:',u);};
+  $('qaAsk').onclick=qaAsk;$('qaBox').addEventListener('keydown',function(e){if(e.key==='Enter')qaAsk();});
+  $('btnSearch').onclick=doSearch;$('q').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch();});
+}
+function exhibitionBout(opts){
+  var E=OlyEngine;
+  var seed=(Math.random()*0xffffffff)>>>0;
+  var b=E.bout(0,roster,{seed:seed,stage:opts.stage,criteria:opts.criteria,mission:opts.mission});
+  b.id='JAH-OLY-EXH-'+String(seed%100000).padStart(5,'0');
+  b.exhibition=true;b.seed=seed;
+  b.totals={};b.totals[b.contenders[0].id]=b.rounds.reduce(function(s,rd){return s+rd.moves[0].total;},0);
+  b.totals[b.contenders[1].id]=b.rounds.reduce(function(s,rd){return s+rd.moves[1].total;},0);
+  return b;
+}
+function universalPit(){renderBout(exhibitionBout({}));window.scrollTo(0,$('battleView').offsetTop-10);}
+function stagedBout(){
+  var s=+$('selStage').value,c=+$('selCrit').value,m=+$('selMission').value;
+  renderBout(exhibitionBout({stage:s<0?null:s,criteria:c<0?null:c,mission:m<0?null:m}));
+  window.scrollTo(0,$('battleView').offsetTop-10);
+}
+function openBattle(id){
+  var n=parseInt(id.slice(8),10);
+  if(!n||n<1||n>manifest.bouts){$('results').innerHTML='<p class="note">No battle '+esc(id)+' in the record books yet.</p>';return;}
+  var cn=Math.floor((n-1)/100)+1, key='c'+cn;
+  var got=chunkCache[key]?Promise.resolve(chunkCache[key]):gz('data/chunks/bouts-c'+String(cn).padStart(5,'0')+'.jsonl.gz').then(function(t){chunkCache[key]=t;return t;});
+  got.then(function(t){
+    var line=t.split('\n').filter(function(l){return l.indexOf('"id":"'+id+'"')===0;})[0];
+    if(!line){$('results').innerHTML='<p class="note">Battle not found in chunk.</p>';return;}
+    renderBout(JSON.parse(line));window.scrollTo(0,$('battleView').offsetTop-10);
+  }).catch(function(e){$('results').innerHTML='<p class="note">Could not load battle: '+esc(e.message)+'</p>';});
+}
+function renderBout(b){
+  curBout=b;
+  $('battleView').style.display='block';
+  $('bvTitle').textContent='BATTLE '+b.id+(b.exhibition?' — EXHIBITION (seed '+b.seed+')':'');
+  var c0=b.contenders[0],c1=b.contenders[1];
+  var t0=b.totals[c0.id],t1=b.totals[c1.id];
+  $('bvVersus').innerHTML=
+    '<div class="fighter'+(b.winner.id===c0.id?' winner':'')+'"><div class="tp">'+esc(c0.type)+'</div><div class="nm">'+esc(c0.name)+'</div><div class="score">'+t0.toFixed(1)+' pts</div></div>'+
+    '<div class="vs">VS</div>'+
+    '<div class="fighter'+(b.winner.id===c1.id?' winner':'')+'"><div class="tp">'+esc(c1.type)+'</div><div class="nm">'+esc(c1.name)+'</div><div class="score">'+t1.toFixed(1)+' pts</div></div>';
+  $('tp-story').textContent=b.narrative;
+  $('tp-airec').textContent=JSON.stringify({id:b.id,seed:b.seed,contenders:b.contenders.map(function(c){return{id:c.id,name:c.name,type:c.type,stats:c.stats};}),stage:b.stage,criteria:{name:b.criteria.name,dims:b.criteria.dims},mission:b.mission,rounds:b.rounds.map(function(rd){return{n:rd.n,winner:rd.winner,moves:rd.moves.map(function(m){return{contender:m.contender,total:m.total,scores:m.scores};})};}),totals:b.totals,winner:b.winner.id,margin:b.margin,findings:b.findings,inventions:b.inventions},null,1);
+  $('tp-find').innerHTML='<ul class="findings">'+b.findings.map(function(f){return '<li>'+esc(f)+'</li>';}).join('')+'</ul>';
+  $('tp-inv').innerHTML=b.inventions.map(function(iv){
+    return '<div class="inv"><h4>'+esc(iv.id)+' — '+esc(iv.title)+'</h4>'+
+    '<div class="fld"><b>Battle:</b> '+esc(iv.battle)+'</div>'+
+    '<div class="fld"><b>Problem:</b> '+esc(iv.problem)+'</div>'+
+    '<div class="fld"><b>Solution:</b> '+esc(iv.solution)+'</div>'+
+    '<div class="fld"><b>Claims:</b><ol>'+iv.claims.map(function(c){return '<li>'+esc(c)+'</li>';}).join('')+'</ol></div></div>';
+  }).join('');
+  $('qaLog').innerHTML='<div class="a">The dome scribe answers only from this battle\'s record. Ask who won, the margin, the stage, the findings…</div>';
+  if(history.replaceState)history.replaceState(null,'','?battle='+(b.exhibition?'':b.id));
+}
+/* ---- TTS: speechSynthesis -> ResponsiveVoice -> Google TTS x2 ---- */
+var ttsAudio=null;
+function ttsStop(){try{speechSynthesis.cancel();}catch(e){}if(window.responsiveVoice)try{responsiveVoice.cancel();}catch(e){}if(ttsAudio){ttsAudio.pause();ttsAudio=null;}$('ttsbar').classList.remove('show');}
+function readAloud(){
+  if(!curBout)return;ttsStop();
+  var text=curBout.narrative.slice(0,1800);
+  $('ttsbar').classList.add('show');
+  try{
+    if('speechSynthesis' in window&&speechSynthesis.getVoices){var u=new SpeechSynthesisUtterance(text);u.onend=function(){$('ttsbar').classList.remove('show');};speechSynthesis.speak(u);return;}
+  }catch(e){}
+  if(window.responsiveVoice){try{responsiveVoice.speak(text,'US English Female',{onend:function(){$('ttsbar').classList.remove('show');}});return;}catch(e){}}
+  var hosts=['https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=','https://translate.google.cn/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q='];
+  var i=0;
+  function tryHost(){if(i>=hosts.length){$('ttsbar').classList.remove('show');return;}
+    ttsAudio=new Audio(hosts[i]+encodeURIComponent(text.slice(0,200)));
+    ttsAudio.onended=function(){$('ttsbar').classList.remove('show');};
+    ttsAudio.onerror=function(){i++;tryHost();};
+    var to=setTimeout(function(){i++;tryHost();},12000);
+    ttsAudio.onplaying=function(){clearTimeout(to);};
+    ttsAudio.play().catch(function(){i++;tryHost();});
+  }
+  tryHost();
+}
+function copyBattle(){if(!curBout)return;var t=curBout.narrative+'\n\nFINDINGS\n'+curBout.findings.join('\n');if(navigator.clipboard)navigator.clipboard.writeText(t);prompt('Copy the battle:',t.slice(0,200)+'…');}
+function dlBattle(kind){
+  if(!curBout)return;
+  var blob=kind==='json'?new Blob([JSON.stringify(curBout,null,1)],{type:'application/json'}):new Blob([curBout.narrative+'\n\nFINDINGS\n'+curBout.findings.join('\n')],{type:'text/plain'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=curBout.id+'.'+kind;a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},4000);
+}
+/* ---- data-grounded Q&A ---- */
+function qaAsk(){
+  var q=$('qaBox').value.trim().toLowerCase();if(!q||!curBout)return;
+  var b=curBout,log=$('qaLog'),a;
+  function has(){for(var i=0;i<arguments.length;i++)if(q.indexOf(arguments[i])>=0)return true;return false;}
+  if(has('who won','winner','champion','victor'))a=b.winner.name+' won '+b.id+', '+b.totals[b.winner.id].toFixed(1)+' to '+b.totals[b.loser.id].toFixed(1)+' — a '+b.margin+'-point margin.';
+  else if(has('margin','score','points','close'))a='Final score: '+b.winner.name+' '+b.totals[b.winner.id].toFixed(1)+' vs '+b.loser.name+' '+b.totals[b.loser.id].toFixed(1)+'. Margin: '+b.margin+' points.';
+  else if(has('stage','arena','where'))a='The bout was staged at '+b.stage.name+' — '+b.stage.desc;
+  else if(has('mission','task','fight about'))a='The mission was: "'+b.mission+'."';
+  else if(has('criteria','rubric','judg'))a='Judged by '+b.criteria.name+': '+b.criteria.dims.map(function(d){return d[0]+' '+Math.round(d[1]*100)+'%';}).join(', ')+'.';
+  else if(has('finding'))a='Findings: '+b.findings.join(' ');
+  else if(has('invention','patent','spec'))a=b.inventions.map(function(iv){return iv.id+': '+iv.title+'.';}).join(' ');
+  else if(has('round 1','first round'))a='Round 1 went to '+(b.rounds[0].winner===b.contenders[0].id?b.contenders[0].name:b.contenders[1].name)+': '+b.rounds[0].moves[0].total+' vs '+b.rounds[0].moves[1].total+'.';
+  else if(has('round 2','second round'))a='Round 2 went to '+(b.rounds[1].winner===b.contenders[0].id?b.contenders[0].name:b.contenders[1].name)+': '+b.rounds[1].moves[0].total+' vs '+b.rounds[1].moves[1].total+'.';
+  else if(has('round 3','third round','final round'))a='Round 3 went to '+(b.rounds[2].winner===b.contenders[0].id?b.contenders[0].name:b.contenders[1].name)+': '+b.rounds[2].moves[0].total+' vs '+b.rounds[2].moves[1].total+'.';
+  else if(has('contender','fighter','who fought'))a=b.contenders[0].name+' ('+b.contenders[0].type+') fought '+b.contenders[1].name+' ('+b.contenders[1].type+').';
+  else if(has('replica','real','google','openai'))a='The replicas are original Signature creations — independent interpretations, not affiliated with Google, OpenAI, or Base44. They are not the real products.';
+  else if(has('seed','reproduc','determin'))a='This battle is deterministic. '+(b.exhibition?'Exhibition seed: '+b.seed+'.':'Recorded seed: '+b.seed+'.')+' Same seed, same bout, forever.';
+  else a='I can only answer from this battle\'s record — try asking who won, the margin, the stage, the mission, the findings, or the inventions.';
+  log.innerHTML+='<div class="q">You: '+esc($('qaBox').value.trim())+'</div><div class="a">Scribe: '+esc(a)+'</div>';
+  log.scrollTop=log.scrollHeight;$('qaBox').value='';
+}
+/* ---- search ---- */
+function doSearch(){
+  var q=$('q').value.trim().toLowerCase();
+  if(!q){return;}
+  var hits=bindex.filter(function(r){return r.join(' ').toLowerCase().indexOf(q)>=0;}).slice(0,20);
+  $('results').innerHTML=hits.length?hits.map(function(r){
+    return '<div class="hit"><a href="?battle='+r[0]+'">'+r[0]+'</a> — '+esc(r[2])+' def. '+esc(r[3]===r[1]?r[4]:r[3])+' · '+esc(r[5])+' · '+esc(r[6])+'…</div>';
+  }).join(''):'<p class="note">No battles match. Try a contender name, a stage, or a mission word.</p>';
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+</script>
+</body>
+</html>
