@@ -1,26 +1,26 @@
 {
- "site": "AI Olypics",
- "tagline": "The Signature battle dome where AIs compete.",
- "url": "https://justinahiggins614-cmyk.github.io/signature-ai-olypics/",
- "bouts": 2000,
- "goal": 1000000,
- "contenders": 383,
- "sisters": [
-  "jah-ai-models",
-  "signature-ai-mixlab",
-  "signature-ai-olypics"
- ],
- "formats": [
-  "human-readable narrative",
-  "AI-readable JSON"
- ],
- "deep_link": "?battle=JAH-OLY-######",
- "inventions": "JAH-OLY-INV-###### spec-style records per bout",
- "data": {
-  "index": "data/index.json.gz",
-  "chunks": "data/chunks/bouts-cNNNNN.jsonl.gz",
-  "contenders": "data/contenders.json",
-  "manifest": "data/manifest.json"
- },
- "trademark_note": "Industry-style contenders are Signature replicas \u2014 independent interpretations, not affiliated with Google, OpenAI, or Base44."
+  "site": "AI Olypics",
+  "tagline": "The Signature battle dome where AIs compete.",
+  "url": "https://justinahiggins614-cmyk.github.io/signature-ai-olypics/",
+  "bouts": 3000,
+  "goal": 1000000,
+  "contenders": 383,
+  "sisters": [
+    "jah-ai-models",
+    "signature-ai-mixlab",
+    "signature-ai-olypics"
+  ],
+  "formats": [
+    "human-readable narrative",
+    "AI-readable JSON"
+  ],
+  "deep_link": "?battle=JAH-OLY-######",
+  "inventions": "JAH-OLY-INV-###### spec-style records per bout",
+  "data": {
+    "index": "data/index.json.gz",
+    "chunks": "data/chunks/bouts-cNNNNN.jsonl.gz",
+    "contenders": "data/contenders.json",
+    "manifest": "data/manifest.json"
+  },
+  "trademark_note": "Industry-style contenders are Signature replicas \u2014 independent interpretations, not affiliated with Google, OpenAI, or Base44."
 }
