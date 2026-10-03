@@ -352,7 +352,7 @@ function init(){
   document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.remove('on');});document.querySelectorAll('.tabpane').forEach(function(x){x.classList.remove('on');});b.classList.add('on');$('tp-'+b.getAttribute('data-t')).classList.add('on');};});
   $('btnRead').onclick=readAloud;$('ttsStop').onclick=ttsStop;
   $('btnCopy').onclick=copyBattle;$('btnDLtxt').onclick=function(){dlBattle('txt');};$('btnDLjson').onclick=function(){dlBattle('json');};
-  $('btnLink').onclick=function(){var u=BASE+'?battle='+curBout.id+(curBout.exhibition&&curBout.seed!=null?'&seed='+curBout.seed:'');if(navigator.clipboard)navigator.clipboard.writeText(u);prompt('Battle link:',u);};
+  $('btnLink').onclick=function(){var u=olyRecDeep();if(navigator.clipboard)navigator.clipboard.writeText(u);prompt('Battle link:',u);};
   $('btnClose').onclick=closeBattle;
   $('qaAsk').onclick=qaAsk;$('qaBox').addEventListener('keydown',function(e){if(e.key==='Enter')qaAsk();});
   /* SITE19-FIX-06: real-time search (150ms debounce) + arena filter */
@@ -478,7 +478,7 @@ function setBattleHead(b){
   var c0=b.contenders[0],c1=b.contenders[1];
   el.textContent=JSON.stringify({"@context":"https://schema.org","@type":"SportsEvent",
     "name":"AI Olypics bout "+b.id+": "+c0.name+" vs "+c1.name,
-    "url":BASE+'?battle='+b.id+(b.exhibition&&b.seed!=null?'&seed='+b.seed:''),
+    "url":BASE+'?battle='+b.id+(b.exhibition&&b.seed!=null?'&seed='+b.seed:'')+((b.user_entered&&b.user_ai_id)?'&userai='+encodeURIComponent(b.user_ai_id)+'&opp='+encodeURIComponent(b.contenders[1].id):''),
     "identifier":b.id,
     "sport":"AI competition",
     "location":{"@type":"Place","name":b.stage.name},
@@ -492,7 +492,7 @@ function setBattleHead(b){
 /* CONSISTENCY PASS: record-panel actions */
 function olyRecInfoBox(){return $('recinfo');}
 function olyRecShow(html){var b=olyRecInfoBox();if(!b)return;b.style.display='block';b.innerHTML=html;}
-function olyRecDeep(){return curBout?(BASE+'?battle='+curBout.id+(curBout.exhibition&&curBout.seed!=null?'&seed='+curBout.seed:'')):BASE;}
+function olyRecDeep(){if(!curBout)return BASE;var u=BASE+'?battle='+curBout.id;if(curBout.exhibition&&curBout.seed!=null)u+='&seed='+curBout.seed;if(curBout.user_entered&&curBout.user_ai_id)u+='&userai='+encodeURIComponent(curBout.user_ai_id)+'&opp='+encodeURIComponent(curBout.contenders[1].id);return u;}
 function olyRecOpen(){window.open(olyRecDeep(),'_blank','noopener');}
 function olyRecSrc(){if(!curBout)return;var b=olyRecInfoBox();if(b.style.display==='block'&&b.dataset.kind==='src'){b.style.display='none';b.dataset.kind='';return;}olyRecShow('<b>SOURCE</b> — simulated bout from the Olypics bout engine: '+esc(curBout.contenders[0].name)+' ('+esc(curBout.contenders[0].id)+') vs '+esc(curBout.contenders[1].name)+' ('+esc(curBout.contenders[1].id)+'), seed '+esc(String(curBout.seed))+'.');b.dataset.kind='src';}
 function olyRecId(){if(!curBout)return;var b=olyRecInfoBox();olyRecShow('<b>ID</b> — '+esc(curBout.id)+(curBout.exhibition?' (exhibition — not in the record books)':''));b.dataset.kind='id';if(navigator.clipboard)navigator.clipboard.writeText(curBout.id).catch(function(){});}
