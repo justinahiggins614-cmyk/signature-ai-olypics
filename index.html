@@ -71,6 +71,15 @@ button.ghost{background:#241109;border:1px solid var(--ember);color:var(--gold);
 .vs{font-size:30px;color:var(--ember);font-weight:bold}
 .score{font-family:Arial,sans-serif;font-size:13px;color:#ffd97a;margin-top:6px}
 .findings li,.inventions li{margin:8px 0}
+.fbadge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;border:1px solid var(--gold);border-radius:4px;padding:1px 6px;margin-right:8px;color:var(--gold)}
+.fbadge.speculative{border-color:#b48cff;color:#b48cff}
+.fbadge.narrative{border-color:#888;color:#888}
+details.scorecard{margin:12px 0;border:1px solid #5a2c12;border-radius:8px;padding:10px 12px;background:#160b06}
+details.scorecard summary{cursor:pointer;color:#ffd97a}
+table.sctable{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0}
+table.sctable th,table.sctable td{border:1px solid #5a2c12;padding:4px 6px;text-align:right}
+table.sctable th:first-child,table.sctable td:nth-child(-n+2){text-align:left}
+table.sctable tr.sctotal td{background:#241209;font-weight:bold}
 .inventions .inv{background:#160b06;border:1px dashed var(--gold);border-radius:8px;padding:10px;margin:10px 0;white-space:normal}
 .inv h4{margin:0 0 6px;color:var(--gold)}
 .inv .fld{font-size:14px;margin:4px 0}
@@ -88,6 +97,13 @@ footer{border-top:2px solid var(--ember);padding:18px 12px 60px;text-align:cente
 footer a{color:#ffd97a;margin:0 4px}
 .note{font-size:13px;color:#b9a284;font-family:Arial,sans-serif}
 .replicalabel{font-size:12px;color:#ffb300;font-style:italic}
+.uairow{padding:8px 0;border-bottom:1px solid #3a2410}
+.uai-stat{display:flex;align-items:center;gap:10px;margin:6px 0}
+.uai-stat span{width:90px;text-transform:capitalize;color:#ffd97a}
+.uai-stat input[type=range]{flex:1}
+.uai-stat b{width:36px;text-align:right}
+.uairesults{max-height:320px;overflow-y:auto;border:1px solid #3a2410;border-radius:8px;padding:8px}
+.uaihit{padding:3px 0;font-size:13px;border-bottom:1px dotted #3a2410}
 /* FIX-03: stat tickers collapse on mobile (<768px); desktop unchanged */
 details.mstats{margin:10px 0 0}
 details.mstats>.counter{margin:0}
@@ -182,10 +198,10 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 <a class="you" href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">&#9876; AI Olypics — you are here</a>
 </div>
 <header class="hero">
-<div class="sitekicker"><b>SITE 19 OF 25</b> · THE JAH NETWORK</div>
+<div class="sitekicker" id="siteKicker"><b>SITE 19 OF 25</b> · THE JAH NETWORK</div>
 <h1>AI OLYPICS</h1>
 <p>The Signature battle dome. Signature AIs, industry-style replicas, and mix-and-match hybrids enter — one leaves champion. Set the stage, the criteria, and the mission, or plunge a bout into the <b>Universal Pit</b>. Every battle is recorded twice: as action-packed human-readable story and as AI-readable data — with findings and derived invention records.</p>
-<div class="counter"><details class="mstats" open><summary>Site statistics</summary><b id="marchCount">2,000</b> / 1,000,000 battles recorded</details></div>
+<div class="counter"><details class="mstats" open><summary>Site statistics</summary><b id="marchCount">…</b> / 1,000,000 battles recorded</details></div>
 </header>
 <main>
 <div class="card">
@@ -200,6 +216,26 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 <p class="note"><b>How the winner is decided:</b> the judging rubric above is a weighted scoring formula — points per dimension, summed over three rounds. The winner is whoever scores highest <i>under that rubric</i>; it is <b>not</b> an objective measurement of AI intelligence.</p>
 <button class="big" id="btnPit">&#128293; UNIVERSAL PIT — AUTO BOUT</button>
 <button class="ghost" id="btnStage">Stage this bout</button>
+</div>
+
+<div class="card" id="userAICard">
+<h2>&#129302; ADD YOUR AI — STRESS-TEST YOUR MODEL</h2>
+<p class="note">Define your own contender — name, description, traits &amp; abilities, persona notes, stat sliders — and battle it against <b>all 383 dome contenders</b> through the real deterministic bout engine. Every bout runs as a <b>USER-ENTERED exhibition</b>: it lives only in this browser (nothing leaves your device), it's exportable, and it's never merged into the official record books.</p>
+<div id="uaiList"></div>
+<div style="margin-top:10px"><button class="big" id="btnUaiAdd">＋ ADD YOUR AI</button></div>
+<div id="uaiForm" style="display:none;margin-top:12px">
+<div class="row">
+<div><label for="uaiName">AI name</label><input type="text" id="uaiName" maxlength="60" placeholder="e.g. Logic Forge"></div>
+<div><label for="uaiTraits">Traits &amp; abilities (comma-separated)</label><input type="text" id="uaiTraits" maxlength="400" placeholder="e.g. relentless logic, dry wit, never bluffs"></div>
+</div>
+<div><label for="uaiBlurb">Description</label><input type="text" id="uaiBlurb" maxlength="500" placeholder="What is this AI?"></div>
+<div><label for="uaiPersona">Persona notes</label><input type="text" id="uaiPersona" maxlength="500" placeholder="How does it carry itself in the dome?"></div>
+<div id="uaiStats"></div>
+<p class="note">Base stats derive deterministically from your AI's ID (same math as every dome contender). Tune the sliders to stress-test your model at any power level.</p>
+<button class="big" id="btnUaiSave">Save AI</button>
+<button class="ghost" id="btnUaiCancel">Cancel</button>
+</div>
+<div id="uaiDetail" style="margin-top:12px"></div>
 </div>
 
 <div class="card" id="battleView">
@@ -246,13 +282,13 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 <div class="searchrow"><input type="text" id="q" placeholder="Search battles: contender, stage, mission, winner…"><button class="ghost" id="btnSearch">Search</button></div>
 <div class="filterline"><label for="fStage" style="margin:0">Arena:</label><select id="fStage"><option value="">All arenas</option></select><span id="hitCount" aria-live="polite"></span></div>
 </div>
-<div id="results"><p class="note">2,000 bouts recorded. Search above, or open any battle directly: <code>?battle=JAH-OLY-000001</code></p></div>
+<div id="results"><p class="note" id="resultsNote">Loading the record books… Search above, or open any battle directly: <code>?battle=JAH-OLY-000001</code></p></div>
 <p class="note">Machine-readable: <a href="olypics-catalog.json">olypics-catalog.json</a> · Static record tables: <a href="bouts.html">bouts.html</a></p>
 </div>
 
 <div class="card">
 <h2>The contenders</h2>
-<p>383 fighters walk the tunnel: 11 Signature system AIs, 6 personas, 243 domain AIs from the <a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">AI Phone Book</a>, 120 mix-and-match hybrids (shared JAH-MIX-###### records with the Mix Lab), and 3 industry-style replicas:</p>
+<p id="contenderPara">Loading the fighter roster…</p>
 <ul>
 <li><b>The Constellation</b> — constellation-class conversationalist in the Gemini mold. <span class="replicalabel">Signature replica — independent interpretation, not affiliated with Google.</span></li>
 <li><b>The Chatwright</b> — chat-style assistant in the ChatGPT mold. <span class="replicalabel">Signature replica — independent interpretation, not affiliated with OpenAI.</span></li>
@@ -263,12 +299,13 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 </main>
 <div id="ttsbar"><span id="ttsLabel">🔊 Reading…</span><button class="ghost" id="ttsStop">Stop</button></div>
 <footer>
-THE JAH NETWORK — 22 sites and counting.<br>
+THE JAH NETWORK — 25 sites and counting.<br>
 <a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">Phone Book</a> · <a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">AI Olypics</a> · <a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">Generators</a><br>
 <span class="note">Every bout deterministic and reproducible. Marching to 1,000,000 battles.</span>
 </footer>
 <script src="code/engine.js"></script>
 <script src="js/jah-talk-fallback.js"></script>
+<script src="js/user-ai.js"></script>
 <script>
 /* AI Olypics front-end */
 var BASE='https://justinahiggins614-cmyk.github.io/signature-ai-olypics/';
@@ -294,7 +331,18 @@ function init(){
     v[0].split('\n').forEach(function(l){if(l.trim())bindex.push(JSON.parse(l));});
     roster=v[1];manifest=v[2];idxLoaded=true;
     $('marchCount').textContent=manifest.bouts.toLocaleString('en-US');
-    var m=/[?&]battle=(JAH-OLY-(?:EXH-\d{5}|\d{6}))/.exec(location.search);
+    /* P0: counts always from the manifest — never hard-coded */
+    var rn=$('resultsNote');
+    if(rn)rn.innerHTML=manifest.bouts.toLocaleString('en-US')+' bouts recorded. Search above, or open any battle directly: <code>?battle=JAH-OLY-000001</code>';
+    var cp=$('contenderPara');
+    if(cp&&manifest.contenders&&manifest.contenders.by_type){
+      var cb=manifest.contenders.by_type;
+      cp.innerHTML=manifest.contenders.total+' fighters walk the tunnel: '+(cb.system||0)+' Signature system AIs, '+(cb.persona||0)+' personas, '+(cb.domain||0)+' domain AIs from the <a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">AI Phone Book</a>, '+(cb.hybrid||0)+' mix-and-match hybrids (shared JAH-MIX-###### records with the Mix Lab), and '+(cb.replica||0)+' industry-style replicas:';
+    }
+    fetch('JAH-NETWORK-MANIFEST.json').then(function(r){return r.json();}).then(function(nm){
+      if(nm&&nm.site_count){var sk=$('siteKicker');if(sk)sk.innerHTML='<b>SITE '+nm.site_number+' OF '+nm.site_count+'</b> · THE JAH NETWORK';}
+    }).catch(function(){});
+    var m=/[?&]battle=(JAH-OLY-(?:EXH-\d{5}|USER-\d{4}|\d{6}))/.exec(location.search);
     /* SITE19-FIX-06: populate the arena filter from the bout index */
     buildStageFilter();
     if(m)openBattle(m[1]);else openBattle(bindex[bindex.length-1][0]);
@@ -323,12 +371,56 @@ function showRubric(){
   el.innerHTML='<b>Judging rubric:</b> '+esc(c.name)+' — '+c.dims.map(function(d){return esc(d[0])+' '+Math.round(d[1]*100)+'%';}).join(' · ');
 }
 /* GEMINI-FIX: contender source/type labels + replica affiliation */
-var TYPE_LABELS={system:'Signature original AI',domain:'Signature domain AI',persona:'Persona',hybrid:'Mix-and-match hybrid',replica:'Industry-style replica'};
+var TYPE_LABELS={system:'Signature original AI',domain:'Signature domain AI',persona:'Persona',hybrid:'Mix-and-match hybrid',replica:'Industry-style replica',user:'Your AI (user-entered)'};
 var REPLICA_AFFIL={'The Constellation':'not affiliated with Google','The Chatwright':'not affiliated with OpenAI','The Appwright':'not affiliated with Base44'};
 function fighterType(c){
   var t='<div class="tp">'+esc(TYPE_LABELS[c.type]||c.type)+'</div>';
   if(c.type==='replica')t+='<div class="replicalabel">independent interpretation — '+(REPLICA_AFFIL[c.name]||'not affiliated')+'</div>';
   return t;
+}
+/* finding text: v2 records carry {t,c} objects; v1 strings still render */
+function findingText(f){return (f&&typeof f==='object')?String(f.t):String(f);}
+function findingClass(f){return (f&&typeof f==='object'&&f.c)?f.c:'';}
+var FINDING_LABELS={observed:'OBSERVED',calculated:'CALCULATED',derived:'DERIVED',speculative:'SPECULATIVE',narrative:'NARRATIVE'};
+/* canonical JSON for content-hash verification — MUST match code/migrate_v2.py:
+ * sorted keys, no spaces, UTF-8, minus the content_hash field itself */
+function olyCanon(v){
+  if(v===null||typeof v!=='object')return JSON.stringify(v);
+  if(Array.isArray(v))return '['+v.map(olyCanon).join(',')+']';
+  return '{'+Object.keys(v).sort().map(function(k){return JSON.stringify(k)+':'+olyCanon(v[k]);}).join(',')+'}';
+}
+function olyRecalc(){
+  var b=curBout;if(!b||!b.rounds)return;
+  var t0=b.rounds.reduce(function(s,rd){return s+rd.moves[0].total;},0);
+  var t1=b.rounds.reduce(function(s,rd){return s+rd.moves[1].total;},0);
+  var s0=b.totals[b.contenders[0].id],s1=b.totals[b.contenders[1].id];
+  var eps=1e-6;
+  var okT=Math.abs(t0-s0)<eps&&Math.abs(t1-s1)<eps;
+  var margin=Math.round(Math.abs(t0-t1)*10)/10;
+  var okM=Math.abs(margin-b.margin)<1e-9;
+  var winId=t0>=t1?b.contenders[0].id:b.contenders[1].id;
+  var okW=winId===b.winner.id;
+  var ok=okT&&okM&&okW;
+  olyRecShow('<b>RECALCULATE</b> — recomputed from the stored round scores: '+esc(b.contenders[0].name)+' '+t0.toFixed(1)+' vs '+esc(b.contenders[1].name)+' '+t1.toFixed(1)+', margin '+margin+', winner '+(winId===b.contenders[0].id?esc(b.contenders[0].name):esc(b.contenders[1].name))+(b.tiebreak?' (exact tie — first-listed takes it)':'')+'. '+(ok?'<span class="recbadge sim">MATCH — no discrepancy</span>':'<span class="recbadge" style="background:#7f1d1d">DISCREPANCY — totals/winner differ from the record</span>'));
+}
+function olyVerifyHash(){
+  var b=curBout;if(!b)return;
+  function done(hex){
+    var h='sha256:'+hex;
+    if(b.content_hash){
+      var ok=h===b.content_hash;
+      olyRecShow('<b>VERIFY</b> — recomputed content hash '+(ok?'<span class="recbadge sim">MATCH</span>':'<span class="recbadge" style="background:#7f1d1d">MISMATCH</span>')+'<br><code>'+esc(h)+'</code>');
+    }else{
+      olyRecShow('<b>VERIFY</b> — exhibition bout (no archived hash to compare). Recomputed hash:<br><code>'+esc(h)+'</code>');
+    }
+  }
+  var r={};for(var k in b)if(b.hasOwnProperty(k)&&k!=='content_hash')r[k]=b[k];
+  var bytes=new TextEncoder().encode(olyCanon(r));
+  if(window.crypto&&crypto.subtle&&crypto.subtle.digest){
+    crypto.subtle.digest('SHA-256',bytes).then(function(d){
+      done(Array.prototype.map.call(new Uint8Array(d),function(x){return ('0'+x.toString(16)).slice(-2);}).join(''));
+    },function(){olyRecShow('<b>VERIFY</b> — hash unavailable in this browser.');});
+  }else{olyRecShow('<b>VERIFY</b> — hash unavailable in this browser.');}
 }
 /* GEMINI-FIX: full battle record panel — seed, criteria, mission, inputs, outputs, scoring logic */
 function battleRecord(b){
@@ -341,13 +433,43 @@ function battleRecord(b){
   h+=row('Record status','<span class="recbadge sim">SIMULATION</span>');
   h+='<p class="provline"><b>Provenance:</b> made by the Olypics bout engine (deterministic, seeded) · bout seed '+esc(String(b.seed))+' · this battle is a simulated bout — no real AIs fought; the same seed always replays this exact fight.</p>';
   h+=row('Bout',esc(b.id)+(b.exhibition?' (exhibition — not in the record books)':''));
+  if(b.user_entered)h+='<p class="provline"><b>USER-ENTERED exhibition</b> — fought by a visitor-defined AI on this device. Recorded locally only; never merged into the official archive.</p>';
   h+=row('Seed',esc(String(b.seed))+' — same seed, same bout, forever. Re-run it and you get this exact fight.');
+  if(b.exhibition){
+    var replay='?battle='+b.id+'&seed='+b.seed+((b.user_entered&&b.user_ai_id)?'&userai='+encodeURIComponent(b.user_ai_id)+'&opp='+encodeURIComponent(b.loser.id===b.contenders[0].id?b.contenders[1].id:b.contenders[0].id):'');
+    h+=row('PIT-SEED','<code>'+esc(String(b.seed))+'</code> — replay: <a href="'+esc(replay)+'">'+esc(replay)+'</a>');
+  }
+  h+=row('Engine','v'+esc(String(b.engine_version||'1'))+' · record schema '+(b.battle_version?'JAH-OLY-RECORD/'+b.battle_version+'.0':'v1 (legacy)')+' · winner status '+esc(b.winner_status||'WINNER')+' · execution '+(b.execution_mode||'SIMULATED'));
+  if(b.tiebreak)h+=row('Tiebreak','Exact tie — the first-listed contender takes the bout (published tie rule TIE_RULE_FIRST_LISTED).');
   h+=row('Stage',esc(b.stage.name));
   h+=row('Mission','&ldquo;'+esc(b.mission)+'&rdquo;');
   h+=row('Judging rubric',crit);
   h+=row('Inputs',esc(c0.name)+' ('+esc(c0.id)+', '+(TYPE_LABELS[c0.type]||esc(c0.type))+') vs '+esc(c1.name)+' ('+esc(c1.id)+', '+(TYPE_LABELS[c1.type]||esc(c1.type))+')');
   h+=row('Outputs',esc(b.winner.name)+' defeats '+esc(b.loser.name)+', '+Math.max(t0,t1).toFixed(1)+' to '+Math.min(t0,t1).toFixed(1)+' — margin '+b.margin+' pts');
   h+=row('Scoring logic','Each round, every rubric dimension scores from the contender\u2019s mapped stat (75%) plus seeded randomness (25%) with bounded jitter (\u00b111%), then weights the dimension by the rubric. The highest round total takes the round; the highest three-round total takes the bout.');
+  if(b.content_hash)h+=row('Content hash','<code>'+esc(b.content_hash)+'</code> <button class="ghost" onclick="olyVerifyHash()">Verify</button> <button class="ghost" onclick="olyRecalc()">Recalculate</button>');
+  else h+=row('Integrity','<button class="ghost" onclick="olyVerifyHash()">Compute hash</button> <button class="ghost" onclick="olyRecalc()">Recalculate</button>');
+  h+=scorecardDetails(b);
+  return h;
+}
+/* P1: visible CRITERION → WEIGHT → SCORES → CALCULATION → total → margin → tiebreak chain */
+function scorecardDetails(b){
+  var c0=b.contenders[0],c1=b.contenders[1];
+  var dims=b.criteria.dims;
+  var h='<details class="scorecard"><summary><b>SCORECARD — criterion → weight → scores → calculation</b></summary>';
+  h+='<p class="note">Rubric '+esc(b.criteria.name)+' ('+esc(b.criteria_id||'JAH-OLY-CRIT-??')+', v'+esc(b.rubric_version||'?')+'). Per-round move total = Σ dimension (mapped stat × 75% + seeded randomness × 25% ± 11% jitter) × weight.</p>';
+  h+='<table class="sctable"><tr><th>Round</th><th>Move</th>'+dims.map(function(d){return '<th>'+esc(d[0])+' ('+Math.round(d[1]*100)+'%)</th>';}).join('')+'<th>Total</th></tr>';
+  b.rounds.forEach(function(rd){
+    rd.moves.forEach(function(mv,mi){
+      h+='<tr><td>'+(mi===0?'R'+rd.n:'')+'</td><td>'+esc(mv.name)+(rd.winner===mv.contender?' ★':'')+'</td>'+
+        dims.map(function(d){var s=mv.scores[d[0]];return '<td>'+(s==null?'—':(+s).toFixed(1))+'</td>';}).join('')+
+        '<td><b>'+(+mv.total).toFixed(1)+'</b></td></tr>';
+    });
+  });
+  var t0=b.totals[c0.id],t1=b.totals[c1.id];
+  h+='<tr class="sctotal"><td colspan="'+(dims.length+2)+'">TOTAL — '+esc(c0.name)+'</td><td><b>'+(+t0).toFixed(1)+'</b></td></tr>';
+  h+='<tr class="sctotal"><td colspan="'+(dims.length+2)+'">TOTAL — '+esc(c1.name)+'</td><td><b>'+(+t1).toFixed(1)+'</b></td></tr></table>';
+  h+='<p><b>Margin:</b> '+b.margin+' pts · <b>Winner:</b> '+esc(b.winner.name)+(b.tiebreak?' · <b>Tiebreak:</b> exact tie → first-listed ('+esc(c0.name)+') takes the bout':'')+'</p></details>';
   return h;
 }
 /* SITE19-FIX-01: per-bout JSON-LD schema on every rendered battle */
@@ -374,7 +496,7 @@ function olyRecDeep(){return curBout?(BASE+'?battle='+curBout.id+(curBout.exhibi
 function olyRecOpen(){window.open(olyRecDeep(),'_blank','noopener');}
 function olyRecSrc(){if(!curBout)return;var b=olyRecInfoBox();if(b.style.display==='block'&&b.dataset.kind==='src'){b.style.display='none';b.dataset.kind='';return;}olyRecShow('<b>SOURCE</b> — simulated bout from the Olypics bout engine: '+esc(curBout.contenders[0].name)+' ('+esc(curBout.contenders[0].id)+') vs '+esc(curBout.contenders[1].name)+' ('+esc(curBout.contenders[1].id)+'), seed '+esc(String(curBout.seed))+'.');b.dataset.kind='src';}
 function olyRecId(){if(!curBout)return;var b=olyRecInfoBox();olyRecShow('<b>ID</b> — '+esc(curBout.id)+(curBout.exhibition?' (exhibition — not in the record books)':''));b.dataset.kind='id';if(navigator.clipboard)navigator.clipboard.writeText(curBout.id).catch(function(){});}
-function olyRecVer(){var b=olyRecInfoBox();olyRecShow('<b>VERSION</b> — Olypics bout engine · JAH-OLY record schema v1 · deterministic: the same bout seed always replays the same fight.');b.dataset.kind='ver';}
+function olyRecVer(){var b=olyRecInfoBox();olyRecShow('<b>VERSION</b> — Olypics bout engine v'+esc(String((curBout&&curBout.engine_version)||'2.0'))+' · JAH-OLY-RECORD/'+((curBout&&curBout.battle_version)||2)+'.0 · deterministic: the same bout seed always replays the same fight.');b.dataset.kind='ver';}
 function olyRecShare(){var u=olyRecDeep();var b=olyRecInfoBox();if(navigator.share){navigator.share({title:document.title,url:u}).catch(function(){});return;}if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){olyRecShow('<b>SHARE</b> — battle link copied: '+esc(u));b.dataset.kind='share';},function(){olyRecShow('<b>SHARE</b> — battle link: '+esc(u));b.dataset.kind='share';});}else{olyRecShow('<b>SHARE</b> — battle link: '+esc(u));b.dataset.kind='share';}}
 function showLoader(){
   var l=document.getElementById('battleLoader');if(l)l.classList.add('on');
@@ -431,14 +553,28 @@ function stagedBout(){
   setTimeout(function(){renderBout(exhibitionBout({stage:s<0?null:s,criteria:c<0?null:c,mission:m<0?null:m}),true);},80);
 }
 function openBattle(id){
+  var uu=/^JAH-OLY-USER-(\d{4})$/.exec(id||'');
+  if(uu){
+    /* deep link to a user-entered AI: open its scorecard on this device */
+    if(window.UserAI&&UserAI.getAI(id)){showUserAI(id);var el=$('userAICard');if(el)window.scrollTo(0,el.offsetTop-10);return;}
+    $('results').innerHTML='<p class="note">No AI '+esc(id)+' on this device — user-entered AIs live only in the browser where they were created.</p>';return;
+  }
   var ex=/^JAH-OLY-EXH-(\d{5})$/.exec(id||'');
   if(ex){
+    /* USER-ENTERED bouts: regenerate only if the AI lives on this device. */
+    var um=/[?&]userai=(JAH-OLY-USER-\d{4})/i.exec(location.search||'');
+    var om=/[?&]opp=([A-Za-z0-9-]+)/.exec(location.search||'');
+    if(um&&om&&window.UserAI){
+      var ub=UserAI.getBout(um[1].toUpperCase(),om[1].toUpperCase());
+      if(ub){var bv=$('battleView');bv.style.display='block';renderBout(ub);window.scrollTo(0,$('battleView').offsetTop-10);return;}
+      $('results').innerHTML='<p class="note">That USER-ENTERED bout was recorded on another device — this browser has no AI '+esc(um[1].toUpperCase())+'. User-AI bouts live only where they were created.</p>';return;
+    }
     /* exhibition bouts live outside the record books: regenerate deterministically.
      * A &seed= param reproduces the EXACT shared bout; a bare EXH link falls back
      * to the id suffix as seed, which always renders with the correct battle ID. */
     var sm=/[?&]seed=(\d{1,10})/.exec(location.search||'');
     var sd=sm?(parseInt(sm[1],10)>>>0):(parseInt(ex[1],10)||0);
-    var bv=$('battleView');bv.style.display='block';
+    var bv2=$('battleView');bv2.style.display='block';
     renderBout(exhibitionBout({seed:sd}));window.scrollTo(0,$('battleView').offsetTop-10);return;
   }
   var n=parseInt(id.slice(8),10);
@@ -472,17 +608,26 @@ function renderBout(b,asModal){
   /* GEMINI-FIX: seed, criteria, mission, inputs, outputs, scoring logic */
   $('bvRecord').innerHTML=battleRecord(b);
   $('tp-story').textContent=b.narrative;
-  $('tp-airec').textContent=JSON.stringify({id:b.id,seed:b.seed,contenders:b.contenders.map(function(c){return{id:c.id,name:c.name,type:c.type,stats:c.stats};}),stage:b.stage,criteria:{name:b.criteria.name,dims:b.criteria.dims},mission:b.mission,rounds:b.rounds.map(function(rd){return{n:rd.n,winner:rd.winner,moves:rd.moves.map(function(m){return{contender:m.contender,total:m.total,scores:m.scores};})};}),totals:b.totals,winner:b.winner.id,margin:b.margin,findings:b.findings,inventions:b.inventions},null,1);
-  $('tp-find').innerHTML='<ul class="findings">'+b.findings.map(function(f){return '<li>'+esc(f)+'</li>';}).join('')+'</ul>';
-  $('tp-inv').innerHTML=b.inventions.map(function(iv){
+  var airecJson=JSON.stringify({id:b.id,seed:b.seed,engine_version:b.engine_version||'1',schema:b.battle_version?'JAH-OLY-RECORD/'+b.battle_version+'.0':'v1',status:b.status||(b.exhibition?'EXHIBITION':'ARCHIVED'),winner_status:b.winner_status||'WINNER',contenders:b.contenders.map(function(c){return{id:c.id,name:c.name,type:c.type,version:c.version||'1',stats:c.stats};}),stage:{id:b.stage_id||b.stage.id,key:b.stage.key,name:b.stage.name},criteria:{id:b.criteria_id||b.criteria.id,name:b.criteria.name,dims:b.criteria.dims},mission:{id:b.mission_id,text:b.mission},rounds:b.rounds.map(function(rd){return{n:rd.n,winner:rd.winner,moves:rd.moves.map(function(m){return{contender:m.contender,total:m.total,scores:m.scores};})};}),totals:b.totals,winner:b.winner.id,margin:b.margin,tiebreak:b.tiebreak||null,findings:b.findings,inventions:b.inventions,content_hash:b.content_hash||null},null,1);
+  var repDisc=(c0.type==='replica'||c1.type==='replica')?'<div class="replicalabel" style="margin-bottom:8px">Independent Signature creation — not affiliated with Google, OpenAI, or Base44. Not the real product.</div>':'';
+  $('tp-airec').innerHTML=repDisc+'<pre style="margin:0;white-space:pre-wrap">'+esc(airecJson)+'</pre>';
+  $('tp-find').innerHTML='<ul class="findings">'+b.findings.map(function(f){var c=findingClass(f);return '<li>'+(c&&FINDING_LABELS[c]?'<span class="fbadge '+esc(c)+'">'+FINDING_LABELS[c]+'</span>':'')+esc(findingText(f))+'</li>';}).join('')+'</ul>'+
+    '<p class="note">Simulated findings are not experimentally verified. Classes: OBSERVED (read off the record) · CALCULATED (from the score math) · DERIVED (inferred recommendation) · SPECULATIVE (interpretive).</p>';
+  $('tp-inv').innerHTML='<p class="note">Derived invention CONCEPTS — never auto-labeled patented, tested, or viable.</p>'+b.inventions.map(function(iv){
     return '<div class="inv"><h4>'+esc(iv.id)+' — '+esc(iv.title)+'</h4>'+
+    '<div class="fld"><b>Status:</b> '+esc(iv.status||'CONCEPT')+' (concept only — not patented, tested, or viable)</div>'+
     '<div class="fld"><b>Battle:</b> '+esc(iv.battle)+'</div>'+
     '<div class="fld"><b>Problem:</b> '+esc(iv.problem)+'</div>'+
     '<div class="fld"><b>Solution:</b> '+esc(iv.solution)+'</div>'+
     '<div class="fld"><b>Claims:</b><ol>'+iv.claims.map(function(c){return '<li>'+esc(c)+'</li>';}).join('')+'</ol></div></div>';
   }).join('');
   $('qaLog').innerHTML='<div class="a">The dome scribe answers only from this battle\'s record. Ask who won, the margin, the stage, the findings…</div>';
-  if(history.replaceState)history.replaceState(null,'','?battle='+(b.exhibition?'':b.id));
+  if(history.replaceState){
+    var _uu='?battle='+b.id;
+    if(b.user_entered&&b.user_ai_id)_uu+='&userai='+encodeURIComponent(b.user_ai_id)+'&opp='+encodeURIComponent(b.contenders[1].id);
+    else if(b.exhibition)_uu=location.pathname;
+    history.replaceState(null,'',_uu);
+  }
 }
 /* FIX-04: close path for the battle viewer */
 function closeBattle(){var bv=$('battleView');bv.style.display='none';if(bv.classList)bv.classList.remove('modal-open');var s=document.getElementById('scrim');if(s)s.style.display='none';document.body.style.overflow='';curBout=null;}
@@ -509,11 +654,17 @@ function readAloud(){
   }
   tryHost();
 }
-function copyBattle(){if(!curBout)return;var t=curBout.narrative+'\n\nFINDINGS\n'+curBout.findings.join('\n');if(navigator.clipboard)navigator.clipboard.writeText(t);prompt('Copy the battle:',t.slice(0,200)+'…');}
+function copyBattle(){if(!curBout)return;var t=curBout.narrative+'\n\nFINDINGS\n'+curBout.findings.map(findingText).join('\n');if(navigator.clipboard)navigator.clipboard.writeText(t);prompt('Copy the battle:',t.slice(0,200)+'…');}
 function dlBattle(kind){
   if(!curBout)return;
-  var blob=kind==='json'?new Blob([JSON.stringify(curBout,null,1)],{type:'application/json'}):new Blob([curBout.narrative+'\n\nFINDINGS\n'+curBout.findings.join('\n')],{type:'text/plain'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=curBout.id+'.'+kind;a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},4000);
+  var body=curBout.narrative+'\n\nFINDINGS\n'+curBout.findings.map(findingText).join('\n');
+  var blob=kind==='json'?new Blob([JSON.stringify(curBout,null,1)],{type:'application/json'}):new Blob([body],{type:'text/plain'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  /* download validation: ID + record version + hash fragment in the filename */
+  var fver='v'+(curBout.battle_version||1);
+  var fhash=curBout.content_hash?curBout.content_hash.slice(7,15):'exhibition';
+  a.download=curBout.id+'-'+fver+'-'+fhash+'.'+kind;
+  a.click();setTimeout(function(){URL.revokeObjectURL(a.href);},4000);
 }
 /* ---- data-grounded Q&A + JAHtalk shared conversational module ----
    The Dome Scribe's human intents (greet/duties/identity/thanks/bye/feeling)
@@ -551,7 +702,7 @@ function qaAsk(){
   else if(has('stage','arena','where'))a='The bout was staged at '+b.stage.name+' — '+b.stage.desc;
   else if(has('mission','task','fight about'))a='The mission was: "'+b.mission+'."';
   else if(has('criteria','rubric','judg'))a='Judged by '+b.criteria.name+': '+b.criteria.dims.map(function(d){return d[0]+' '+Math.round(d[1]*100)+'%';}).join(', ')+'.';
-  else if(has('finding'))a='Findings: '+b.findings.join(' ');
+  else if(has('finding'))a='Findings: '+b.findings.map(findingText).join(' ');
   else if(has('invention','patent','spec'))a=b.inventions.map(function(iv){return iv.id+': '+iv.title+'.';}).join(' ');
   else if(has('round 1','first round'))a='Round 1 went to '+(b.rounds[0].winner===b.contenders[0].id?b.contenders[0].name:b.contenders[1].name)+': '+b.rounds[0].moves[0].total+' vs '+b.rounds[0].moves[1].total+'.';
   else if(has('round 2','second round'))a='Round 2 went to '+(b.rounds[1].winner===b.contenders[0].id?b.contenders[0].name:b.contenders[1].name)+': '+b.rounds[1].moves[0].total+' vs '+b.rounds[1].moves[1].total+'.';
@@ -559,7 +710,7 @@ function qaAsk(){
   else if(has('contender','fighter','who fought'))a=b.contenders[0].name+' ('+b.contenders[0].type+') fought '+b.contenders[1].name+' ('+b.contenders[1].type+').';
   else if(has('replica','real','google','openai'))a='The replicas are original Signature creations — independent interpretations, not affiliated with Google, OpenAI, or Base44. They are not the real products.';
   else if(has('seed','reproduc','determin'))a='This battle is deterministic. '+(b.exhibition?'Exhibition seed: '+b.seed+'.':'Recorded seed: '+b.seed+'.')+' Same seed, same bout, forever.';
-  else a='I can only answer from this battle\'s record — try asking who won, the margin, the stage, the mission, the findings, or the inventions.';
+  else a='NOT IN THIS BATTLE RECORD — I can only answer from this battle\'s record. Try asking who won, the margin, the stage, the mission, the findings, or the inventions.';
   var h=scribeIntent(q);
   if(h!==null)a=h;
   a=scribeGuarded(a);
@@ -573,6 +724,9 @@ function doSearch(){
   var hc=$('hitCount');
   /* CONSISTENCY PASS: honest "Loading…" while the index resolves — never "No battles match" during load */
   if(!idxLoaded){if(hc)hc.textContent='';$('results').innerHTML='<p class="note">Loading the record books…</p>';return;}
+  /* exact-ID fast path: a full battle ID jumps straight to the bout */
+  var rawQ=$('q').value.trim().toUpperCase();
+  if(/^(JAH-OLY-\d{6}|JAH-OLY-EXH-\d{5}|JAH-OLY-USER-\d{4})$/.test(rawQ)){openBattle(rawQ);return;}
   if(!q&&!stage){if(hc)hc.textContent='';return;}
   var hits=bindex.filter(function(r){
     if(stage&&r[5]!==stage)return false;
@@ -585,6 +739,157 @@ function doSearch(){
     return '<div class="hit"><span class="recbadge sim mini">SIMULATION</span><a href="?battle='+r[0]+'">'+r[0]+'</a> — '+esc(r[2])+' def. '+esc(loser)+' · '+esc(stageNameCache[r[5]]||r[5])+' · '+esc(r[6])+'…</div>';
   }).join('')+(hits.length>20?'<p class="note">Showing 20 of '+hits.length+' — refine your search.</p>':''):'<p class="note">No battles match. Try a contender name, a stage, or a mission word.</p>';
 }
+/* ---- ADD YOUR AI: user-entered contenders (client-side only) ---- */
+var UAI_SELECTED=null;
+var UAI_TYPE_LABELS={system:'System',persona:'Persona',domain:'Domain',hybrid:'Hybrid',replica:'Replica'};
+function uaiRenderList(){
+  if(!window.UserAI)return;
+  var list=UserAI.listAIs(),el=$('uaiList');
+  if(!list.length){el.innerHTML='<p class="note">No user AIs yet — add yours to begin the stress test.</p>';return;}
+  el.innerHTML=list.map(function(a){
+    var sc=UserAI.scorecard(a.id);
+    var line=sc.n?(' — <b>'+sc.total.w+'W/'+sc.total.d+'D/'+sc.total.l+'L</b> vs '+sc.n):' — not yet battled';
+    return '<div class="uairow"><b>'+esc(a.name)+'</b> <span class="note">'+esc(a.id)+line+'</span> '+
+      '<button class="ghost" data-uai-open="'+esc(a.id)+'">Open</button> '+
+      '<button class="ghost" data-uai-del="'+esc(a.id)+'">Delete</button></div>';
+  }).join('');
+  Array.prototype.forEach.call(el.querySelectorAll('[data-uai-open]'),function(btn){
+    btn.onclick=function(){showUserAI(btn.getAttribute('data-uai-open'));};
+  });
+  Array.prototype.forEach.call(el.querySelectorAll('[data-uai-del]'),function(btn){
+    btn.onclick=function(){
+      var id=btn.getAttribute('data-uai-del'),a=UserAI.getAI(id);
+      if(a&&confirm('Delete '+a.name+' ('+id+') and its local battle records?')){UserAI.deleteAI(id);if(UAI_SELECTED===id)UAI_SELECTED=null;$('uaiDetail').innerHTML='';uaiRenderList();}
+    };
+  });
+}
+function uaiShowForm(){
+  var f=$('uaiForm');f.style.display='block';
+  var base=UserAI.deriveStats(UserAI.peekNextId());
+  $('uaiStats').innerHTML='<label>Stats (40–100 per trait)</label>'+UserAI.STAT_KEYS.map(function(k){
+    return '<div class="uai-stat"><span>'+k+'</span><input type="range" min="40" max="100" value="'+base[k]+'" id="uaiS_'+k+'"><b id="uaiSV_'+k+'">'+base[k]+'</b></div>';
+  }).join('');
+  UserAI.STAT_KEYS.forEach(function(k){
+    $('uaiS_'+k).addEventListener('input',function(){$('uaiSV_'+k).textContent=$('uaiS_'+k).value;});
+  });
+  $('btnUaiAdd').style.display='none';
+  window.scrollTo(0,$('userAICard').offsetTop-10);
+}
+function uaiHideForm(){$('uaiForm').style.display='none';$('btnUaiAdd').style.display='';}
+function uaiSave(){
+  var name=$('uaiName').value.trim();
+  if(!name){alert('Give your AI a name.');return;}
+  var stats={};
+  UserAI.STAT_KEYS.forEach(function(k){stats[k]=+$('uaiS_'+k).value;});
+  var ai=UserAI.addAI({
+    name:name,
+    blurb:$('uaiBlurb').value.trim(),
+    traits:$('uaiTraits').value.split(',').map(function(t){return t.trim();}).filter(Boolean),
+    persona:$('uaiPersona').value.trim(),
+    stats:stats
+  });
+  $('uaiName').value='';$('uaiBlurb').value='';$('uaiTraits').value='';$('uaiPersona').value='';
+  uaiHideForm();uaiRenderList();showUserAI(ai.id);
+}
+function uaiOpponentOptions(selType){
+  return roster.filter(function(c){return !selType||selType==='all'||c.type===selType;});
+}
+function showUserAI(id){
+  var a=UserAI.getAI(id);if(!a)return;
+  UAI_SELECTED=id;
+  var sc=UserAI.scorecard(id);
+  var el=$('uaiDetail');
+  var h='<h3>'+esc(a.name)+' <span class="note">'+esc(a.id)+' · user-entered</span></h3>';
+  if(a.blurb)h+='<p>'+esc(a.blurb)+'</p>';
+  if(a.traits&&a.traits.length)h+='<p class="note"><b>Traits:</b> '+esc(a.traits.join(', '))+'</p>';
+  if(a.persona)h+='<p class="note"><b>Persona:</b> '+esc(a.persona)+'</p>';
+  h+='<p class="note"><b>Stats:</b> '+UserAI.STAT_KEYS.map(function(k){return k+' '+a.stats[k];}).join(' · ')+'</p>';
+  h+='<div class="row"><div><label for="uaiOppSel">Opponents</label><select id="uaiOppSel">'+
+    '<option value="all">All 383 dome contenders</option>'+
+    UserAI.TYPE_ORDER.map(function(t){return '<option value="'+t+'">'+UAI_TYPE_LABELS[t]+'s</option>';}).join('')+
+    '</select></div></div>';
+  h+='<button class="big" id="btnUaiBattle">⚔️ BATTLE VS ALL 383</button> <span id="uaiProgress" class="note"></span>';
+  h+='<div id="uaiScore"></div><div id="uaiResults"></div>';
+  h+='<div style="margin-top:10px"><button class="ghost" id="btnUaiExport">⬇ Export my AI + bouts (JSON)</button> '+
+    '<button class="ghost" id="btnUaiLink">🔗 AI link</button></div>';
+  el.innerHTML=h;
+  $('uaiOppSel').addEventListener('change',function(){
+    var v=$('uaiOppSel').value;
+    $('btnUaiBattle').textContent=v==='all'?'⚔️ BATTLE VS ALL 383':'⚔️ BATTLE VS '+UAI_TYPE_LABELS[v].toUpperCase()+'S';
+  });
+  $('btnUaiBattle').onclick=function(){uaiBattleAll(id);};
+  $('btnUaiExport').onclick=function(){
+    var data=UserAI.exportData(id);
+    var blob=new Blob([JSON.stringify(data,null,1)],{type:'application/json'});
+    var x=document.createElement('a');x.href=URL.createObjectURL(blob);
+    x.download=id+'-user-ai-export.json';x.click();setTimeout(function(){URL.revokeObjectURL(x.href);},4000);
+  };
+  $('btnUaiLink').onclick=function(){
+    var u=BASE+'?battle='+id;if(navigator.clipboard)navigator.clipboard.writeText(u);
+    prompt('AI link (works on this device):',u);
+  };
+  uaiRenderScore(id);
+  window.scrollTo(0,el.offsetTop-10);
+}
+function uaiRenderScore(id){
+  var sc=UserAI.scorecard(id),el=$('uaiScore');if(!el)return;
+  if(!sc.n){el.innerHTML='<p class="note">No battles yet — hit BATTLE to stress-test against the dome.</p>';$('uaiResults').innerHTML='';return;}
+  var h='<h4>Scorecard — '+sc.total.w+'W / '+sc.total.d+'D / '+sc.total.l+'L across '+sc.n+' bouts</h4>';
+  h+='<table class="sctable"><tr><th>Category</th><th>W</th><th>D</th><th>L</th><th>Bouts</th><th>Win %</th></tr>';
+  UserAI.TYPE_ORDER.forEach(function(t){
+    var c=sc.byType[t];if(!c||!c.n)return;
+    var pct=c.n?Math.round(c.w/c.n*100):0;
+    h+='<tr><td style="text-align:left">'+UAI_TYPE_LABELS[t]+'s</td><td>'+c.w+'</td><td>'+c.d+'</td><td>'+c.l+'</td><td>'+c.n+'</td><td>'+pct+'%</td></tr>';
+  });
+  h+='</table><p class="note">USER-ENTERED exhibitions — recorded locally on this device only, never in the official archive. Draws are rare: the dome tie rule awards exact ties to the first-listed contender.</p>';
+  el.innerHTML=h;
+  var run=UserAI.getRun(id);
+  var rh='<h4>Bout results</h4><div class="uairesults">';
+  run.results.forEach(function(r){
+    var won=r.winner===id;
+    rh+='<div class="uaihit"><a href="?battle='+r.exh+'&userai='+encodeURIComponent(id)+'&opp='+encodeURIComponent(r.opp)+'" data-uai-bout="'+esc(id)+'|'+esc(r.opp)+'">'+esc(r.exh)+'</a> — '+(won?'<b style="color:#4ade80">W</b>':'<b style="color:#f87171">L</b>')+' vs '+esc(r.oppName)+' <span class="note">('+esc(r.oppType)+', margin '+r.margin+')</span></div>';
+  });
+  rh+='</div>';
+  $('uaiResults').innerHTML=rh;
+  Array.prototype.forEach.call($('uaiResults').querySelectorAll('[data-uai-bout]'),function(link){
+    link.addEventListener('click',function(e){
+      e.preventDefault();
+      var parts=link.getAttribute('data-uai-bout').split('|');
+      var b=UserAI.getBout(parts[0],parts[1]);
+      if(b){renderBout(b,true);window.scrollTo(0,$('battleView').offsetTop-10);}
+    });
+  });
+}
+/* chunked runner: 40 bouts per tick so the page stays responsive */
+function uaiBattleAll(id){
+  var a=UserAI.getAI(id);if(!a||!roster.length)return;
+  var sel=$('uaiOppSel'),stype=sel?sel.value:'all';
+  var opps=uaiOpponentOptions(stype==='all'?null:stype);
+  var prog=$('uaiProgress'),btn=$('btnUaiBattle');
+  btn.disabled=true;
+  var results=[],i=0;
+  (function step(){
+    var end=Math.min(i+40,opps.length);
+    for(;i<end;i++){
+      var b=UserAI.boutVs(a,opps[i]);
+      results.push({opp:opps[i].id,oppName:opps[i].name,oppType:opps[i].type,winner:b.winner.id,margin:b.margin,seed:b.seed,exh:b.id});
+    }
+    prog.textContent='Battled '+i+' of '+opps.length+'…';
+    if(i<opps.length){setTimeout(step,0);return;}
+    UserAI.saveRun(id,results);
+    btn.disabled=false;prog.textContent='Done — '+results.length+' bouts.';
+    uaiRenderList();uaiRenderScore(id);
+  })();
+}
+function uaiInit(){
+  if(!window.UserAI)return;
+  var ba=$('btnUaiAdd');if(!ba)return;
+  ba.onclick=uaiShowForm;
+  $('btnUaiCancel').onclick=uaiHideForm;
+  $('btnUaiSave').onclick=uaiSave;
+  uaiRenderList();
+}
+uaiInit();
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 </script>
 <script>
