@@ -116,6 +116,20 @@ button[disabled]{opacity:.55;cursor:wait}
 .brec>b{color:#ffd97a;letter-spacing:1px}
 .brecrow{margin:3px 0}
 .brecrow b{color:#ffd97a}
+/* CONSISTENCY PASS (network-wide 10-fix): shared record kit, styling-neutral */
+.sitekicker{font-size:11px;letter-spacing:.28em;color:#d9c3a5;text-align:center;margin:0 0 4px}
+.sitekicker b{color:var(--gold)}
+.reclbl{font-size:10.5px;letter-spacing:.22em;color:#d9c3a5;margin-right:8px}
+.recbadge{display:inline-block;border:2px solid var(--gold);background:#3a2305;color:var(--gold);border-radius:8px;padding:3px 12px;font-size:12px;font-weight:bold;letter-spacing:.06em;margin:3px 6px 3px 0}
+.recbadge.sim{border-color:var(--ember);color:#ffb59a;background:#2a0d02}
+.recbadge.mini{font-size:10px;padding:1px 8px;border-width:1px;margin:0 0 6px}
+.provline{font-size:13px;color:#d8c6a8;margin:8px 0}
+.provline b{color:var(--gold);font-weight:normal}
+.recbar{display:flex;flex-wrap:wrap;gap:0;margin:10px 0;align-items:center}
+.recinfo{background:#1d0d05;border:1px dashed var(--ember);border-radius:8px;padding:10px 12px;margin:8px 0;font-size:14px;display:none;font-family:Arial,sans-serif}
+.aicard{background:#1d0d05;border:1px solid var(--ember);border-radius:10px;padding:10px 12px;margin:12px 0;font-size:14px;font-family:Arial,sans-serif}
+.aicard .aname{color:var(--gold);font-weight:bold}
+.aicard .duties{color:#d8c6a8}
 </style>
 </head>
 <body>
@@ -153,6 +167,7 @@ button[disabled]{opacity:.55;cursor:wait}
 <a class="you" href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">&#9876; AI Olypics — you are here</a>
 </div>
 <header class="hero">
+<div class="sitekicker"><b>SITE 19 OF 25</b> · THE JAH NETWORK</div>
 <h1>AI OLYPICS</h1>
 <p>The Signature battle dome. Signature AIs, industry-style replicas, and mix-and-match hybrids enter — one leaves champion. Set the stage, the criteria, and the mission, or plunge a bout into the <b>Universal Pit</b>. Every battle is recorded twice: as action-packed human-readable story and as AI-readable data — with findings and derived invention records.</p>
 <div class="counter"><details class="mstats" open><summary>Site statistics</summary><b id="marchCount">2,000</b> / 1,000,000 battles recorded</details></div>
@@ -195,8 +210,16 @@ button[disabled]{opacity:.55;cursor:wait}
 <button class="ghost" id="btnLink">🔗 Battle link</button>
 <button class="ghost" id="btnClose">✕ Close viewer</button>
 </div>
+<div class="recbar" role="group" aria-label="Record panel: open, source, id, version, share"><span class="reclbl">RECORD</span>
+<button class="ghost" onclick="olyRecOpen()">↗ OPEN</button>
+<button class="ghost" onclick="olyRecSrc()">⇄ SOURCE</button>
+<button class="ghost" onclick="olyRecId()"># ID</button>
+<button class="ghost" onclick="olyRecVer()">⚙ VERSION</button>
+<button class="ghost" onclick="olyRecShare()">⤴ SHARE</button></div>
+<div class="recinfo" id="recinfo"></div>
 <div class="card" style="margin:14px 0 0">
 <h2>Ask about this battle</h2>
+<div class="aicard"><span class="aname">🖋️ Dome Scribe — AI identity</span><br><span class="duties">The battle dome's record-keeper AI. <b>Duties:</b> answers questions from this battle's record only — winner, margin, stage, mission, findings, inventions — never invents. <b>Engine:</b> data-grounded battle matcher with the JAHtalk conversational module — talks human.</span></div>
 <div id="qaLog"><div class="a">The dome scribe answers only from this battle's record. Ask who won, the margin, the stage, the findings…</div></div>
 <div class="searchrow"><input type="text" id="qaBox" placeholder="Ask about this battle…"><button class="ghost" id="qaAsk">Ask</button></div>
 </div>
@@ -235,6 +258,7 @@ THE JAH NETWORK — 22 sites and counting.<br>
 /* AI Olypics front-end */
 var BASE='https://justinahiggins614-cmyk.github.io/signature-ai-olypics/';
 var roster=[], bindex=[], manifest={bouts:2000,goal:1000000}, curBout=null, chunkCache={};
+var idxLoaded=false; /* CONSISTENCY PASS: honest loading state — never "No battles match" before the index resolves */
 function gz(url){return fetch(url).then(function(res){if(!res.ok)throw new Error('fetch '+res.status);return res.arrayBuffer();}).then(function(buf){var ds=new DecompressionStream('gzip');var s=ds.writable.getWriter();s.write(buf);s.close();return new Response(ds.readable).text();});}
 function $(id){return document.getElementById(id);}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
@@ -253,7 +277,7 @@ function init(){
   sc.addEventListener('change',showRubric);showRubric();
   Promise.all([gz('data/index.json.gz'),fetch('data/contenders.json').then(function(r){return r.json();}),fetch('data/manifest.json').then(function(r){return r.json();}).catch(function(){return manifest;})]).then(function(v){
     v[0].split('\n').forEach(function(l){if(l.trim())bindex.push(JSON.parse(l));});
-    roster=v[1];manifest=v[2];
+    roster=v[1];manifest=v[2];idxLoaded=true;
     $('marchCount').textContent=manifest.bouts.toLocaleString('en-US');
     var m=/[?&]battle=(JAH-OLY-(?:EXH-\d{5}|\d{6}))/.exec(location.search);
     /* SITE19-FIX-06: populate the arena filter from the bout index */
@@ -298,6 +322,9 @@ function battleRecord(b){
   var crit=esc(b.criteria.name)+' — '+b.criteria.dims.map(function(d){return esc(d[0])+' '+Math.round(d[1]*100)+'%';}).join(' · ');
   var t0=b.totals[c0.id],t1=b.totals[c1.id];
   var h='<b>BATTLE RECORD</b>';
+  /* CONSISTENCY PASS: canonical record-status badge + provenance (every bout is a deterministic simulation) */
+  h+=row('Record status','<span class="recbadge sim">SIMULATION</span>');
+  h+='<p class="provline"><b>Provenance:</b> made by the Olypics bout engine (deterministic, seeded) · bout seed '+esc(String(b.seed))+' · this battle is a simulated bout — no real AIs fought; the same seed always replays this exact fight.</p>';
   h+=row('Bout',esc(b.id)+(b.exhibition?' (exhibition — not in the record books)':''));
   h+=row('Seed',esc(String(b.seed))+' — same seed, same bout, forever. Re-run it and you get this exact fight.');
   h+=row('Stage',esc(b.stage.name));
@@ -325,6 +352,15 @@ function setBattleHead(b){
       (b.inventions&&b.inventions.length?(" Derived records: "+b.inventions.map(function(iv){return iv.id;}).join(", ")):"")});
 }
 /* SITE19-FIX-05: battle-running indicator */
+/* CONSISTENCY PASS: record-panel actions */
+function olyRecInfoBox(){return $('recinfo');}
+function olyRecShow(html){var b=olyRecInfoBox();if(!b)return;b.style.display='block';b.innerHTML=html;}
+function olyRecDeep(){return curBout?(BASE+'?battle='+curBout.id+(curBout.exhibition&&curBout.seed!=null?'&seed='+curBout.seed:'')):BASE;}
+function olyRecOpen(){window.open(olyRecDeep(),'_blank','noopener');}
+function olyRecSrc(){if(!curBout)return;var b=olyRecInfoBox();if(b.style.display==='block'&&b.dataset.kind==='src'){b.style.display='none';b.dataset.kind='';return;}olyRecShow('<b>SOURCE</b> — simulated bout from the Olypics bout engine: '+esc(curBout.contenders[0].name)+' ('+esc(curBout.contenders[0].id)+') vs '+esc(curBout.contenders[1].name)+' ('+esc(curBout.contenders[1].id)+'), seed '+esc(String(curBout.seed))+'.');b.dataset.kind='src';}
+function olyRecId(){if(!curBout)return;var b=olyRecInfoBox();olyRecShow('<b>ID</b> — '+esc(curBout.id)+(curBout.exhibition?' (exhibition — not in the record books)':''));b.dataset.kind='id';if(navigator.clipboard)navigator.clipboard.writeText(curBout.id).catch(function(){});}
+function olyRecVer(){var b=olyRecInfoBox();olyRecShow('<b>VERSION</b> — Olypics bout engine · JAH-OLY record schema v1 · deterministic: the same bout seed always replays the same fight.');b.dataset.kind='ver';}
+function olyRecShare(){var u=olyRecDeep();var b=olyRecInfoBox();if(navigator.share){navigator.share({title:document.title,url:u}).catch(function(){});return;}if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){olyRecShow('<b>SHARE</b> — battle link copied: '+esc(u));b.dataset.kind='share';},function(){olyRecShow('<b>SHARE</b> — battle link: '+esc(u));b.dataset.kind='share';});}else{olyRecShow('<b>SHARE</b> — battle link: '+esc(u));b.dataset.kind='share';}}
 function showLoader(){
   var l=document.getElementById('battleLoader');if(l)l.classList.add('on');
   var bp=$('btnPit'),bs=$('btnStage');if(bp)bp.disabled=true;if(bs)bs.disabled=true;
@@ -520,6 +556,8 @@ function doSearch(){
   var q=$('q').value.trim().toLowerCase();
   var fs=$('fStage'),stage=fs?fs.value:'';
   var hc=$('hitCount');
+  /* CONSISTENCY PASS: honest "Loading…" while the index resolves — never "No battles match" during load */
+  if(!idxLoaded){if(hc)hc.textContent='';$('results').innerHTML='<p class="note">Loading the record books…</p>';return;}
   if(!q&&!stage){if(hc)hc.textContent='';return;}
   var hits=bindex.filter(function(r){
     if(stage&&r[5]!==stage)return false;
@@ -529,7 +567,7 @@ function doSearch(){
   if(hc)hc.textContent=hits.length+' bout'+(hits.length===1?'':'s');
   $('results').innerHTML=hits.length?shown.map(function(r){
     var loser=r[3]===r[1]?r[4]:r[3];
-    return '<div class="hit"><a href="?battle='+r[0]+'">'+r[0]+'</a> — '+esc(r[2])+' def. '+esc(loser)+' · '+esc(stageNameCache[r[5]]||r[5])+' · '+esc(r[6])+'…</div>';
+    return '<div class="hit"><span class="recbadge sim mini">SIMULATION</span><a href="?battle='+r[0]+'">'+r[0]+'</a> — '+esc(r[2])+' def. '+esc(loser)+' · '+esc(stageNameCache[r[5]]||r[5])+' · '+esc(r[6])+'…</div>';
   }).join('')+(hits.length>20?'<p class="note">Showing 20 of '+hits.length+' — refine your search.</p>':''):'<p class="note">No battles match. Try a contender name, a stage, or a mission word.</p>';
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();

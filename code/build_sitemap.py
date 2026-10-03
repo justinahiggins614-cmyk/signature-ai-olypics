@@ -69,14 +69,16 @@ with open(os.path.join(ROOT, 'olypics-catalog.json'), 'w') as f:
 print('catalog: %d bouts -> olypics-catalog.json' % len(catalog))
 
 # --- FIX-03: bouts.html static tables (100 bouts per table) ---
+# CONSISTENCY PASS: every bout row carries the SIMULATION record-status badge.
 parts = []
 for i in range(0, len(catalog), 100):
     batch = catalog[i:i + 100]
     trs = ['<tr><th>Bout</th><th>Contender A</th><th>Contender B</th>'
-           '<th>Winner</th><th>Stage</th><th>Mission</th></tr>']
+           '<th>Winner</th><th>Stage</th><th>Mission</th><th>Record status</th></tr>']
     for b in batch:
         trs.append('<tr><td><a href="?battle=%s">%s</a></td><td>%s</td><td>%s</td>'
-                   '<td><b>%s</b></td><td>%s</td><td>%s</td></tr>' % (
+                   '<td><b>%s</b></td><td>%s</td><td>%s</td>'
+                   '<td><span class="recbadge">SIMULATION</span></td></tr>' % (
             esc(b['id']), esc(b['id']),
             esc(b['contenders'][0]['name']), esc(b['contenders'][1]['name']),
             esc(b['winner']['name']), esc(b['stage']['name']), esc(b['mission'])))
@@ -99,9 +101,13 @@ page = ('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
         '</script><style>body{font-family:Arial,sans-serif;max-width:1100px;margin:0 auto;padding:16px}'
         'table{border-collapse:collapse;width:100%%;margin:12px 0;font-size:13px}'
         'th,td{border:1px solid #999;padding:6px 8px;text-align:left;vertical-align:top}'
-        'th{background:#eee}nav.toc{margin:12px 0;line-height:2}</style></head><body>'
+        'th{background:#eee}nav.toc{margin:12px 0;line-height:2}'
+        '.sitekicker{font-size:11px;letter-spacing:.28em;color:#666}'
+        '.recbadge{display:inline-block;border:2px solid #b36b00;background:#fff4e0;color:#8a4b00;border-radius:8px;padding:2px 10px;font-size:11px;font-weight:bold;letter-spacing:.06em}'
+        '</style></head><body>'
+        '<p class="sitekicker"><b>SITE 19 OF 25</b> &middot; THE JAH NETWORK</p>'
         '<h1>AI Olypics — Bout Record Tables</h1>'
-        '<p>%d bouts recorded (static, bot-readable). <a href="./">Back to the battle dome</a>.</p>'
+        '<p>%d bouts recorded (static, bot-readable). Every bout is a deterministic <span class="recbadge">SIMULATION</span> — no real AIs fought. <a href="./">Back to the battle dome</a>.</p>'
         '<nav class="toc" aria-label="Bout batches">%s</nav>%s</body></html>' % (
         len(catalog), nav, ''.join(parts)))
 with open(os.path.join(ROOT, 'bouts.html'), 'w') as f:
