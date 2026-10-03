@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://justinahiggins614-cmyk.github.io/signature-ai-olypics/schemas/finding.schema.json",
+  "title": "JAH-OLY Finding",
+  "description": "Simulated findings are not experimentally verified. Classes keep simulation separate from fact.",
+  "type": "object",
+  "required": ["t", "c"],
+  "properties": {
+    "t": { "type": "string", "description": "Finding text" },
+    "c": { "type": "string",
+      "enum": ["observed", "calculated", "derived", "speculative", "narrative"],
+      "description": "observed: read off the record; calculated: from the score math; derived: inferred recommendation; speculative: interpretive; narrative: story flavor only" }
+  }
+}

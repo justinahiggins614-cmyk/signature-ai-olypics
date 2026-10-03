@@ -1,0 +1,104 @@
+{
+ "site": "AI Olypics",
+ "checked_at": "2026-10-03T15:43:50+00:00",
+ "overall": "HEALTHY",
+ "bouts": 12000,
+ "contenders": 383,
+ "checks": [
+  {
+   "name": "chunk files present",
+   "ok": true,
+   "detail": "120 files, manifest says 120"
+  },
+  {
+   "name": "bout count matches manifest",
+   "ok": true,
+   "detail": "12000 records, manifest 12000"
+  },
+  {
+   "name": "no duplicate bout IDs",
+   "ok": true,
+   "detail": "0 dupes"
+  },
+  {
+   "name": "ID range contiguous",
+   "ok": true,
+   "detail": "JAH-OLY-000001 .. JAH-OLY-012000"
+  },
+  {
+   "name": "content_hash spot-check",
+   "ok": true,
+   "detail": "12 records re-hashed"
+  },
+  {
+   "name": "index rows match manifest",
+   "ok": true,
+   "detail": "12000 rows"
+  },
+  {
+   "name": "index hash matches manifest",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "engine determinism sample (5 bouts)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "roster complete",
+   "ok": true,
+   "detail": "383 contenders"
+  },
+  {
+   "name": "roster versioned",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "data dir under 800MB guard",
+   "ok": true,
+   "detail": "10.7 MB"
+  },
+  {
+   "name": "file present: index.html",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "file present: api.json",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "file present: llms.txt",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "file present: ai-manifest.json",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "file present: data/manifest.json",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "file present: sitemap.xml",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "file present: robots.txt",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "file present: schemas/battle.schema.json",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://justinahiggins614-cmyk.github.io/signature-ai-olypics/schemas/stage.schema.json",
+  "title": "JAH-OLY Stage",
+  "type": "object",
+  "required": ["id", "key", "name", "desc", "version"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^JAH-OLY-STAGE-\\d{2}$" },
+    "key": { "type": "string" },
+    "name": { "type": "string" },
+    "desc": { "type": "string" },
+    "version": { "type": "string", "description": "Frozen; old stage versions are preserved, never edited" }
+  }
+}

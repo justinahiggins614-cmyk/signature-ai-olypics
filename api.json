@@ -23,5 +23,15 @@
   "manifest": "data/manifest.json"
  },
  "trademark_note": "Industry-style contenders are Signature replicas \u2014 independent interpretations, not affiliated with Google, OpenAI, or Base44.",
- "updated": "2026-10-02"
+ "updated": "2026-10-03",
+ "contender_breakdown": {
+  "system": 11,
+  "persona": 6,
+  "domain": 243,
+  "replica": 3,
+  "hybrid": 120
+ },
+ "engine_version": "2.0",
+ "schema_version": "JAH-OLY-RECORD/2.0",
+ "manifest": "data/manifest.json"
 }

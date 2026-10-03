@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://justinahiggins614-cmyk.github.io/signature-ai-olypics/schemas/contender.schema.json",
+  "title": "JAH-OLY Contender",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "blurb",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "JAH-AI-###, JAH-MIX-######, JAH-AI-DOM-###, JAH-AI-SYS-###, or JAH-OLY-USER-####"
+    },
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "system",
+        "persona",
+        "domain",
+        "hybrid",
+        "replica",
+        "user"
+      ]
+    },
+    "blurb": {
+      "type": "string"
+    },
+    "stats": {
+      "type": "object",
+      "required": [
+        "power",
+        "speed",
+        "wit",
+        "precision",
+        "creativity",
+        "stamina"
+      ],
+      "properties": {
+        "power": {
+          "type": "integer",
+          "minimum": 40,
+          "maximum": 100
+        },
+        "speed": {
+          "type": "integer",
+          "minimum": 40,
+          "maximum": 100
+        },
+        "wit": {
+          "type": "integer",
+          "minimum": 40,
+          "maximum": 100
+        },
+        "precision": {
+          "type": "integer",
+          "minimum": 40,
+          "maximum": 100
+        },
+        "creativity": {
+          "type": "integer",
+          "minimum": 40,
+          "maximum": 100
+        },
+        "stamina": {
+          "type": "integer",
+          "minimum": 40,
+          "maximum": 100
+        }
+      },
+      "description": "Present on bout records. Roster contenders derive stats deterministically from their ID (fnv1a hash -> 40..100)."
+    },
+    "version": {
+      "type": "string",
+      "description": "Roster version pinned at bout time; history is never rewritten"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "phone-book",
+        "mixlab",
+        "replica",
+        "user-entered",
+        "unknown"
+      ]
+    }
+  }
+}

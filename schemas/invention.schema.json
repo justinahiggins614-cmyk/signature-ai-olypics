@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://justinahiggins614-cmyk.github.io/signature-ai-olypics/schemas/invention.schema.json",
+  "title": "JAH-OLY Derived Invention",
+  "description": "Derived invention concepts. Never auto-labeled patented, tested, or viable. Status is CONCEPT unless a human reviews it.",
+  "type": "object",
+  "required": ["id", "battle", "version", "record_type", "status", "title", "problem", "solution", "claims"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^JAH-OLY-INV-\\d{6}$" },
+    "battle": { "type": "string", "description": "Battle this invention was derived from — the full battle→invention chain" },
+    "version": { "type": "integer" },
+    "record_type": { "type": "string", "enum": ["DERIVED_INVENTION"] },
+    "status": { "type": "string", "enum": ["CONCEPT", "UNDER-REVIEW", "NOTED", "FILED", "GRANTED"],
+      "description": "CONCEPT unless a human changes it. Never auto-promoted." },
+    "title": { "type": "string" },
+    "problem": { "type": "string" },
+    "solution": { "type": "string" },
+    "claims": { "type": "array", "items": { "type": "string" } }
+  }
+}

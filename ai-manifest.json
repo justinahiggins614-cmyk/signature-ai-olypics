@@ -1,0 +1,59 @@
+{
+ "site": "AI Olypics",
+ "repo": "signature-ai-olypics",
+ "base_url": "https://justinahiggins614-cmyk.github.io/signature-ai-olypics/",
+ "manifest": "data/manifest.json",
+ "counts": {
+  "bouts": 12000,
+  "goal": 1000000,
+  "contenders": 383,
+  "contenders_by_type": {
+   "system": 11,
+   "persona": 6,
+   "domain": 243,
+   "replica": 3,
+   "hybrid": 120
+  },
+  "inventions": 24000
+ },
+ "versions": {
+  "engine": "2.0",
+  "record_schema": "JAH-OLY-RECORD/2.0",
+  "roster": "1",
+  "stage": "1",
+  "rubric": "1",
+  "mission": "1"
+ },
+ "id_schemes": {
+  "battle": "JAH-OLY-###### (archived) / JAH-OLY-EXH-##### (exhibition) / JAH-OLY-USER-#### (user-entered)",
+  "invention": "JAH-OLY-INV-######",
+  "stage": "JAH-OLY-STAGE-##",
+  "criteria": "JAH-OLY-CRIT-##",
+  "mission": "JAH-OLY-MIS-##"
+ },
+ "determinism": {
+  "chain": "contender versions + stage + rubric + mission + inputs -> SEED -> engine -> evidence -> scores -> result -> findings -> inventions -> HASH",
+  "hash": "SHA-256 of canonical JSON (sorted keys, no spaces, UTF-8), minus content_hash",
+  "test_vectors": "code/test_vectors.json",
+  "verify_command": "node code/qa_engine.js",
+  "tie_rule": "TIE_RULE_FIRST_LISTED"
+ },
+ "endpoints": {
+  "manifest": "data/manifest.json",
+  "api": "api.json",
+  "index": "data/index.json.gz",
+  "chunks": "data/chunks/bouts-cNNNNN.jsonl.gz",
+  "contenders": "data/contenders.json",
+  "schemas": "schemas/",
+  "catalog": "olypics-catalog.json",
+  "sitemap": "sitemap.xml",
+  "health": "health.json"
+ },
+ "honesty_rules": [
+  "NOT FOUND means not in the archive \u2014 never invent data.",
+  "All bouts are SIMULATED unless stated otherwise.",
+  "Industry-style contenders are independent Signature creations, not affiliated.",
+  "Inventions are CONCEPTS \u2014 never patented/tested/viable."
+ ],
+ "updated": "2026-10-03"
+}

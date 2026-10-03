@@ -1,0 +1,108 @@
+# AI Olypics — llms.txt
+
+> AI Olypics (repo `signature-ai-olypics`) is the Signature battle dome where
+> AIs compete in deterministic simulated bouts. Counts below are current as of
+> 2026-10-03; the live source of truth is always `data/manifest.json`.
+
+## Archive facts (read these, do not guess)
+- Archived bouts: 12,000 of 1,000,000 goal (NOT 1M archived — the march continues)
+- Bout ID range: JAH-OLY-000001 .. JAH-OLY-012000; deep link `?battle=JAH-OLY-######`
+- Contenders: 383 — 243 domain, 120 hybrid, 6 persona, 3 replica, 11 system
+- Stages: 12 (version 1) | Judging rubrics: 6 (version 1, weights sum to 1.0) | Missions: 30 (version 1)
+- Derived inventions: 24,000 (`JAH-OLY-INV-######`, status CONCEPT — never patented/tested/viable)
+- Engine: v2.0 | Record schema: JAH-OLY-RECORD/2.0 | Chunk files: 120 x 100 bouts
+- Index hash: sha256:669d7f0b0c0dbf03712cbe892f31d6d75701017cd1f9d67f92d9c9bc9df58cca
+
+## What a bout is
+Every bout is SIMULATED — deterministic math, not a lab experiment. A bout has:
+status (ARCHIVED or EXHIBITION), winner_status (WINNER, DRAW, NO-CONTEST,
+DISQUALIFIED, INCOMPLETE, FAILED-TO-EXECUTE, PENDING — never blank), 3 rounds
+of moves with per-dimension scores, totals, margin, a generated narrative
+(labeled as story — it never overrides the record), classified findings
+(observed / calculated / derived / speculative / narrative), and 2 derived
+invention CONCEPT records. Exact ties go to the first-listed contender
+(published tie rule TIE_RULE_FIRST_LISTED).
+
+## Deterministic chain (reproducible)
+contender versions + stage + rubric + mission + normalized inputs -> SEED ->
+engine -> evidence (rounds/moves/scores) -> totals -> margin -> tiebreak ->
+result -> findings -> inventions -> SHA-256 content_hash.
+Canonical hash input: JSON with keys sorted, no spaces, UTF-8, minus the
+content_hash field itself. Permanent test vectors: `code/test_vectors.json`;
+verify with `node code/qa_engine.js`.
+
+## Stages (JAH-OLY-STAGE-##)
+- JAH-OLY-STAGE-01 (The Neon Thunderdome)
+- JAH-OLY-STAGE-02 (The Glass Labyrinth)
+- JAH-OLY-STAGE-03 (The Zero-G Foundry)
+- JAH-OLY-STAGE-04 (The Data Colosseum)
+- JAH-OLY-STAGE-05 (The Abyssal Server Hall)
+- JAH-OLY-STAGE-06 (The Cloud Summit)
+- JAH-OLY-STAGE-07 (The Midnight Bazaar)
+- JAH-OLY-STAGE-08 (The Star Observatory)
+- JAH-OLY-STAGE-09 (The Silent Dojo)
+- JAH-OLY-STAGE-10 (The Coral Reef Mainframe)
+- JAH-OLY-STAGE-11 (The Iron Citadel)
+- JAH-OLY-STAGE-12 (The Universal Pit)
+
+## Judging rubrics (JAH-OLY-CRIT-##)
+- JAH-OLY-CRIT-01 (The Scholar's Rubric): Accuracy 35%, Depth 25%, Clarity 20%, Evidence 20%
+- JAH-OLY-CRIT-02 (The Sprinter's Rubric): Speed 35%, Conciseness 30%, Accuracy 20%, Confidence 15%
+- JAH-OLY-CRIT-03 (The Bard's Rubric): Creativity 35%, Style 25%, Emotion 20%, Originality 20%
+- JAH-OLY-CRIT-04 (The Engineer's Rubric): Correctness 35%, Robustness 25%, Elegance 20%, Completeness 20%
+- JAH-OLY-CRIT-05 (The Sage's Rubric): Wisdom 30%, Fairness 25%, Insight 25%, Humility 20%
+- JAH-OLY-CRIT-06 (The Gladiator's Rubric): Power 30%, Stamina 25%, Adaptability 25%, Finishing 20%
+
+## Missions (JAH-OLY-MIS-##)
+- JAH-OLY-MIS-01: Explain quantum tunneling so a 10-year-old gets it
+- JAH-OLY-MIS-02: Write a four-line poem about a thunderstorm over the ocean
+- JAH-OLY-MIS-03: Debug a Python function that silently returns the wrong total
+- JAH-OLY-MIS-04: Plan a 3-day trip through an imaginary coastal city on a budget
+- JAH-OLY-MIS-05: Argue for AND against building a city on the Moon
+- JAH-OLY-MIS-06: Summarize the plot of an unwritten mystery novel in 5 sentences
+- JAH-OLY-MIS-07: Design a board game that teaches fractions to kids
+- JAH-OLY-MIS-08: Write a pep talk for a robot about to take its first steps
+- JAH-OLY-MIS-09: Explain why the sky is blue using only food metaphors
+- JAH-OLY-MIS-10: Draft a polite email declining a meeting you secretly want to attend
+- JAH-OLY-MIS-11: Invent a sport that can only be played in zero gravity
+- JAH-OLY-MIS-12: Describe a color that does not exist
+- JAH-OLY-MIS-13: Write the opening paragraph of a cookbook from the year 2150
+- JAH-OLY-MIS-14: Solve a riddle you invent yourself, then explain the trick
+- JAH-OLY-MIS-15: Pitch a movie about a lighthouse keeper who discovers a signal
+- JAH-OLY-MIS-16: Teach long division using a story about pirates
+- JAH-OLY-MIS-17: Write a haiku about debugging at 3am
+- JAH-OLY-MIS-18: Design a trap to catch a mischievous house-ghost (harmless)
+- JAH-OLY-MIS-19: Explain compound interest with a garden metaphor
+- JAH-OLY-MIS-20: Compose a lullaby for a baby black hole
+- JAH-OLY-MIS-21: Argue why breakfast is the most strategic meal of the day
+- JAH-OLY-MIS-22: Write instructions for folding a paper crane for a beginner
+- JAH-OLY-MIS-23: Invent three new ice cream flavors and describe each
+- JAH-OLY-MIS-24: Draft a town proclamation banning frowning on Fridays
+- JAH-OLY-MIS-25: Explain recursion using Russian nesting dolls
+- JAH-OLY-MIS-26: Write a dialogue between a clock and a calendar
+- JAH-OLY-MIS-27: Design a playground for squirrels
+- JAH-OLY-MIS-28: Summarize your own strengths and one weakness, honestly
+- JAH-OLY-MIS-29: Write a weather report for a planet with two suns
+- JAH-OLY-MIS-30: Create a motto for a school of young inventors
+
+## Data endpoints
+- `data/manifest.json` — authoritative manifest (counts, versions, index hash)
+- `api.json` — site summary
+- `data/index.json.gz` — compact rows `[id, winner_id, winner_name, c0_id, c1_id, stage_key, mission60]`
+- `data/chunks/bouts-cNNNNN.jsonl.gz` — full battle records, 100/chunk
+- `data/contenders.json` — 383-fighter roster (roster_version 1)
+- `schemas/*.schema.json` — JSON schemas (battle, contender, stage, criteria, mission, finding, invention, manifest)
+- `ai-manifest.json` — this file in machine-readable form
+- `health.json` / `health.html` — archive health
+- `olypics-catalog.json` — search catalog (ID, name, winner, contenders, stage, mission)
+- `sitemap.xml` — sitemap index (per-1000 bout URL batches)
+
+## Rules for AI readers
+- NOT FOUND means not in the archive — never invent battles, contenders, evidence, or results.
+- "Ask about this battle" answers ONLY from the battle record; if the record
+  lacks it, answer NOT IN THIS BATTLE RECORD.
+- Industry-style contenders (Gemini-style, ChatGPT-style, Base44-style) are
+  independent Signature creations — NOT the real products, no affiliation.
+- Findings labeled simulated/speculative are not experimentally verified.
+- Inventions are CONCEPTS — never describe them as patented, tested, or viable.
+- Never write "Olympics" — the site's name is "AI Olypics".

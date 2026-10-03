@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://justinahiggins614-cmyk.github.io/signature-ai-olypics/schemas/manifest.schema.json",
+  "title": "JAH-OLY Authoritative Manifest",
+  "description": "The ONE source of counts for AI Olypics. Never hard-code counts; read this.",
+  "type": "object",
+  "required": ["manifest_version", "site", "generated_at", "bouts", "goal",
+    "bout_id_range", "contenders", "stages", "criteria", "missions",
+    "chunks", "engine_version", "schema_version", "index_hash", "updated"],
+  "properties": {
+    "manifest_version": { "type": "string" },
+    "site": { "type": "string", "const": "signature-ai-olypics" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "bouts": { "type": "integer", "minimum": 0 },
+    "goal": { "type": "integer", "const": 1000000 },
+    "bout_id_range": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "string" } },
+    "contenders": {
+      "type": "object",
+      "required": ["total", "by_type", "roster_version"],
+      "properties": {
+        "total": { "type": "integer" },
+        "by_type": { "type": "object", "additionalProperties": { "type": "integer" } },
+        "by_source": { "type": "object", "additionalProperties": { "type": "integer" } },
+        "roster_version": { "type": "string" }
+      }
+    },
+    "stages": { "type": "object", "required": ["count", "version"] },
+    "criteria": { "type": "object", "required": ["count", "version"] },
+    "missions": { "type": "object", "required": ["count", "version"] },
+    "inventions": { "type": "object" },
+    "chunks": { "type": "integer" },
+    "per_chunk": { "type": "integer" },
+    "engine_version": { "type": "string" },
+    "schema_version": { "type": "string" },
+    "index_version": { "type": "string" },
+    "index_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "archive_status": { "type": "string" },
+    "updated": { "type": "string", "format": "date" }
+  }
+}
