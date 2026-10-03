@@ -11,6 +11,7 @@ Usage: seed.py --n 2000 [--start 1]
 """
 import json, os, sys, gzip, subprocess, argparse, hashlib
 import datetime
+from record_util import canon, content_hash
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -32,13 +33,7 @@ if qa.returncode != 0:
     print("QA ENGINE FAILED — aborting seed:\n" + qa.stderr[:2000])
     sys.exit(1)
 
-def canon(obj):
-    return json.dumps(obj, sort_keys=True, separators=(',', ':'),
-                      ensure_ascii=False).encode('utf-8')
-
-def content_hash(rec):
-    r = {k: v for k, v in rec.items() if k != 'content_hash'}
-    return 'sha256:' + hashlib.sha256(canon(r)).hexdigest()
+# canon() and content_hash() come from code/record_util.py (imported above).
 
 roster = json.load(open(os.path.join(DATA, 'contenders.json')))
 state_p = os.path.join(DATA, 'state.json')
@@ -53,7 +48,9 @@ const E = require({json.dumps(os.path.join(HERE, 'engine.js'))});
 const roster = require({json.dumps(os.path.join(DATA, 'contenders.json'))});
 let out = [];
 for (let i = 0; i < {n}; i++) {{
-  const b = E.bout({start} + i, roster);
+  /* Olympic rotation: drip bouts cycle through the 8 events in order, so
+   * every event's medal table grows evenly. Deterministic from the bout n. */
+  const b = E.bout({start} + i, roster, {{event: (({start} + i - 1) % 8)}});
   b.totals[b.contenders[0].id] = b.rounds.reduce((s,rd)=>s+rd.moves[0].total,0);
   b.totals[b.contenders[1].id] = b.rounds.reduce((s,rd)=>s+rd.moves[1].total,0);
   b.created = {json.dumps(created)};
@@ -82,7 +79,7 @@ def flush():
 
 for i, line in enumerate(lines):
     b = json.loads(line)
-    assert b['engine_version'] == '2.0' and b['status'] == 'ARCHIVED', b['id']
+    assert b['engine_version'] == '2.1' and b['status'] == 'ARCHIVED', b['id']
     b['content_hash'] = content_hash(b)
     idx_rows.append([b['id'], b['winner']['id'], b['winner']['name'],
                      b['contenders'][0]['id'], b['contenders'][1]['id'],
@@ -115,6 +112,13 @@ json.dump(state, open(state_p, 'w'), indent=1)
 from build_manifest import build_manifest
 man = build_manifest()
 today = man['updated']
+
+# --- medal tables (rebuilt from the full archive every run) ---
+try:
+    from build_medals import build_medals
+    build_medals()
+except Exception as e:
+    print('medal rebuild skipped: %s' % e)
 by_type = man['contenders']['by_type']
 
 # --- api.json: keep keys, refresh counts/versions/date ---
@@ -124,9 +128,11 @@ api.update({
     'bouts': len(all_rows),
     'contenders': len(roster),
     'contender_breakdown': by_type,
-    'engine_version': '2.0',
+    'engine_version': '2.1',
     'schema_version': 'JAH-OLY-RECORD/2.0',
+    'events': 8,
     'manifest': 'data/manifest.json',
+    'medals': 'data/medals.json',
     'updated': today,
 })
 json.dump(api, open(api_p, 'w'), indent=1)

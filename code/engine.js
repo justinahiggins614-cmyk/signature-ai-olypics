@@ -27,7 +27,7 @@
   }
   function pick(r, arr) { return arr[Math.floor(r() * arr.length) % arr.length]; }
 
-  var ENGINE_VERSION = '2.0';
+  var ENGINE_VERSION = '2.1';
   /* Published tie rule: if both three-round totals are EXACTLY equal, the
    * first-listed contender takes the bout. Deterministic, never blank. */
   var TIE_RULE = 'TIE_RULE_FIRST_LISTED: exact ties go to the first-listed contender';
@@ -99,6 +99,58 @@
   function missionId(i) { return 'JAH-OLY-MIS-' + String(i + 1).padStart(2, '0'); }
   var MISSION_VERSION = '1';
 
+  // ---------- Olympic event categories (engine v2.1) ----------
+  /* Every bout belongs to an Olympic event. Events are first-class citizens:
+   * permanent JAH-OLY-EVENT-## IDs, each with a fixed judging rubric (one of
+   * the 6 versioned rubrics above), a home arena, and published rules.
+   * Order is frozen — never reorder. */
+  var EVENTS = [
+    { key: 'wrestling', name: 'Wrestling', emoji: '\uD83E\uDD3C',
+      arenaKey: 'pit', criteriaKey: 'gladiator',
+      tagline: 'The Pit — no theme, no mercy.',
+      desc: 'Head-to-head grappling in the Universal Pit. Power, stamina, adaptability and finishing decide who walks out.',
+      rules: 'Single-elimination bracket. Semifinal losers BOTH take bronze (wrestling tradition — no third-place bout).' },
+    { key: 'allaround', name: 'All-Around', emoji: '\uD83C\uDFC5',
+      arenaKey: 'colosseum', criteriaKey: 'scholar',
+      tagline: 'The decathlon of the mind.',
+      desc: 'The complete AI test — accuracy, depth, clarity and evidence across every kind of mission. No hiding a weak dimension.',
+      rules: 'Single-elimination bracket. One bronze, decided by a third-place bout.' },
+    { key: 'sprint', name: 'Sprint', emoji: '\u26A1',
+      arenaKey: 'thunderdome', criteriaKey: 'sprinter',
+      tagline: '100 meters, zero hesitation.',
+      desc: 'Speed reasoning under the dome lights. Fast, tight, confident answers win — rambling loses.',
+      rules: 'Single-elimination bracket. One bronze, decided by a third-place bout.' },
+    { key: 'marathon', name: 'Marathon', emoji: '\uD83C\uDFC3',
+      arenaKey: 'abyss', criteriaKey: 'engineer',
+      tagline: 'The long dark haul.',
+      desc: 'Endurance event. Correct, robust, complete reasoning that holds together over the longest missions in the archive.',
+      rules: 'Single-elimination bracket. One bronze, decided by a third-place bout.' },
+    { key: 'weightlifting', name: 'Weightlifting', emoji: '\uD83C\uDFCB\uFE0F',
+      arenaKey: 'foundry', criteriaKey: 'engineer',
+      tagline: 'How much can your reasoning lift?',
+      desc: 'Heavy computation in the Zero-G Foundry. The hardest missions, judged on correctness, robustness, elegance and completeness.',
+      rules: 'Single-elimination bracket. One bronze, decided by a third-place bout.' },
+    { key: 'gymnastics', name: 'Gymnastics', emoji: '\uD83E\uDD38',
+      arenaKey: 'reef', criteriaKey: 'bard',
+      tagline: 'Grace under pressure.',
+      desc: 'Agility and creativity on the glowing reef. Style, originality and emotion — stuck landings only.',
+      rules: 'Single-elimination bracket. One bronze, decided by a third-place bout.' },
+    { key: 'debate', name: 'Debate', emoji: '\uD83C\uDF99\uFE0F',
+      arenaKey: 'labyrinth', criteriaKey: 'sage',
+      tagline: 'Argue it out in the Glass Labyrinth.',
+      desc: 'Wisdom, fairness and insight. Contenders argue the mission from every side; the wiser mind takes the round.',
+      rules: 'Single-elimination bracket. One bronze, decided by a third-place bout.' },
+    { key: 'puzzle', name: 'Puzzle Hunt', emoji: '\uD83E\uDDE9',
+      arenaKey: 'observatory', criteriaKey: 'scholar',
+      tagline: 'Under the dome of open sky.',
+      desc: 'Riddles, traps and mysteries under the stars. Accuracy, depth and evidence crack every puzzle.',
+      rules: 'Single-elimination bracket. One bronze, decided by a third-place bout.' }
+  ];
+  EVENTS.forEach(function (e, i) { e.id = 'JAH-OLY-EVENT-' + String(i + 1).padStart(2, '0'); e.version = '1'; });
+  function eventByKey(key) { for (var i = 0; i < EVENTS.length; i++) if (EVENTS[i].key === key) return EVENTS[i]; return null; }
+  function stageByKey(key) { for (var i = 0; i < STAGES.length; i++) if (STAGES[i].key === key) return STAGES[i]; return STAGES[STAGES.length - 1]; }
+  function critByKey(key) { for (var i = 0; i < CRITERIA.length; i++) if (CRITERIA[i].key === key) return CRITERIA[i]; return CRITERIA[0]; }
+
   var ROUND_VERBS = ['opens', 'counters', 'presses the attack', 'weaves', 'unleashes', 'steadies', 'ripples', 'detonates'];
   var ROUND_NOUNS = ['a volley of reasoning', 'a feint of pure logic', 'a cascade of examples', 'a shield-wall of facts', 'a lightning analogy', 'a gambit of wit', 'a surge of structured thought', 'a precision strike of clarity'];
 
@@ -145,11 +197,23 @@
       if (i2 >= i1) i2++;
       c1 = roster[i1]; c2 = roster[i2];
     }
-    /* PRNG draw order is frozen (v1-compatible): stage, criteria, mission. */
-    var stageIdx = opts.stage != null ? opts.stage % STAGES.length : Math.floor(r() * STAGES.length) % STAGES.length;
-    var stage = STAGES[stageIdx];
-    var critIdx = opts.criteria != null ? opts.criteria % CRITERIA.length : Math.floor(r() * CRITERIA.length) % CRITERIA.length;
-    var crit = CRITERIA[critIdx];
+    /* Olympic event (v2.1): opts.event = event key or index. The event fixes
+     * the arena and the judging rubric — no PRNG draws are consumed for them,
+     * so event bouts stay fully deterministic from the seed alone.
+     * Default path (no event): the frozen v1 draw order stage, criteria,
+     * mission is untouched — archived bouts reproduce byte-identically. */
+    var event = null;
+    if (opts.event != null) {
+      event = (typeof opts.event === 'string') ? eventByKey(opts.event)
+            : EVENTS[opts.event % EVENTS.length];
+    }
+    var stage, crit;
+    if (opts.stage != null) { stage = STAGES[opts.stage % STAGES.length]; }
+    else if (event) { stage = stageByKey(event.arenaKey); }
+    else { stage = STAGES[Math.floor(r() * STAGES.length) % STAGES.length]; }
+    if (opts.criteria != null) { crit = CRITERIA[opts.criteria % CRITERIA.length]; }
+    else if (event) { crit = critByKey(event.criteriaKey); }
+    else { crit = CRITERIA[Math.floor(r() * CRITERIA.length) % CRITERIA.length]; }
     var misIdx = opts.mission != null ? opts.mission % MISSIONS.length : Math.floor(r() * MISSIONS.length) % MISSIONS.length;
     var mission = MISSIONS[misIdx];
     /* User-entered AIs may carry explicit stats; roster contenders hash from ID. */
@@ -191,7 +255,7 @@
     /* idOverride: callers (e.g. exhibition bouts) may supply the final battle ID
      * up front so the narrative/inventions bake with the CORRECT id from the start. */
     var id = opts.id != null ? String(opts.id) : 'JAH-OLY-' + String(n).padStart(6, '0');
-    var narrative = buildNarrative(id, c1, c2, stage, crit, mission, rounds, winner, loser, margin, t1, t2, bestDim, upset);
+    var narrative = buildNarrative(id, c1, c2, stage, crit, mission, rounds, winner, loser, margin, t1, t2, bestDim, upset, event);
     var findings = buildFindings(c1, c2, winner, loser, margin, crit, bestDim, upset, t1, t2);
     var inventions = buildInventions(n, id, winner, loser, crit, mission, bestDim);
     var tie = (t1 === t2);
@@ -206,6 +270,9 @@
       winner_status: 'WINNER',
       contenders: [contenderRec(c1), contenderRec(c2)],
       stage: stage, criteria: crit, mission: mission,
+      event: event ? { id: event.id, key: event.key, name: event.name, emoji: event.emoji, version: event.version } : null,
+      event_id: event ? event.id : null,
+      event_version: event ? event.version : null,
       stage_id: stage.id, stage_version: stage.version,
       criteria_id: crit.id, rubric_version: crit.version,
       mission_id: missionId(misIdx), mission_version: MISSION_VERSION,
@@ -219,9 +286,10 @@
 
   function contenderRec(c) { return { id: c.id, name: c.name, type: c.type, blurb: c.blurb, stats: c.stats || statsFor(c.id), version: c.version || '1', source: c.source || 'unknown' }; }
 
-  function buildNarrative(id, c1, c2, stage, crit, mission, rounds, winner, loser, margin, t1, t2, bestDim, upset) {
+  function buildNarrative(id, c1, c2, stage, crit, mission, rounds, winner, loser, margin, t1, t2, bestDim, upset, event) {
     var L = [];
     L.push('BATTLE ' + id + ' — ' + stage.name.toUpperCase());
+    if (event) L.push('Olympic event: ' + event.emoji + ' ' + event.name + ' (' + event.id + ') — ' + event.tagline);
     L.push(stage.desc);
     L.push('Tonight the dome hosts ' + c1.name + ' (' + c1.type + ') against ' + c2.name + ' (' + c2.type + '). Judging: ' + crit.name + '. The mission: "' + mission + '." Three rounds. No mercy.');
     rounds.forEach(function (rd) {
@@ -282,7 +350,8 @@
 
   return {
     ENGINE_VERSION: ENGINE_VERSION, TIE_RULE: TIE_RULE,
-    STAGES: STAGES, CRITERIA: CRITERIA, MISSIONS: MISSIONS, missionId: missionId,
+    STAGES: STAGES, CRITERIA: CRITERIA, MISSIONS: MISSIONS, EVENTS: EVENTS,
+    missionId: missionId, eventByKey: eventByKey,
     statsFor: statsFor, bout: bout, fnv1a: fnv1a, mulberry32: mulberry32
   };
 });

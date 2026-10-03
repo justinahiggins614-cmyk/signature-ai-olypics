@@ -91,7 +91,23 @@ check('rubric weights sum to 1.0',
 check('12 stages versioned', E.STAGES.length === 12 && E.STAGES.every((s) => s.version === '1' && /^JAH-OLY-STAGE-\d{2}$/.test(s.id)));
 check('6 criteria versioned', E.CRITERIA.length === 6 && E.CRITERIA.every((c) => c.version === '1' && /^JAH-OLY-CRIT-\d{2}$/.test(c.id)));
 check('30 missions', E.MISSIONS.length === 30);
-check('engine version', E.ENGINE_VERSION === '2.0');
+check('engine version', E.ENGINE_VERSION === '2.1');
+check('8 events versioned', E.EVENTS.length === 8 && E.EVENTS.every((e) => e.version === '1' && /^JAH-OLY-EVENT-\d{2}$/.test(e.id)));
+check('event arenas + rubrics resolve', E.EVENTS.every((e) =>
+  E.STAGES.some((s) => s.key === e.arenaKey) && E.CRITERIA.some((c) => c.key === e.criteriaKey)));
+/* v2.1 event-bout vectors: deterministic, carry the event, default path untouched */
+(function () {
+  const p = [roster[0], roster[1]];
+  const e1 = E.bout(0, roster, { id: 'JAH-OLY-EVT-QA1', seed: 424242, event: 'wrestling', pair: p });
+  const e2 = E.bout(0, roster, { id: 'JAH-OLY-EVT-QA1', seed: 424242, event: 'wrestling', pair: p });
+  check('event bout deterministic', JSON.stringify(e1) === JSON.stringify(e2));
+  check('event bout carries event', e1.event_id === 'JAH-OLY-EVENT-01' && e1.event.key === 'wrestling');
+  check('event fixes rubric+arena', e1.criteria_id === 'JAH-OLY-CRIT-06' && e1.stage.key === 'pit');
+  const d1 = E.bout(777, roster), d2 = E.bout(777, roster);
+  check('default path unchanged by events', d1.event_id === null && JSON.stringify(d1) === JSON.stringify(d2));
+  const ei = E.bout(0, roster, { id: 'JAH-OLY-EVT-QA2', seed: 424242, event: 2, pair: p });
+  check('event index selects sprint', ei.event_id === 'JAH-OLY-EVENT-03' && ei.criteria.key === 'sprinter');
+})();
 
 console.log('qa_engine: ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);
