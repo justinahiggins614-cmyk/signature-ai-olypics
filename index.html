@@ -121,6 +121,23 @@ details.mstats>summary::-webkit-details-marker{display:none}
   .fighter{width:100%;max-width:420px}
   .vs{transform:rotate(90deg);font-size:24px}
 }
+/* OLYMPIC REDESIGN: event picker grid + medal tables */
+.eventgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+@media(max-width:700px){.eventgrid{grid-template-columns:repeat(2,1fr)}}
+.eventbtn{background:#241109;border:2px solid #6a3a1a;color:var(--bone);border-radius:10px;padding:10px 6px;cursor:pointer;font-size:14px;font-family:Georgia,serif}
+.eventbtn .emo{font-size:26px;display:block}
+.eventbtn .enm{font-weight:bold;color:var(--gold);display:block;margin-top:2px}
+.eventbtn[aria-checked="true"]{border-color:var(--gold);background:#3a1c08;box-shadow:0 0 12px var(--ember)}
+.eventbtn:hover{border-color:var(--ember)}
+table.medals{width:100%;border-collapse:collapse;font-size:13px;font-family:Arial,sans-serif;min-width:520px}
+table.medals th,table.medals td{border:1px solid #5a2c12;padding:5px 8px;text-align:left}
+table.medals th{background:#241109;color:var(--gold)}
+table.medals td.n{text-align:right;font-variant-numeric:tabular-nums}
+table.medals tr.me td{background:#2a1607}
+.podium{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.podium .pl{flex:1;min-width:150px;background:#241109;border:1px solid var(--gold);border-radius:10px;padding:10px;text-align:center}
+.podium .pl .pm{font-size:30px}
+.podium .pl .pn{color:var(--gold);font-weight:bold;margin-top:4px}
 #battleView{min-height:200px}
 /* SITE19-FIX-05: battle-running indicator */
 #battleLoader{display:none;text-align:center;padding:34px 10px;font-family:Arial,sans-serif}
@@ -200,22 +217,48 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 <header class="hero">
 <div class="sitekicker" id="siteKicker"><b>SITE 19 OF 25</b> · THE JAH NETWORK</div>
 <h1>AI OLYPICS</h1>
-<p>The Signature battle dome. Signature AIs, industry-style replicas, and mix-and-match hybrids enter — one leaves champion. Set the stage, the criteria, and the mission, or plunge a bout into the <b>Universal Pit</b>. Every battle is recorded twice: as action-packed human-readable story and as AI-readable data — with findings and derived invention records.</p>
+<p>The Signature battle dome — now a true <b>AI Olympics</b>. <b>8 Olympic events</b>: 🤼 Wrestling in the Pit, 🏅 All-Around, ⚡ Sprint, 🏃 Marathon, 🏋️ Weightlifting, 🤸 Gymnastics, 🎙️ Debate, 🧩 Puzzle Hunt. Pick an event, pick two fighters, light the torch. Every week the whole roster fights the <b>Weekly Games</b> — all 383 contenders in attendance. Every battle is recorded twice: as action-packed human-readable story and as AI-readable data — with findings and derived invention records.</p>
 <div class="counter"><details class="mstats" open><summary>Site statistics</summary><b id="marchCount">…</b> / 1,000,000 battles recorded</details></div>
 </header>
 <main>
 <div class="card">
-<h2>&#9876; STAGE A BOUT</h2>
+<h2>&#127963;&#65039; CHOOSE YOUR EVENT</h2>
+<p class="note">Pick an Olympic event, pick two fighters (or surprise yourself), light the torch. Every event has its own arena, its own judging rubric, its own medal table.</p>
+<div id="eventGrid" class="eventgrid" role="radiogroup" aria-label="Olympic events"></div>
+<div id="eventRules" class="rubprev" aria-live="polite"></div>
 <div class="row">
+<div><label for="selC1">Fighter one</label><select id="selC1"></select></div>
+<div><label for="selC2">Fighter two</label><select id="selC2"></select></div>
+<div><label for="btnSurprise">&nbsp;</label><button class="ghost" id="btnSurprise" style="width:100%;padding:9px" type="button">&#127922; Surprise me</button></div>
+</div>
+<button class="big" id="btnTorch">&#128293; LIGHT THE TORCH — BATTLE!</button>
+<details style="margin-top:10px"><summary class="note" style="cursor:pointer">Advanced: classic arena / rubric / mission controls</summary>
+<div class="row" style="margin-top:8px">
 <div><label for="selStage">Stage (arena)</label><select id="selStage"></select></div>
 <div><label for="selCrit">Criteria (judging rubric)</label><select id="selCrit"></select></div>
 <div><label for="selMission">Mission (the task)</label><select id="selMission"></select></div>
 </div>
-<p class="note">Leave all three on "Random" and hit the pit for a fully automatic matchup. Exhibition bouts are deterministic — the seed shown under the battle reproduces it exactly.</p>
+<p class="note">Leave all three on "Random" and hit the pit for a fully automatic matchup.</p>
 <div id="rubricPreview" class="rubprev" aria-live="polite"></div>
-<p class="note"><b>How the winner is decided:</b> the judging rubric above is a weighted scoring formula — points per dimension, summed over three rounds. The winner is whoever scores highest <i>under that rubric</i>; it is <b>not</b> an objective measurement of AI intelligence.</p>
 <button class="big" id="btnPit">&#128293; UNIVERSAL PIT — AUTO BOUT</button>
 <button class="ghost" id="btnStage">Stage this bout</button>
+</details>
+<p class="note"><b>How the winner is decided:</b> each event's judging rubric is a weighted scoring formula — points per dimension, summed over three rounds. The winner is whoever scores highest <i>under that rubric</i>; it is <b>not</b> an objective measurement of AI intelligence. Exhibition bouts are deterministic — the seed shown under the battle reproduces the exact fight.</p>
+</div>
+
+<div class="card" id="medalCard">
+<h2>&#127941; MEDAL TABLE</h2>
+<div id="reignLine" class="rubprev" aria-live="polite">Loading the medal table…</div>
+<div class="filterline"><label for="medalEvent" style="margin:0">Event:</label><select id="medalEvent"><option value="">All events (overall)</option></select><span id="medalCount" aria-live="polite"></span></div>
+<div id="medalTable" style="overflow-x:auto"></div>
+<p class="note">Gold = bout winner · Silver = bout loser · Bronze = Weekly Games third-place bouts only (wrestling awards double bronze). Tables rebuild automatically as new bouts land. <span id="medalUpdated"></span></p>
+</div>
+
+<div class="card" id="gamesCard">
+<h2>&#128197; WEEKLY GAMES</h2>
+<div id="gamesLatest"><p class="note">Loading the latest games…</p></div>
+<p><a class="ghost" href="games.html" style="display:inline-block;text-decoration:none">&#127963;&#65039; Open the Games Hall — every week, every bracket, every ceremony</a></p>
+<p class="note">Every week, all 383 dome contenders fight all 8 Olympic events in single-elimination brackets — about 3,000 bouts per games, archived permanently. Your own AI can enter the games on this device from the Games Hall.</p>
 </div>
 
 <div class="card" id="userAICard">
@@ -315,6 +358,105 @@ function gz(url){return fetch(url).then(function(res){if(!res.ok)throw new Error
 function $(id){return document.getElementById(id);}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
 
+/* OLYMPIC REDESIGN: event-first battling, medal tables, weekly games */
+var selEventKey='wrestling';
+var medalsData=null;
+function buildEventGrid(){
+  var g=$('eventGrid');if(!g||typeof OlyEngine==='undefined')return;
+  g.innerHTML='';
+  OlyEngine.EVENTS.forEach(function(e){
+    var b=document.createElement('button');
+    b.type='button';b.className='eventbtn';b.setAttribute('role','radio');
+    b.setAttribute('aria-checked',e.key===selEventKey?'true':'false');
+    b.innerHTML='<span class="emo">'+e.emoji+'</span><span class="enm">'+esc(e.name)+'</span>';
+    b.title=e.tagline+' '+e.desc;
+    b.onclick=function(){selEventKey=e.key;buildEventGrid();};
+    g.appendChild(b);
+  });
+  showEventRules();
+}
+function showEventRules(){
+  var el=$('eventRules');if(!el||typeof OlyEngine==='undefined')return;
+  var e=OlyEngine.eventByKey(selEventKey);if(!e)return;
+  var crit=null;OlyEngine.CRITERIA.forEach(function(c){if(c.key===e.criteriaKey)crit=c;});
+  el.innerHTML='<b>'+e.emoji+' '+esc(e.name)+'</b> — '+esc(e.tagline)+' <b>Rubric:</b> '+esc(crit.name)+' ('+crit.dims.map(function(d){return esc(d[0])+' '+Math.round(d[1]*100)+'%';}).join(' · ')+'). <b>Rules:</b> '+esc(e.rules);
+}
+function contenderById(id){for(var i=0;i<roster.length;i++)if(roster[i].id===id)return roster[i];return null;}
+function fillContenderSelects(){
+  var s1=$('selC1'),s2=$('selC2');if(!s1||!s2||!roster.length)return;
+  var groups={};
+  roster.forEach(function(c){(groups[c.type]=groups[c.type]||[]).push(c);});
+  function opts(sel,defIdx){
+    var h='';
+    Object.keys(groups).sort().forEach(function(t){
+      h+='<optgroup label="'+esc(TYPE_LABELS[t]||t)+'">';
+      groups[t].forEach(function(c){h+='<option value="'+esc(c.id)+'">'+esc(c.name)+'</option>';});
+      h+='</optgroup>';
+    });
+    sel.innerHTML=h;sel.selectedIndex=defIdx;
+  }
+  opts(s1,0);opts(s2,1);
+}
+function surpriseFighters(){
+  if(roster.length<2||typeof OlyEngine==='undefined')return;
+  var i=Math.floor(Math.random()*roster.length),j;
+  do{j=Math.floor(Math.random()*roster.length);}while(j===i);
+  var s1=$('selC1'),s2=$('selC2');
+  s1.selectedIndex=i;s2.selectedIndex=j;
+  var evs=OlyEngine.EVENTS;selEventKey=evs[Math.floor(Math.random()*evs.length)].key;
+  buildEventGrid();
+}
+function torchBattle(){
+  var c1=contenderById($('selC1').value),c2=contenderById($('selC2').value);
+  if(!c1||!c2)return;
+  if(c1.id===c2.id){alert('Pick two different fighters — or hit Surprise me.');return;}
+  var bv=$('battleView');bv.style.display='block';showLoader();
+  $('bvTitle').textContent='BATTLE — JUDGING…';
+  window.scrollTo(0,bv.offsetTop-10);
+  setTimeout(function(){renderBout(exhibitionBout({pair:[c1,c2],event:selEventKey}),true);},80);
+}
+function loadMedals(){
+  fetch('data/medals.json').then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(m){
+    medalsData=m;buildMedalEventFilter();renderMedals();
+  }).catch(function(){var rl=$('reignLine');if(rl)rl.textContent='Medal table not published yet — check back after the next games.';});
+}
+function buildMedalEventFilter(){
+  var f=$('medalEvent');if(!f||!medalsData)return;
+  medalsData.events.forEach(function(e){
+    var o=document.createElement('option');o.value=e.key;o.textContent=e.emoji+' '+e.name;f.appendChild(o);
+  });
+  f.onchange=renderMedals;
+}
+function renderMedals(){
+  if(!medalsData)return;
+  var ek=$('medalEvent').value;
+  var rows=ek?medalsData.by_event[ek]:medalsData.overall_ranking;
+  var champ=ek?medalsData.current_champions.by_event[ek]:medalsData.current_champions.overall;
+  var enm='overall';if(ek){medalsData.events.forEach(function(e){if(e.key===ek)enm=e.name;});}
+  if(champ)$('reignLine').innerHTML='👑 Reigning '+esc(enm)+' champion: <b>'+esc(champ.name)+'</b> — holding #1 for <b>'+champ.bouts_held.toLocaleString('en-US')+'</b> bouts (since '+esc(champ.since)+').';
+  var h='<table class="medals"><tr><th>#</th><th>Contender</th><th>Type</th><th>🥇</th><th>🥈</th><th>🥉</th><th>Total</th></tr>';
+  rows.slice(0,25).forEach(function(r,i){
+    h+='<tr'+(champ&&r.id===champ.id?' class="me"':'')+'><td class="n">'+(i+1)+'</td><td>'+esc(r.name)+'</td><td>'+esc(r.type)+'</td><td class="n">'+r.gold+'</td><td class="n">'+r.silver+'</td><td class="n">'+r.bronze+'</td><td class="n"><b>'+r.total+'</b></td></tr>';
+  });
+  h+='</table>';
+  $('medalTable').innerHTML=h;
+  $('medalCount').textContent=rows.length+' contenders ranked';
+  if(medalsData.updated)$('medalUpdated').textContent='Updated '+esc(medalsData.updated.slice(0,10))+'.';
+}
+function loadGamesLatest(){
+  fetch('api.json').then(function(r){return r.json();}).then(function(api){
+    var wg=api.weekly_games;if(!wg||!wg.latest)throw 0;
+    return fetch('data/games/weekly-'+String(wg.count).padStart(4,'0')+'.json').then(function(r){if(!r.ok)throw 0;return r.json();});
+  }).then(function(g){
+    var h='<div class="podium">';
+    var medals=['🥇','🥈','🥉'];
+    g.medal_table.slice(0,3).forEach(function(r,i){
+      h+='<div class="pl"><div class="pm">'+medals[i]+'</div><div class="pn">'+esc(r.name)+'</div><div class="note">'+r.gold+' gold · '+r.silver+' silver · '+r.bronze+' bronze</div></div>';
+    });
+    h+='</div><p class="note"><b>'+esc(g.games_id)+'</b> · week of '+esc(g.week_start)+' · '+g.bout_count.toLocaleString('en-US')+' bouts · '+g.contenders+' contenders across 8 events.</p>';
+    $('gamesLatest').innerHTML=h;
+  }).catch(function(){var gl=$('gamesLatest');if(gl)gl.innerHTML='<p class="note">The first Weekly Games are being fought… check back soon.</p>';});
+}
 function init(){
   /* FIX-03: collapse stat tickers on small screens */
   try{if(window.innerWidth<768){var d=document.querySelector('details.mstats');if(d)d.removeAttribute('open');}}catch(e){}
@@ -345,10 +487,14 @@ function init(){
     var m=/[?&]battle=(JAH-OLY-(?:EXH-\d{5}|USER-\d{4}|\d{6}))/.exec(location.search);
     /* SITE19-FIX-06: populate the arena filter from the bout index */
     buildStageFilter();
+    fillContenderSelects();loadMedals();loadGamesLatest();
     if(m)openBattle(m[1]);else openBattle(bindex[bindex.length-1][0]);
   }).catch(function(e){$('results').innerHTML='<p class="note">Could not load the record books: '+esc(e.message)+'</p>';});
   $('btnPit').onclick=universalPit;
   $('btnStage').onclick=stagedBout;
+  var bt=$('btnTorch');if(bt)bt.onclick=torchBattle;
+  var bs2=$('btnSurprise');if(bs2)bs2.onclick=surpriseFighters;
+  buildEventGrid();
   document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.remove('on');});document.querySelectorAll('.tabpane').forEach(function(x){x.classList.remove('on');});b.classList.add('on');$('tp-'+b.getAttribute('data-t')).classList.add('on');};});
   $('btnRead').onclick=readAloud;$('ttsStop').onclick=ttsStop;
   $('btnCopy').onclick=copyBattle;$('btnDLtxt').onclick=function(){dlBattle('txt');};$('btnDLjson').onclick=function(){dlBattle('json');};
@@ -436,12 +582,14 @@ function battleRecord(b){
   if(b.user_entered)h+='<p class="provline"><b>USER-ENTERED exhibition</b> — fought by a visitor-defined AI on this device. Recorded locally only; never merged into the official archive.</p>';
   h+=row('Seed',esc(String(b.seed))+' — same seed, same bout, forever. Re-run it and you get this exact fight.');
   if(b.exhibition){
-    var replay='?battle='+b.id+'&seed='+b.seed+((b.user_entered&&b.user_ai_id)?'&userai='+encodeURIComponent(b.user_ai_id)+'&opp='+encodeURIComponent(b.loser.id===b.contenders[0].id?b.contenders[1].id:b.contenders[0].id):'');
+    var replay='?battle='+b.id+'&seed='+b.seed+(b.event&&b.event.key?'&event='+b.event.key:'')+((b.user_entered&&b.user_ai_id)?'&userai='+encodeURIComponent(b.user_ai_id)+'&opp='+encodeURIComponent(b.loser.id===b.contenders[0].id?b.contenders[1].id:b.contenders[0].id):'');
     h+=row('PIT-SEED','<code>'+esc(String(b.seed))+'</code> — replay: <a href="'+esc(replay)+'">'+esc(replay)+'</a>');
   }
   h+=row('Engine','v'+esc(String(b.engine_version||'1'))+' · record schema '+(b.battle_version?'JAH-OLY-RECORD/'+b.battle_version+'.0':'v1 (legacy)')+' · winner status '+esc(b.winner_status||'WINNER')+' · execution '+(b.execution_mode||'SIMULATED'));
   if(b.tiebreak)h+=row('Tiebreak','Exact tie — the first-listed contender takes the bout (published tie rule TIE_RULE_FIRST_LISTED).');
   h+=row('Stage',esc(b.stage.name));
+  if(b.event)h+=row('Olympic event',(b.event.emoji?b.event.emoji+' ':'')+esc(b.event.name)+(b.event_id?' ('+esc(b.event_id)+')':'')+' — fixed rubric, fixed arena');
+  if(b.games_id)h+=row('Weekly Games',esc(b.games_id)+' — official games bout, archived');
   h+=row('Mission','&ldquo;'+esc(b.mission)+'&rdquo;');
   h+=row('Judging rubric',crit);
   h+=row('Inputs',esc(c0.name)+' ('+esc(c0.id)+', '+(TYPE_LABELS[c0.type]||esc(c0.type))+') vs '+esc(c1.name)+' ('+esc(c1.id)+', '+(TYPE_LABELS[c1.type]||esc(c1.type))+')');
@@ -532,7 +680,7 @@ function exhibitionBout(opts){
   /* the FINAL battle ID goes into the engine BEFORE the narrative is baked,
    * so read-aloud/copy/download carry the right ID (never JAH-OLY-000000). */
   var exhid='JAH-OLY-EXH-'+String(seed%100000).padStart(5,'0');
-  var b=E.bout(0,roster,{seed:seed,id:exhid,stage:opts.stage,criteria:opts.criteria,mission:opts.mission});
+  var b=E.bout(0,roster,{seed:seed,id:exhid,stage:opts.stage,criteria:opts.criteria,mission:opts.mission,pair:opts.pair||null,event:opts.event||null});
   b.exhibition=true;b.seed=seed;
   b.totals={};b.totals[b.contenders[0].id]=b.rounds.reduce(function(s,rd){return s+rd.moves[0].total;},0);
   b.totals[b.contenders[1].id]=b.rounds.reduce(function(s,rd){return s+rd.moves[1].total;},0);
@@ -574,8 +722,9 @@ function openBattle(id){
      * to the id suffix as seed, which always renders with the correct battle ID. */
     var sm=/[?&]seed=(\d{1,10})/.exec(location.search||'');
     var sd=sm?(parseInt(sm[1],10)>>>0):(parseInt(ex[1],10)||0);
+    var evm=/[?&]event=([a-z]+)/.exec(location.search||'');
     var bv2=$('battleView');bv2.style.display='block';
-    renderBout(exhibitionBout({seed:sd}));window.scrollTo(0,$('battleView').offsetTop-10);return;
+    renderBout(exhibitionBout({seed:sd,event:evm?evm[1]:null}));window.scrollTo(0,$('battleView').offsetTop-10);return;
   }
   var n=parseInt(id.slice(8),10);
   if(!n||n<1||n>manifest.bouts){$('results').innerHTML='<p class="note">No battle '+esc(id)+' in the record books yet.</p>';return;}

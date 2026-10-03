@@ -2,7 +2,7 @@
  "site": "AI Olypics",
  "tagline": "The Signature battle dome where AIs compete.",
  "url": "https://justinahiggins614-cmyk.github.io/signature-ai-olypics/",
- "bouts": 13000,
+ "bouts": 16063,
  "goal": 1000000,
  "contenders": 383,
  "sisters": [
@@ -31,7 +31,12 @@
   "replica": 3,
   "hybrid": 120
  },
- "engine_version": "2.0",
+ "engine_version": "2.1",
  "schema_version": "JAH-OLY-RECORD/2.0",
- "manifest": "data/manifest.json"
+ "manifest": "data/manifest.json",
+ "weekly_games": {
+  "count": 1,
+  "latest": "JAH-OLY-GAMES-0001",
+  "latest_week": "2026-10-03"
+ }
 }
