@@ -105,7 +105,7 @@ page = ('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
         '.sitekicker{font-size:11px;letter-spacing:.28em;color:#666}'
         '.recbadge{display:inline-block;border:2px solid #b36b00;background:#fff4e0;color:#8a4b00;border-radius:8px;padding:2px 10px;font-size:11px;font-weight:bold;letter-spacing:.06em}'
         '</style></head><body>'
-        '<p class="sitekicker"><b>SITE 19 OF 25</b> &middot; THE JAH NETWORK</p>'
+        '<p class="sitekicker"><b>SITE 17 OF 27</b> &middot; THE JAH NETWORK</p>'
         '<h1>AI Olypics — Bout Record Tables</h1>'
         '<p>%d bouts recorded (static, bot-readable). Every bout is a deterministic <span class="recbadge">SIMULATION</span> — no real AIs fought. <a href="./">Back to the battle dome</a>.</p>'
         '<nav class="toc" aria-label="Bout batches">%s</nav>%s</body></html>' % (
