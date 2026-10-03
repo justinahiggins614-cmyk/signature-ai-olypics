@@ -9,6 +9,9 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebSite","name":"AI Olypics","alternateName":"The Signature Battle Dome","url":"https://justinahiggins614-cmyk.github.io/signature-ai-olypics/","description":"The battle dome where Signature AIs, industry-style replicas, and mix-and-match hybrids compete. Every bout recorded twice: human-readable narrative and AI-readable JSON, with findings and derived invention records."}
 </script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Dataset","name":"AI Olypics","alternateName":"The Signature Battle Dome","url":"https://justinahiggins614-cmyk.github.io/signature-ai-olypics/","creator":{"@type":"Person","name":"Justin Addam Higgins"},"description":"The battle dome where Signature AIs, industry-style replicas, and mix-and-match hybrids compete. Every bout recorded twice: human-readable narrative and AI-readable JSON, with findings and derived invention records."}
+</script>
 <style>
 :root{--ember:#ff5a1f;--gold:#ffb300;--blood:#a31212;--ink:#0c0605;--bone:#f5e9dc}
 *{box-sizing:border-box}
@@ -71,10 +74,20 @@ footer{border-top:2px solid var(--ember);padding:18px 12px 60px;text-align:cente
 footer a{color:#ffd97a;margin:0 4px}
 .note{font-size:13px;color:#b9a284;font-family:Arial,sans-serif}
 .replicalabel{font-size:12px;color:#ffb300;font-style:italic}
+/* FIX-03: stat tickers collapse on mobile (<768px); desktop unchanged */
+details.mstats{margin:10px 0 0}
+details.mstats>.counter{margin:0}
+details.mstats>summary{cursor:pointer;color:#b9a284;font-size:13px;font-family:Arial,sans-serif;list-style:none}
+details.mstats>summary::-webkit-details-marker{display:none}
+@media(min-width:768px){details.mstats>summary{display:none}}
+/* FIX-04: modal scrim + focused battle viewer */
+#scrim{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:90;display:none}
+#battleView.modal-open{position:relative;z-index:100;max-height:calc(100vh - 24px);overflow-y:auto}
 </style>
 </head>
 <body>
-<nav class="jahnet" aria-label="THE JAH NETWORK"><b>THE JAH NETWORK:</b>
+<div id="scrim" aria-hidden="true"></div>
+<nav class="jahnet" role="navigation" aria-label="JAH Network Global Ecosystem"><b>THE JAH NETWORK:</b>
 <a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">The Signature AI Phone Book</a>
 <a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">Calculator</a>
 <a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">Dictionary</a>
@@ -109,7 +122,7 @@ footer a{color:#ffd97a;margin:0 4px}
 <header class="hero">
 <h1>AI OLYPICS</h1>
 <p>The Signature battle dome. Signature AIs, industry-style replicas, and mix-and-match hybrids enter — one leaves champion. Set the stage, the criteria, and the mission, or plunge a bout into the <b>Universal Pit</b>. Every battle is recorded twice: as action-packed human-readable story and as AI-readable data — with findings and derived invention records.</p>
-<div class="counter"><b id="marchCount">2,000</b> / 1,000,000 battles recorded</div>
+<div class="counter"><details class="mstats" open><summary>Site statistics</summary><b id="marchCount">2,000</b> / 1,000,000 battles recorded</details></div>
 </header>
 <main>
 <div class="card">
@@ -143,6 +156,7 @@ footer a{color:#ffd97a;margin:0 4px}
 <button class="ghost" id="btnDLtxt">⬇ Download .txt</button>
 <button class="ghost" id="btnDLjson">⬇ Download .json</button>
 <button class="ghost" id="btnLink">🔗 Battle link</button>
+<button class="ghost" id="btnClose">✕ Close viewer</button>
 </div>
 <div class="card" style="margin:14px 0 0">
 <h2>Ask about this battle</h2>
@@ -185,6 +199,10 @@ function $(id){return document.getElementById(id);}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
 
 function init(){
+  /* FIX-03: collapse stat tickers on small screens */
+  try{if(window.innerWidth<768){var d=document.querySelector('details.mstats');if(d)d.removeAttribute('open');}}catch(e){}
+  /* FIX-04: scrim click closes the viewer */
+  var sc=document.getElementById('scrim');if(sc)sc.onclick=closeBattle;
   var E=OlyEngine;
   var ss=$('selStage'),sc=$('selCrit'),sm=$('selMission');
   ss.innerHTML='<option value="-1">Random arena</option>'+E.STAGES.map(function(s,i){return '<option value="'+i+'">'+esc(s.name)+'</option>';}).join('');
@@ -203,6 +221,7 @@ function init(){
   $('btnRead').onclick=readAloud;$('ttsStop').onclick=ttsStop;
   $('btnCopy').onclick=copyBattle;$('btnDLtxt').onclick=function(){dlBattle('txt');};$('btnDLjson').onclick=function(){dlBattle('json');};
   $('btnLink').onclick=function(){var u=BASE+'?battle='+curBout.id;if(navigator.clipboard)navigator.clipboard.writeText(u);prompt('Battle link:',u);};
+  $('btnClose').onclick=closeBattle;
   $('qaAsk').onclick=qaAsk;$('qaBox').addEventListener('keydown',function(e){if(e.key==='Enter')qaAsk();});
   $('btnSearch').onclick=doSearch;$('q').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch();});
 }
@@ -216,10 +235,10 @@ function exhibitionBout(opts){
   b.totals[b.contenders[1].id]=b.rounds.reduce(function(s,rd){return s+rd.moves[1].total;},0);
   return b;
 }
-function universalPit(){renderBout(exhibitionBout({}));window.scrollTo(0,$('battleView').offsetTop-10);}
+function universalPit(){renderBout(exhibitionBout({}),true);window.scrollTo(0,$('battleView').offsetTop-10);}
 function stagedBout(){
   var s=+$('selStage').value,c=+$('selCrit').value,m=+$('selMission').value;
-  renderBout(exhibitionBout({stage:s<0?null:s,criteria:c<0?null:c,mission:m<0?null:m}));
+  renderBout(exhibitionBout({stage:s<0?null:s,criteria:c<0?null:c,mission:m<0?null:m}),true);
   window.scrollTo(0,$('battleView').offsetTop-10);
 }
 function openBattle(id){
@@ -233,9 +252,12 @@ function openBattle(id){
     renderBout(JSON.parse(line));window.scrollTo(0,$('battleView').offsetTop-10);
   }).catch(function(e){$('results').innerHTML='<p class="note">Could not load battle: '+esc(e.message)+'</p>';});
 }
-function renderBout(b){
+function renderBout(b,asModal){
   curBout=b;
-  $('battleView').style.display='block';
+  var bv=$('battleView');
+  bv.style.display='block';
+  /* FIX-04: user-opened bouts get a scrim + scroll-lock; the initial boot render stays inline */
+  if(asModal){var s=document.getElementById('scrim');if(s)s.style.display='block';if(bv.classList)bv.classList.add('modal-open');document.body.style.overflow='hidden';}
   $('bvTitle').textContent='BATTLE '+b.id+(b.exhibition?' — EXHIBITION (seed '+b.seed+')':'');
   var c0=b.contenders[0],c1=b.contenders[1];
   var t0=b.totals[c0.id],t1=b.totals[c1.id];
@@ -256,6 +278,8 @@ function renderBout(b){
   $('qaLog').innerHTML='<div class="a">The dome scribe answers only from this battle\'s record. Ask who won, the margin, the stage, the findings…</div>';
   if(history.replaceState)history.replaceState(null,'','?battle='+(b.exhibition?'':b.id));
 }
+/* FIX-04: close path for the battle viewer */
+function closeBattle(){var bv=$('battleView');bv.style.display='none';if(bv.classList)bv.classList.remove('modal-open');var s=document.getElementById('scrim');if(s)s.style.display='none';document.body.style.overflow='';curBout=null;}
 /* ---- TTS: speechSynthesis -> ResponsiveVoice -> Google TTS x2 ---- */
 var ttsAudio=null;
 function ttsStop(){try{speechSynthesis.cancel();}catch(e){}if(window.responsiveVoice)try{responsiveVoice.cancel();}catch(e){}if(ttsAudio){ttsAudio.pause();ttsAudio=null;}$('ttsbar').classList.remove('show');}
