@@ -12,6 +12,11 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Dataset","name":"AI Olypics","alternateName":"The Signature Battle Dome","url":"https://justinahiggins614-cmyk.github.io/signature-ai-olypics/","creator":{"@type":"Person","name":"Justin Addam Higgins"},"description":"The battle dome where Signature AIs, industry-style replicas, and mix-and-match hybrids compete. Every bout recorded twice: human-readable narrative and AI-readable JSON, with findings and derived invention records."}
 </script>
+<!-- FIX-01: SportsEvent series schema + per-bout schema (set by setBattleHead) -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SportsEvent","name":"AI Olypics — The Signature Battle Dome","url":"https://justinahiggins614-cmyk.github.io/signature-ai-olypics/","organizer":{"@type":"Person","name":"Justin Addam Higgins"},"sport":"AI competition","description":"Recorded AI-versus-AI bouts: Signature AIs, industry-style replicas, and mix-and-match hybrids. Every bout recorded twice — human-readable narrative and AI-readable JSON — with findings and derived invention records."}
+</script>
+<script type="application/ld+json" id="battleSchema"></script>
 <style>
 :root{--ember:#ff5a1f;--gold:#ffb300;--blood:#a31212;--ink:#0c0605;--bone:#f5e9dc}
 *{box-sizing:border-box}
@@ -83,6 +88,28 @@ details.mstats>summary::-webkit-details-marker{display:none}
 /* FIX-04: modal scrim + focused battle viewer */
 #scrim{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:90;display:none}
 #battleView.modal-open{position:relative;z-index:100;max-height:calc(100vh - 24px);overflow-y:auto}
+/* SITE19-FIX-04: stable mobile arena - no layout jitter */
+.versus{min-height:120px}
+.fighter{min-height:104px;display:flex;flex-direction:column;justify-content:center}
+@media(max-width:700px){
+  .versus{flex-direction:column;gap:8px}
+  .fighter{width:100%;max-width:420px}
+  .vs{transform:rotate(90deg);font-size:24px}
+}
+#battleView{min-height:200px}
+/* SITE19-FIX-05: battle-running indicator */
+#battleLoader{display:none;text-align:center;padding:34px 10px;font-family:Arial,sans-serif}
+#battleLoader.on{display:block}
+.olyloader{display:inline-block;width:46px;height:46px;border:5px solid #5a2c12;border-top-color:var(--ember);border-radius:50%;animation:olyspin .8s linear infinite;margin-bottom:10px}
+@keyframes olyspin{to{transform:rotate(360deg)}}
+#battleLoader p{color:var(--gold);letter-spacing:2px;font-size:15px;margin:0}
+button[disabled]{opacity:.55;cursor:wait}
+/* SITE19-FIX-06: persistent sticky bout filter bar */
+.browsebar{position:sticky;top:0;z-index:20;background:#160b06;padding:10px 0;border-bottom:1px solid #5a2c12}
+.browsebar .searchrow{margin:0 0 8px}
+.filterline{display:flex;gap:8px;align-items:center;font-family:Arial,sans-serif;font-size:13px;color:#b9a284}
+.filterline select{width:auto;flex:1;padding:7px}
+#hitCount{white-space:nowrap;color:#ffd97a}
 </style>
 </head>
 <body>
@@ -139,6 +166,7 @@ details.mstats>summary::-webkit-details-marker{display:none}
 
 <div class="card" id="battleView">
 <h2 id="bvTitle">BATTLE</h2>
+<div id="battleLoader" role="status" aria-live="polite"><span class="olyloader" aria-hidden="true"></span><p>⚔️ BATTLE RUNNING — THE DOME IS JUDGING…</p></div>
 <div class="versus" id="bvVersus"></div>
 <div class="tabs" role="tablist">
 <button class="on" data-t="story">Battle Story</button>
@@ -167,8 +195,12 @@ details.mstats>summary::-webkit-details-marker{display:none}
 
 <div class="card">
 <h2>Browse the record books</h2>
+<div class="browsebar">
 <div class="searchrow"><input type="text" id="q" placeholder="Search battles: contender, stage, mission, winner…"><button class="ghost" id="btnSearch">Search</button></div>
+<div class="filterline"><label for="fStage" style="margin:0">Arena:</label><select id="fStage"><option value="">All arenas</option></select><span id="hitCount" aria-live="polite"></span></div>
+</div>
 <div id="results"><p class="note">2,000 bouts recorded. Search above, or open any battle directly: <code>?battle=JAH-OLY-000001</code></p></div>
+<p class="note">Machine-readable: <a href="olypics-catalog.json">olypics-catalog.json</a> · Static record tables: <a href="bouts.html">bouts.html</a></p>
 </div>
 
 <div class="card">
@@ -213,6 +245,8 @@ function init(){
     roster=v[1];manifest=v[2];
     $('marchCount').textContent=manifest.bouts.toLocaleString('en-US');
     var m=/[?&]battle=(JAH-OLY-\d{6})/.exec(location.search);
+    /* SITE19-FIX-06: populate the arena filter from the bout index */
+    buildStageFilter();
     if(m)openBattle(m[1]);else openBattle(bindex[bindex.length-1][0]);
   }).catch(function(e){$('results').innerHTML='<p class="note">Could not load the record books: '+esc(e.message)+'</p>';});
   $('btnPit').onclick=universalPit;
@@ -223,7 +257,54 @@ function init(){
   $('btnLink').onclick=function(){var u=BASE+'?battle='+curBout.id;if(navigator.clipboard)navigator.clipboard.writeText(u);prompt('Battle link:',u);};
   $('btnClose').onclick=closeBattle;
   $('qaAsk').onclick=qaAsk;$('qaBox').addEventListener('keydown',function(e){if(e.key==='Enter')qaAsk();});
-  $('btnSearch').onclick=doSearch;$('q').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch();});
+  /* SITE19-FIX-06: real-time search (150ms debounce) + arena filter */
+  $('btnSearch').onclick=function(){doSearch();};
+  var qbox=$('q'),qdt=null;
+  qbox.addEventListener('input',function(){if(qdt)clearTimeout(qdt);qdt=setTimeout(doSearch,150);});
+  qbox.addEventListener('keydown',function(e){if(e.key==='Enter'){if(qdt)clearTimeout(qdt);doSearch();}});
+  var fs=$('fStage');if(fs)fs.addEventListener('change',doSearch);
+}
+/* SITE19-FIX-01: per-bout JSON-LD schema on every rendered battle */
+function setBattleHead(b){
+  var el=document.getElementById('battleSchema');if(!el)return;
+  var c0=b.contenders[0],c1=b.contenders[1];
+  el.textContent=JSON.stringify({"@context":"https://schema.org","@type":"SportsEvent",
+    "name":"AI Olypics bout "+b.id+": "+c0.name+" vs "+c1.name,
+    "url":BASE+'?battle='+b.id,
+    "identifier":b.id,
+    "sport":"AI competition",
+    "location":{"@type":"Place","name":b.stage.name},
+    "competitor":[{"@type":"SportsTeam","name":c0.name},{"@type":"SportsTeam","name":c1.name}],
+    "winner":b.winner?{"@type":"SportsTeam","name":b.winner.name}:undefined,
+    "organizer":{"@type":"Person","name":"Justin Addam Higgins"},
+    "description":"Judged by "+b.criteria.name+". Mission: "+b.mission+
+      (b.inventions&&b.inventions.length?(" Derived records: "+b.inventions.map(function(iv){return iv.id;}).join(", ")):"")});
+}
+/* SITE19-FIX-05: battle-running indicator */
+function showLoader(){
+  var l=document.getElementById('battleLoader');if(l)l.classList.add('on');
+  var bp=$('btnPit'),bs=$('btnStage');if(bp)bp.disabled=true;if(bs)bs.disabled=true;
+}
+function hideLoader(){
+  var l=document.getElementById('battleLoader');if(l)l.classList.remove('on');
+  var bp=$('btnPit'),bs=$('btnStage');if(bp)bp.disabled=false;if(bs)bs.disabled=false;
+}
+/* SITE19-FIX-06: arena filter options from the bout index */
+var stageNameCache={};
+function buildStageFilter(){
+  var fs=$('fStage');if(!fs)return;
+  var seen={},keys=[];
+  bindex.forEach(function(r){if(!seen[r[5]]){seen[r[5]]=1;keys.push(r[5]);}});
+  keys.sort();
+  fs.innerHTML='<option value="">All arenas</option>'+keys.map(function(k){
+    return '<option value="'+esc(k)+'">'+esc(stageNameCache[k]||k)+'</option>';
+  }).join('');
+}
+function cacheStageName(key,name){
+  if(!key||!name||stageNameCache[key])return;
+  stageNameCache[key]=name;
+  var fs=$('fStage');if(!fs)return;
+  Array.prototype.forEach.call(fs.options,function(o){if(o.value===key)o.textContent=name;});
 }
 function exhibitionBout(opts){
   var E=OlyEngine;
@@ -235,25 +316,38 @@ function exhibitionBout(opts){
   b.totals[b.contenders[1].id]=b.rounds.reduce(function(s,rd){return s+rd.moves[1].total;},0);
   return b;
 }
-function universalPit(){renderBout(exhibitionBout({}),true);window.scrollTo(0,$('battleView').offsetTop-10);}
+/* SITE19-FIX-05: show the running indicator, let it paint, then generate */
+function universalPit(){
+  var bv=$('battleView');bv.style.display='block';showLoader();
+  $('bvTitle').textContent='BATTLE — JUDGING…';
+  window.scrollTo(0,bv.offsetTop-10);
+  setTimeout(function(){renderBout(exhibitionBout({}),true);},80);
+}
 function stagedBout(){
   var s=+$('selStage').value,c=+$('selCrit').value,m=+$('selMission').value;
-  renderBout(exhibitionBout({stage:s<0?null:s,criteria:c<0?null:c,mission:m<0?null:m}),true);
-  window.scrollTo(0,$('battleView').offsetTop-10);
+  var bv=$('battleView');bv.style.display='block';showLoader();
+  $('bvTitle').textContent='BATTLE — JUDGING…';
+  window.scrollTo(0,bv.offsetTop-10);
+  setTimeout(function(){renderBout(exhibitionBout({stage:s<0?null:s,criteria:c<0?null:c,mission:m<0?null:m}),true);},80);
 }
 function openBattle(id){
   var n=parseInt(id.slice(8),10);
   if(!n||n<1||n>manifest.bouts){$('results').innerHTML='<p class="note">No battle '+esc(id)+' in the record books yet.</p>';return;}
   var cn=Math.floor((n-1)/100)+1, key='c'+cn;
+  var bv=$('battleView');bv.style.display='block';showLoader();
+  $('bvTitle').textContent='BATTLE — LOADING '+esc(id)+'…';
   var got=chunkCache[key]?Promise.resolve(chunkCache[key]):gz('data/chunks/bouts-c'+String(cn).padStart(5,'0')+'.jsonl.gz').then(function(t){chunkCache[key]=t;return t;});
   got.then(function(t){
     var line=t.split('\n').filter(function(l){return l.indexOf('"id":"'+id+'"')===0;})[0];
-    if(!line){$('results').innerHTML='<p class="note">Battle not found in chunk.</p>';return;}
+    if(!line){hideLoader();$('results').innerHTML='<p class="note">Battle not found in chunk.</p>';return;}
     renderBout(JSON.parse(line));window.scrollTo(0,$('battleView').offsetTop-10);
-  }).catch(function(e){$('results').innerHTML='<p class="note">Could not load battle: '+esc(e.message)+'</p>';});
+  }).catch(function(e){hideLoader();$('results').innerHTML='<p class="note">Could not load battle: '+esc(e.message)+'</p>';});
 }
 function renderBout(b,asModal){
   curBout=b;
+  hideLoader(); /* SITE19-FIX-05 */
+  setBattleHead(b); /* SITE19-FIX-01 */
+  cacheStageName(b.stage.key,b.stage.name); /* SITE19-FIX-06 */
   var bv=$('battleView');
   bv.style.display='block';
   /* FIX-04: user-opened bouts get a scrim + scroll-lock; the initial boot render stays inline */
@@ -360,14 +454,22 @@ function qaAsk(){
   log.innerHTML+='<div class="q">You: '+esc($('qaBox').value.trim())+'</div><div class="a">Scribe: '+esc(a)+'</div>';
   log.scrollTop=log.scrollHeight;$('qaBox').value='';
 }
-/* ---- search ---- */
+/* ---- search: real-time + arena filter + counts ---- */
 function doSearch(){
   var q=$('q').value.trim().toLowerCase();
-  if(!q){return;}
-  var hits=bindex.filter(function(r){return r.join(' ').toLowerCase().indexOf(q)>=0;}).slice(0,20);
-  $('results').innerHTML=hits.length?hits.map(function(r){
-    return '<div class="hit"><a href="?battle='+r[0]+'">'+r[0]+'</a> — '+esc(r[2])+' def. '+esc(r[3]===r[1]?r[4]:r[3])+' · '+esc(r[5])+' · '+esc(r[6])+'…</div>';
-  }).join(''):'<p class="note">No battles match. Try a contender name, a stage, or a mission word.</p>';
+  var fs=$('fStage'),stage=fs?fs.value:'';
+  var hc=$('hitCount');
+  if(!q&&!stage){if(hc)hc.textContent='';return;}
+  var hits=bindex.filter(function(r){
+    if(stage&&r[5]!==stage)return false;
+    return !q||r.join(' ').toLowerCase().indexOf(q)>=0;
+  });
+  var shown=hits.slice(0,20);
+  if(hc)hc.textContent=hits.length+' bout'+(hits.length===1?'':'s');
+  $('results').innerHTML=hits.length?shown.map(function(r){
+    var loser=r[3]===r[1]?r[4]:r[3];
+    return '<div class="hit"><a href="?battle='+r[0]+'">'+r[0]+'</a> — '+esc(r[2])+' def. '+esc(loser)+' · '+esc(stageNameCache[r[5]]||r[5])+' · '+esc(r[6])+'…</div>';
+  }).join('')+(hits.length>20?'<p class="note">Showing 20 of '+hits.length+' — refine your search.</p>':''):'<p class="note">No battles match. Try a contender name, a stage, or a mission word.</p>';
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 </script>

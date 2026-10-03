@@ -1,25 +1,133 @@
 #!/usr/bin/env python3
-"""Build sitemap.xml: home + one ?battle= URL per bout (from data/index.json.gz)."""
-import json, gzip, os
+"""AI Olypics feed + sitemap builder (the 2h bout drip calls this after each run).
+
+Outputs (idempotent, cheap):
+  olypics-catalog.json  - one compact record per bout (id, contenders, winner,
+                          stage, mission, url) - FIX-02 machine feed
+  bouts.html            - pre-rendered static HTML tables (100 bouts/table) so
+                          non-JS bots can ingest bout IDs, contenders, verdicts
+                          - FIX-03 static fallback
+  sitemap.xml           - sitemap INDEX pointing at sitemap-batch-*.xml
+  sitemap-batch-N.xml   - modular sitemap batches (<=1000 bout URLs each) - FIX-02
+robots.txt already points at sitemap.xml (left untouched).
+"""
+import json, os, gzip, html
 from datetime import date
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+DATA = os.path.join(ROOT, 'data')
 BASE = 'https://justinahiggins614-cmyk.github.io/signature-ai-olypics'
 today = date.today().isoformat()
 
-ids = []
-with gzip.open(os.path.join(ROOT, 'data', 'index.json.gz'), 'rt') as f:
+# --- load index rows + roster names ---
+rows = []
+with gzip.open(os.path.join(DATA, 'index.json.gz'), 'rt') as f:
     for line in f:
         if line.strip():
-            ids.append(json.loads(line)[0])
+            rows.append(json.loads(line))
+names = {}
+with open(os.path.join(DATA, 'contenders.json')) as f:
+    for c in json.load(f):
+        names[c['id']] = c.get('name', c['id'])
+stage_names = {}
+try:
+    for f_ in sorted(os.listdir(os.path.join(DATA, 'chunks'))):
+        if f_.endswith('.jsonl.gz'):
+            with gzip.open(os.path.join(DATA, 'chunks', f_), 'rt') as g:
+                for i, line in enumerate(g):
+                    if i > 300:
+                        break
+                    if line.strip():
+                        b = json.loads(line)
+                        stage_names.setdefault(b['stage']['key'], b['stage']['name'])
+            break
+except Exception:
+    pass
 
-urls = [f'<url><loc>{BASE}/</loc><lastmod>{today}</lastmod><changefreq>daily</changefreq></url>']
-for bid in ids:
-    urls.append(f'<url><loc>{BASE}/?battle={bid}</loc><lastmod>{today}</lastmod></url>')
+def esc(s):
+    return html.escape(str(s or ''), quote=True)
 
-sm = ('<?xml version="1.0" encoding="UTF-8"?>\n'
-      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-      + '\n'.join(urls) + '\n</urlset>\n')
-open(os.path.join(ROOT, 'sitemap.xml'), 'w').write(sm)
-print(f"sitemap: {len(urls)} URLs")
+# --- FIX-02: olypics-catalog.json ---
+catalog = []
+for r in rows:
+    bid, wid, wname, c0, c1, stage_key, mission = r
+    catalog.append({
+        'id': bid,
+        'url': BASE + '/?battle=' + bid,
+        'contenders': [
+            {'id': c0, 'name': names.get(c0, c0)},
+            {'id': c1, 'name': names.get(c1, c1)},
+        ],
+        'winner': {'id': wid, 'name': wname},
+        'stage': {'key': stage_key, 'name': stage_names.get(stage_key, stage_key)},
+        'mission': mission,
+    })
+with open(os.path.join(ROOT, 'olypics-catalog.json'), 'w') as f:
+    json.dump({'site': 'AI Olypics', 'updated': today, 'bouts': len(catalog),
+               'records': catalog}, f, indent=1)
+print('catalog: %d bouts -> olypics-catalog.json' % len(catalog))
+
+# --- FIX-03: bouts.html static tables (100 bouts per table) ---
+parts = []
+for i in range(0, len(catalog), 100):
+    batch = catalog[i:i + 100]
+    trs = ['<tr><th>Bout</th><th>Contender A</th><th>Contender B</th>'
+           '<th>Winner</th><th>Stage</th><th>Mission</th></tr>']
+    for b in batch:
+        trs.append('<tr><td><a href="?battle=%s">%s</a></td><td>%s</td><td>%s</td>'
+                   '<td><b>%s</b></td><td>%s</td><td>%s</td></tr>' % (
+            esc(b['id']), esc(b['id']),
+            esc(b['contenders'][0]['name']), esc(b['contenders'][1]['name']),
+            esc(b['winner']['name']), esc(b['stage']['name']), esc(b['mission'])))
+    parts.append('<section><h2 id="batch-%d">Bouts %d&ndash;%d</h2>'
+                 '<table>%s</table></section>' % (
+        i // 100 + 1, i + 1, i + len(batch), ''.join(trs)))
+nav = ' '.join('<a href="#batch-%d">%d&ndash;%d</a>' % (i // 100 + 1, i + 1, min(i + 100, len(catalog)))
+               for i in range(0, len(catalog), 100))
+page = ('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">'
+        '<title>AI Olypics — Bout Record Tables</title>'
+        '<meta name="description" content="Static record tables for every AI Olypics bout: bout ID, contenders, winner, stage, mission.">'
+        '<link rel="canonical" href="%s/bouts.html">' % BASE +
+        '<script type="application/ld+json">' +
+        json.dumps({"@context": "https://schema.org", "@type": "Dataset",
+                    "name": "AI Olypics bout records",
+                    "url": BASE + "/bouts.html",
+                    "creator": {"@type": "Person", "name": "Justin Addam Higgins"},
+                    "description": "Static HTML record tables for every AI Olypics bout."}) +
+        '</script><style>body{font-family:Arial,sans-serif;max-width:1100px;margin:0 auto;padding:16px}'
+        'table{border-collapse:collapse;width:100%%;margin:12px 0;font-size:13px}'
+        'th,td{border:1px solid #999;padding:6px 8px;text-align:left;vertical-align:top}'
+        'th{background:#eee}nav.toc{margin:12px 0;line-height:2}</style></head><body>'
+        '<h1>AI Olypics — Bout Record Tables</h1>'
+        '<p>%d bouts recorded (static, bot-readable). <a href="./">Back to the battle dome</a>.</p>'
+        '<nav class="toc" aria-label="Bout batches">%s</nav>%s</body></html>' % (
+        len(catalog), nav, ''.join(parts)))
+with open(os.path.join(ROOT, 'bouts.html'), 'w') as f:
+    f.write(page)
+print('bouts.html: %d static tables' % len(parts))
+
+# --- FIX-02: modular sitemaps - index + batches of 1000 bout URLs ---
+urls = [BASE + '/', BASE + '/bouts.html']
+urls += [BASE + '/?battle=' + r[0] for r in rows]
+batches = [urls[i:i + 1000] for i in range(0, len(urls), 1000)]
+batch_names = []
+for n, batch in enumerate(batches, 1):
+    name = 'sitemap-batch-%d.xml' % n
+    sm = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+          + '\n'.join('<url><loc>%s</loc><lastmod>%s</lastmod></url>' % (u, today)
+                      for u in batch)
+          + '\n</urlset>\n')
+    with open(os.path.join(ROOT, name), 'w') as f:
+        f.write(sm)
+    batch_names.append(name)
+idx = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+       '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+       + '\n'.join('<sitemap><loc>%s/%s</loc><lastmod>%s</lastmod></sitemap>' % (BASE, n, today)
+                   for n in batch_names)
+       + '\n</sitemapindex>\n')
+with open(os.path.join(ROOT, 'sitemap.xml'), 'w') as f:
+    f.write(idx)
+print('sitemap: %d URLs across %d batch files (index at sitemap.xml)' % (len(urls), len(batch_names)))
