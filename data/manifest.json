@@ -1,7 +1,7 @@
 {
- "bouts": 7000,
+ "bouts": 8000,
  "goal": 1000000,
- "chunks": 70,
+ "chunks": 80,
  "per_chunk": 100,
  "updated": "2026-10-02"
 }
