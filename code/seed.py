@@ -9,7 +9,7 @@ permanent determinism/hash test vectors.
 
 Usage: seed.py --n 2000 [--start 1]
 """
-import json, os, sys, gzip, subprocess, argparse, hashlib
+import json, os, sys, gzip, glob, subprocess, argparse, hashlib
 import datetime
 from record_util import canon, content_hash
 
@@ -66,8 +66,20 @@ assert len(lines) == n, f"expected {n} bouts, got {len(lines)}"
 
 # envelope completion: content_hash over the final record
 idx_rows = []
-chunk_no = (start - 1) // args.per_chunk + 1
-buf = []
+# resume-safe chunk start: the previous run may have left a partially-filled
+# tail chunk (never assume chunks are always full). Scan the chunks dir and,
+# if the newest chunk is short, keep filling it instead of overwriting it.
+existing_chunks = sorted(glob.glob(os.path.join(CHUNKS, 'bouts-c*.jsonl.gz')))
+chunk_no, buf = 1, []
+if existing_chunks:
+    last = existing_chunks[-1]
+    last_no = int(os.path.basename(last)[7:12])
+    with gzip.open(last, 'rt', encoding='utf-8') as f:
+        tail = [l.rstrip('\n') for l in f if l.strip()]
+    if len(tail) >= args.per_chunk:
+        chunk_no = last_no + 1
+    else:
+        chunk_no, buf = last_no, tail  # resume the partial tail chunk
 def flush():
     global chunk_no
     if not buf: return
