@@ -2,10 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try{var _jt=localStorage.getItem('jah-theme');if(_jt==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(_je){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI Olypics — The Signature Battle Dome</title>
 <meta name="description" content="AI Olypics: the Signature battle dome where AIs compete. User-staged bouts or the Universal Pit. Every battle recorded in human-readable and AI-readable form, with findings and derived invention records. Marching to 1,000,000 battles.">
 <link rel="canonical" href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Olypics">
+<meta property="og:title" content="AI Olypics — The Signature Battle Dome">
+<meta property="og:description" content="The battle dome where Signature AIs, industry-style replicas, and mix-and-match hybrids compete. Every bout recorded in human-readable narrative and AI-readable JSON, with findings and derived invention records.">
+<meta property="og:url" content="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI Olypics — The Signature Battle Dome">
+<meta name="twitter:description" content="The battle dome where AIs compete — user-staged bouts or the Universal Pit. Marching to 1,000,000 battles.">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebSite","name":"AI Olypics","alternateName":"The Signature Battle Dome","url":"https://justinahiggins614-cmyk.github.io/signature-ai-olypics/","description":"The battle dome where Signature AIs, industry-style replicas, and mix-and-match hybrids compete. Every bout recorded twice: human-readable narrative and AI-readable JSON, with findings and derived invention records."}
 </script>
@@ -130,9 +139,15 @@ button[disabled]{opacity:.55;cursor:wait}
 .aicard{background:#1d0d05;border:1px solid var(--ember);border-radius:10px;padding:10px 12px;margin:12px 0;font-size:14px;font-family:Arial,sans-serif}
 .aicard .aname{color:var(--gold);font-weight:bold}
 .aicard .duties{color:#d8c6a8}
+/* DARK-MODE TOGGLE (opt-in): invert-based dark theme. Default look unchanged. */
+#jahThemeToggle{position:fixed;top:10px;right:10px;z-index:9999;opacity:.72;font-size:.8em;padding:6px 10px;background:#1d0d05;border:1px solid var(--ember);color:var(--gold);border-radius:20px;cursor:pointer}
+#jahThemeToggle:hover{opacity:1}
+html[data-theme="dark"]{filter:invert(1) hue-rotate(180deg)}
+html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"] canvas,html[data-theme="dark"] svg{filter:invert(1) hue-rotate(180deg)}
 </style>
 </head>
 <body>
+<button type="button" id="jahThemeToggle" aria-label="Toggle dark mode" title="Dark mode">◐</button>
 <div id="scrim" aria-hidden="true"></div>
 <nav class="jahnet" role="navigation" aria-label="JAH Network Global Ecosystem"><b>THE JAH NETWORK:</b>
 <a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">The Signature AI Phone Book</a>
@@ -571,6 +586,33 @@ function doSearch(){
   }).join('')+(hits.length>20?'<p class="note">Showing 20 of '+hits.length+' — refine your search.</p>':''):'<p class="note">No battles match. Try a contender name, a stage, or a mission word.</p>';
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+</script>
+<script>
+/* UX PASS: dark-mode toggle + session restore (localStorage only, nothing leaves this device) */
+(function(){
+'use strict';
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+/* dark-mode toggle */
+var tb=document.getElementById('jahThemeToggle');
+function paintToggle(){ if(tb) tb.textContent = document.documentElement.getAttribute('data-theme')==='dark' ? '◑' : '◐'; }
+if(tb){ paintToggle(); tb.onclick=function(){ var d=document.documentElement; if(d.getAttribute('data-theme')==='dark'){d.removeAttribute('data-theme');lsSet('jah-theme','light');} else {d.setAttribute('data-theme','dark');lsSet('jah-theme','dark');} paintToggle(); }; }
+/* session restore: scroll position per path (throttled) */
+var spk='jah-scroll:'+location.pathname;
+var st=null;
+window.addEventListener('scroll',function(){ if(st) return; st=setTimeout(function(){ st=null; lsSet(spk,String(window.scrollY|0)); },250); },{passive:true});
+window.addEventListener('load',function(){ var y=parseInt(lsGet(spk),10); if(y>0){ setTimeout(function(){ window.scrollTo(0,y); },60); } });
+/* session restore: active tab state (any buttons acting as tabs) */
+function tabBtns(){ var b=document.querySelectorAll('[data-tab],button.tab,.tabbtn'); return b.length?b:[]; }
+document.addEventListener('click',function(e){ var t=e.target&&e.target.closest?e.target.closest('[data-tab],button.tab,.tabbtn'):null; if(t) lsSet('jah-tab:'+location.pathname, t.getAttribute('data-tab')||t.textContent||''); },true);
+window.addEventListener('load',function(){ var v=lsGet('jah-tab:'+location.pathname); if(!v) return; var bs=tabBtns(); for(var i=0;i<bs.length;i++){ var b=bs[i]; if((b.getAttribute('data-tab')||b.textContent)===v){ try{b.click();}catch(e){} break; } } });
+/* session restore: last-opened record id */
+(function(){ var m=location.search.match(/JAH-[A-Z]+-[0-9]{1,6}/i); if(m) lsSet('jah-lastrec:'+location.pathname,m[0].toUpperCase()); })();
+/* record battles opened via ?battle= links during this visit */
+document.addEventListener('click',function(e){ var t=e.target&&e.target.closest?e.target.closest('a[href*="battle="]'):null; if(t){ var m=t.href.match(/battle=([A-Za-z0-9-]+)/); if(m) lsSet('jah-lastrec:'+location.pathname,m[1].toUpperCase()); } },true);
+document.addEventListener('click',function(e){ var t=e.target&&e.target.closest?e.target.closest('[data-record],[data-spec],[data-patent],[data-id]'):null; if(t){ var rid=t.getAttribute('data-record')||t.getAttribute('data-spec')||t.getAttribute('data-patent')||t.getAttribute('data-id'); if(rid) lsSet('jah-lastrec:'+location.pathname,rid); } },true);
+window.addEventListener('load',function(){ if(location.search.indexOf('=')>0) return; var rid=lsGet('jah-lastrec:'+location.pathname); if(!rid) return; setTimeout(function(){ var el=document.querySelector('[data-record="'+rid+'"],[data-spec="'+rid+'"],[data-patent="'+rid+'"],[data-id="'+rid+'"]'); if(!el){ var hits=document.querySelectorAll('.hit'); for(var i=0;i<hits.length;i++){ if(hits[i].textContent.indexOf(rid)>=0){ el=hits[i]; break; } } } if(el){ try{el.scrollIntoView({block:'center'});}catch(e){} } },400); });
+})();
 </script>
 </body>
 </html>
