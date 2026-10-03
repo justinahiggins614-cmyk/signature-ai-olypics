@@ -255,7 +255,7 @@ function init(){
     v[0].split('\n').forEach(function(l){if(l.trim())bindex.push(JSON.parse(l));});
     roster=v[1];manifest=v[2];
     $('marchCount').textContent=manifest.bouts.toLocaleString('en-US');
-    var m=/[?&]battle=(JAH-OLY-\d{6})/.exec(location.search);
+    var m=/[?&]battle=(JAH-OLY-(?:EXH-\d{5}|\d{6}))/.exec(location.search);
     /* SITE19-FIX-06: populate the arena filter from the bout index */
     buildStageFilter();
     if(m)openBattle(m[1]);else openBattle(bindex[bindex.length-1][0]);
@@ -265,7 +265,7 @@ function init(){
   document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.remove('on');});document.querySelectorAll('.tabpane').forEach(function(x){x.classList.remove('on');});b.classList.add('on');$('tp-'+b.getAttribute('data-t')).classList.add('on');};});
   $('btnRead').onclick=readAloud;$('ttsStop').onclick=ttsStop;
   $('btnCopy').onclick=copyBattle;$('btnDLtxt').onclick=function(){dlBattle('txt');};$('btnDLjson').onclick=function(){dlBattle('json');};
-  $('btnLink').onclick=function(){var u=BASE+'?battle='+curBout.id;if(navigator.clipboard)navigator.clipboard.writeText(u);prompt('Battle link:',u);};
+  $('btnLink').onclick=function(){var u=BASE+'?battle='+curBout.id+(curBout.exhibition&&curBout.seed!=null?'&seed='+curBout.seed:'');if(navigator.clipboard)navigator.clipboard.writeText(u);prompt('Battle link:',u);};
   $('btnClose').onclick=closeBattle;
   $('qaAsk').onclick=qaAsk;$('qaBox').addEventListener('keydown',function(e){if(e.key==='Enter')qaAsk();});
   /* SITE19-FIX-06: real-time search (150ms debounce) + arena filter */
@@ -314,7 +314,7 @@ function setBattleHead(b){
   var c0=b.contenders[0],c1=b.contenders[1];
   el.textContent=JSON.stringify({"@context":"https://schema.org","@type":"SportsEvent",
     "name":"AI Olypics bout "+b.id+": "+c0.name+" vs "+c1.name,
-    "url":BASE+'?battle='+b.id,
+    "url":BASE+'?battle='+b.id+(b.exhibition&&b.seed!=null?'&seed='+b.seed:''),
     "identifier":b.id,
     "sport":"AI competition",
     "location":{"@type":"Place","name":b.stage.name},
@@ -352,9 +352,14 @@ function cacheStageName(key,name){
 }
 function exhibitionBout(opts){
   var E=OlyEngine;
-  var seed=(Math.random()*0xffffffff)>>>0;
-  var b=E.bout(0,roster,{seed:seed,stage:opts.stage,criteria:opts.criteria,mission:opts.mission});
-  b.id='JAH-OLY-EXH-'+String(seed%100000).padStart(5,'0');
+  opts=opts||{};
+  /* seed may be supplied (e.g. from a ?battle=JAH-OLY-EXH-#####&seed=N share link)
+   * so the exact same bout regenerates; otherwise a fresh random seed. */
+  var seed=(opts.seed!=null?opts.seed:(Math.random()*0xffffffff))>>>0;
+  /* the FINAL battle ID goes into the engine BEFORE the narrative is baked,
+   * so read-aloud/copy/download carry the right ID (never JAH-OLY-000000). */
+  var exhid='JAH-OLY-EXH-'+String(seed%100000).padStart(5,'0');
+  var b=E.bout(0,roster,{seed:seed,id:exhid,stage:opts.stage,criteria:opts.criteria,mission:opts.mission});
   b.exhibition=true;b.seed=seed;
   b.totals={};b.totals[b.contenders[0].id]=b.rounds.reduce(function(s,rd){return s+rd.moves[0].total;},0);
   b.totals[b.contenders[1].id]=b.rounds.reduce(function(s,rd){return s+rd.moves[1].total;},0);
@@ -375,6 +380,16 @@ function stagedBout(){
   setTimeout(function(){renderBout(exhibitionBout({stage:s<0?null:s,criteria:c<0?null:c,mission:m<0?null:m}),true);},80);
 }
 function openBattle(id){
+  var ex=/^JAH-OLY-EXH-(\d{5})$/.exec(id||'');
+  if(ex){
+    /* exhibition bouts live outside the record books: regenerate deterministically.
+     * A &seed= param reproduces the EXACT shared bout; a bare EXH link falls back
+     * to the id suffix as seed, which always renders with the correct battle ID. */
+    var sm=/[?&]seed=(\d{1,10})/.exec(location.search||'');
+    var sd=sm?(parseInt(sm[1],10)>>>0):(parseInt(ex[1],10)||0);
+    var bv=$('battleView');bv.style.display='block';
+    renderBout(exhibitionBout({seed:sd}));window.scrollTo(0,$('battleView').offsetTop-10);return;
+  }
   var n=parseInt(id.slice(8),10);
   if(!n||n<1||n>manifest.bouts){$('results').innerHTML='<p class="note">No battle '+esc(id)+' in the record books yet.</p>';return;}
   var cn=Math.floor((n-1)/100)+1, key='c'+cn;

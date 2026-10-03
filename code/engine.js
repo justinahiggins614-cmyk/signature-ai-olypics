@@ -163,7 +163,9 @@
     });
     var upset = (statsFor(winner.id).power + statsFor(winner.id).precision) < (statsFor(loser.id).power + statsFor(loser.id).precision);
 
-    var id = 'JAH-OLY-' + String(n).padStart(6, '0');
+    /* idOverride: callers (e.g. exhibition bouts) may supply the final battle ID
+     * up front so the narrative/inventions bake with the CORRECT id from the start. */
+    var id = opts.id != null ? String(opts.id) : 'JAH-OLY-' + String(n).padStart(6, '0');
     var narrative = buildNarrative(id, c1, c2, stage, crit, mission, rounds, winner, loser, margin, t1, t2, bestDim, upset);
     var findings = buildFindings(c1, c2, winner, loser, margin, crit, bestDim, upset, t1, t2);
     var inventions = buildInventions(n, id, winner, loser, crit, mission, bestDim);
