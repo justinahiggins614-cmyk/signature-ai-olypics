@@ -1,7 +1,7 @@
 {
  "manifest_version": "2.0",
  "site": "signature-ai-olypics",
- "generated_at": "2026-10-03T17:55:55+00:00",
+ "generated_at": "2026-10-03T18:00:53+00:00",
  "bouts": 16063,
  "goal": 1000000,
  "bout_id_range": [
@@ -37,6 +37,24 @@
   "count": 30,
   "version": "1"
  },
+ "events": {
+  "count": 8,
+  "version": "1",
+  "ids": [
+   "JAH-OLY-EVENT-01",
+   "JAH-OLY-EVENT-02",
+   "JAH-OLY-EVENT-03",
+   "JAH-OLY-EVENT-04",
+   "JAH-OLY-EVENT-05",
+   "JAH-OLY-EVENT-06",
+   "JAH-OLY-EVENT-07",
+   "JAH-OLY-EVENT-08"
+  ]
+ },
+ "weekly_games": {
+  "count": 1,
+  "latest": "0001"
+ },
  "inventions": {
   "count": 32126,
   "id_range": [
@@ -46,7 +64,7 @@
  },
  "chunks": 161,
  "per_chunk": 100,
- "engine_version": "2.0",
+ "engine_version": "2.1",
  "schema_version": "JAH-OLY-RECORD/2.0",
  "index_version": "1",
  "index_hash": "sha256:0b3b2b338d63eab823545b08684ab988d35397e0774f9c86ac8867bf6b9e5a9e",

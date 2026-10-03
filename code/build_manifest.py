@@ -25,6 +25,10 @@ def build_manifest():
         index_hash = 'sha256:' + hashlib.sha256(f.read()).hexdigest()
     chunk_files = [f for f in os.listdir(os.path.join(DATA, 'chunks'))
                    if f.startswith('bouts-c') and f.endswith('.jsonl.gz')]
+    games_dir = os.path.join(DATA, 'games')
+    games_files = sorted(f for f in os.listdir(games_dir)
+                         if f.startswith('weekly-') and f.endswith('.json')) \
+        if os.path.isdir(games_dir) else []
     man = {
         'manifest_version': '2.0',
         'site': 'signature-ai-olypics',
@@ -37,12 +41,17 @@ def build_manifest():
         'stages': {'count': 12, 'version': '1'},
         'criteria': {'count': 6, 'version': '1', 'weights_verified_sum_to_1': True},
         'missions': {'count': 30, 'version': '1'},
+        'events': {'count': 8, 'version': '1',
+                   'ids': ['JAH-OLY-EVENT-%02d' % i for i in range(1, 9)]},
+        'weekly_games': {'count': len(games_files),
+                         'latest': games_files[-1][len('weekly-'):-len('.json')]
+                         if games_files else None},
         'inventions': {'count': len(rows) * 2,
                        'id_range': ['JAH-OLY-INV-%06d' % 1,
                                     'JAH-OLY-INV-%06d' % (len(rows) * 2)]},
         'chunks': len(chunk_files),
         'per_chunk': 100,
-        'engine_version': '2.0',
+        'engine_version': '2.1',
         'schema_version': 'JAH-OLY-RECORD/2.0',
         'index_version': '1',
         'index_hash': index_hash,

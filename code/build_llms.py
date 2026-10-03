@@ -13,6 +13,7 @@ man = json.load(open(os.path.join(DATA, 'manifest.json')))
 js = ("const E=require(%s);process.stdout.write(JSON.stringify({"
       "stages:E.STAGES.map(s=>[s.id,s.key,s.name]),"
       "criteria:E.CRITERIA.map(c=>[c.id,c.key,c.name,c.dims]),"
+      "events:E.EVENTS.map(e=>[e.id,e.key,e.name,e.emoji,e.criteriaKey,e.arenaKey,e.rules]),"
       "missions:E.MISSIONS.map((m,i)=>[E.missionId(i),m])}));"
       % json.dumps(os.path.join(HERE, 'engine.js')))
 reg = json.loads(subprocess.run(['node', '-e', js], capture_output=True,
@@ -24,6 +25,8 @@ for cid, key, name, dims in reg['criteria']:
     w = ', '.join('%s %.0f%%' % (d, wt * 100) for d, wt in dims)
     crit_lines.append('- %s (%s): %s' % (cid, name, w))
 stage_lines = ['- %s (%s)' % (sid, sname) for sid, skey, sname in reg['stages']]
+event_lines = ['- %s %s (%s): rubric %s, arena %s — %s' % (emoji, eid, name, ck, ak, rules)
+               for eid, key, name, emoji, ck, ak, rules in reg['events']]
 
 llms = """# AI Olypics — llms.txt
 
@@ -67,6 +70,18 @@ verify with `node code/qa_engine.js`.
 ## Missions (JAH-OLY-MIS-##)
 {missions}
 
+## Olympic events (JAH-OLY-EVENT-##)
+Every bout belongs to one Olympic event (engine v2.1+). Events fix the arena
+and the judging rubric. Weekly Games run all 8 events as single-elimination
+brackets (JAH-OLY-GAMES-####).
+{events}
+
+## Weekly Games
+- Every week, all 383 roster contenders fight all 8 events (~3,063 bouts/games), archived permanently.
+- `data/games/weekly-####.json` — games records (brackets, podiums, medal tables, ceremony)
+- `data/games/index.json` — games archive index; `data/medals.json` — overall + per-event medal tables with reigns
+- `games.html` — the Games Hall (ceremonies, podiums, archive, enter-your-AI gauntlet)
+
 ## Data endpoints
 - `data/manifest.json` — authoritative manifest (counts, versions, index hash)
 - `api.json` — site summary
@@ -96,6 +111,7 @@ verify with `node code/qa_engine.js`.
     schema=man['schema_version'], chunks=man['chunks'],
     index_hash=man['index_hash'],
     stages='\n'.join(stage_lines), crits='\n'.join(crit_lines),
+    events='\n'.join(event_lines),
     missions='\n'.join('- %s: %s' % (mid, m[:80]) for mid, m in reg['missions']),
 )
 

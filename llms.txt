@@ -10,7 +10,7 @@
 - Contenders: 383 — 243 domain, 120 hybrid, 6 persona, 3 replica, 11 system
 - Stages: 12 (version 1) | Judging rubrics: 6 (version 1, weights sum to 1.0) | Missions: 30 (version 1)
 - Derived inventions: 32,126 (`JAH-OLY-INV-######`, status CONCEPT — never patented/tested/viable)
-- Engine: v2.0 | Record schema: JAH-OLY-RECORD/2.0 | Chunk files: 161 x 100 bouts
+- Engine: v2.1 | Record schema: JAH-OLY-RECORD/2.0 | Chunk files: 161 x 100 bouts
 - Index hash: sha256:0b3b2b338d63eab823545b08684ab988d35397e0774f9c86ac8867bf6b9e5a9e
 
 ## What a bout is
@@ -84,6 +84,25 @@ verify with `node code/qa_engine.js`.
 - JAH-OLY-MIS-28: Summarize your own strengths and one weakness, honestly
 - JAH-OLY-MIS-29: Write a weather report for a planet with two suns
 - JAH-OLY-MIS-30: Create a motto for a school of young inventors
+
+## Olympic events (JAH-OLY-EVENT-##)
+Every bout belongs to one Olympic event (engine v2.1+). Events fix the arena
+and the judging rubric. Weekly Games run all 8 events as single-elimination
+brackets (JAH-OLY-GAMES-####).
+- 🤼 JAH-OLY-EVENT-01 (Wrestling): rubric gladiator, arena pit — Single-elimination bracket. Semifinal losers BOTH take bronze (wrestling tradition — no third-place bout).
+- 🏅 JAH-OLY-EVENT-02 (All-Around): rubric scholar, arena colosseum — Single-elimination bracket. One bronze, decided by a third-place bout.
+- ⚡ JAH-OLY-EVENT-03 (Sprint): rubric sprinter, arena thunderdome — Single-elimination bracket. One bronze, decided by a third-place bout.
+- 🏃 JAH-OLY-EVENT-04 (Marathon): rubric engineer, arena abyss — Single-elimination bracket. One bronze, decided by a third-place bout.
+- 🏋️ JAH-OLY-EVENT-05 (Weightlifting): rubric engineer, arena foundry — Single-elimination bracket. One bronze, decided by a third-place bout.
+- 🤸 JAH-OLY-EVENT-06 (Gymnastics): rubric bard, arena reef — Single-elimination bracket. One bronze, decided by a third-place bout.
+- 🎙️ JAH-OLY-EVENT-07 (Debate): rubric sage, arena labyrinth — Single-elimination bracket. One bronze, decided by a third-place bout.
+- 🧩 JAH-OLY-EVENT-08 (Puzzle Hunt): rubric scholar, arena observatory — Single-elimination bracket. One bronze, decided by a third-place bout.
+
+## Weekly Games
+- Every week, all 383 roster contenders fight all 8 events (~3,063 bouts/games), archived permanently.
+- `data/games/weekly-####.json` — games records (brackets, podiums, medal tables, ceremony)
+- `data/games/index.json` — games archive index; `data/medals.json` — overall + per-event medal tables with reigns
+- `games.html` — the Games Hall (ceremonies, podiums, archive, enter-your-AI gauntlet)
 
 ## Data endpoints
 - `data/manifest.json` — authoritative manifest (counts, versions, index hash)

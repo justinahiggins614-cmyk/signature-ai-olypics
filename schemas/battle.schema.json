@@ -2,72 +2,275 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://justinahiggins614-cmyk.github.io/signature-ai-olypics/schemas/battle.schema.json",
   "title": "JAH-OLY Battle Record",
-  "description": "JAH-OLY-RECORD/2.0 — one archived or exhibition AI battle. All bouts are SIMULATED unless stated otherwise.",
+  "description": "JAH-OLY-RECORD/2.0 \u2014 one archived or exhibition AI battle. All bouts are SIMULATED unless stated otherwise.",
   "type": "object",
-  "required": ["id", "n", "seed", "engine_version", "battle_version", "status",
-    "execution_mode", "simulation_status", "winner_status",
-    "contenders", "stage", "criteria", "mission",
-    "stage_id", "criteria_id", "mission_id",
-    "rounds", "totals", "winner", "loser", "margin",
-    "narrative", "findings", "inventions", "content_hash"],
+  "required": [
+    "id",
+    "n",
+    "seed",
+    "engine_version",
+    "battle_version",
+    "status",
+    "execution_mode",
+    "simulation_status",
+    "winner_status",
+    "contenders",
+    "stage",
+    "criteria",
+    "mission",
+    "stage_id",
+    "criteria_id",
+    "mission_id",
+    "rounds",
+    "totals",
+    "winner",
+    "loser",
+    "margin",
+    "narrative",
+    "findings",
+    "inventions",
+    "content_hash"
+  ],
   "properties": {
-    "id": { "type": "string", "pattern": "^JAH-OLY-(\\d{6}|EXH-\\d{5}|USER-\\d{4})$" },
-    "n": { "type": ["integer", "null"], "description": "Archive sequence number; null for exhibitions" },
-    "seed": { "type": "integer", "description": "Deterministic seed; same seed + inputs = same bout" },
-    "engine_version": { "type": "string", "enum": ["1", "2.0"] },
-    "battle_version": { "type": "integer" },
-    "status": { "type": "string", "enum": ["ARCHIVED", "EXHIBITION", "PENDING", "NO-CONTEST", "DISQUALIFIED", "INCOMPLETE", "FAILED-TO-EXECUTE"] },
-    "execution_mode": { "type": "string", "enum": ["SIMULATED"] },
-    "simulation_status": { "type": "string", "enum": ["SIMULATED"] },
-    "winner_status": { "type": "string", "enum": ["WINNER", "DRAW", "NO-CONTEST", "DISQUALIFIED", "INCOMPLETE", "FAILED-TO-EXECUTE", "PENDING"] },
-    "tiebreak": { "type": "string", "description": "Present on exact ties: TIE_RULE_FIRST_LISTED" },
-    "contenders": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "contender.schema.json" } },
-    "stage": { "$ref": "stage.schema.json" },
-    "criteria": { "$ref": "criteria.schema.json" },
-    "mission": { "type": "string" },
-    "stage_id": { "type": "string", "pattern": "^JAH-OLY-STAGE-\\d{2}$" },
-    "stage_version": { "type": "string" },
-    "criteria_id": { "type": "string", "pattern": "^JAH-OLY-CRIT-\\d{2}$" },
-    "rubric_version": { "type": "string" },
-    "mission_id": { "type": "string", "pattern": "^JAH-OLY-MIS-\\d{2}$" },
-    "mission_version": { "type": "string" },
+    "id": {
+      "type": "string",
+      "pattern": "^JAH-OLY-(\\d{6}|EXH-\\d{5}|USER-\\d{4})$"
+    },
+    "n": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Archive sequence number; null for exhibitions"
+    },
+    "seed": {
+      "type": "integer",
+      "description": "Deterministic seed; same seed + inputs = same bout"
+    },
+    "engine_version": {
+      "type": "string",
+      "enum": [
+        "1",
+        "2.0",
+        "2.1"
+      ]
+    },
+    "battle_version": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ARCHIVED",
+        "EXHIBITION",
+        "PENDING",
+        "NO-CONTEST",
+        "DISQUALIFIED",
+        "INCOMPLETE",
+        "FAILED-TO-EXECUTE"
+      ]
+    },
+    "execution_mode": {
+      "type": "string",
+      "enum": [
+        "SIMULATED"
+      ]
+    },
+    "simulation_status": {
+      "type": "string",
+      "enum": [
+        "SIMULATED"
+      ]
+    },
+    "winner_status": {
+      "type": "string",
+      "enum": [
+        "WINNER",
+        "DRAW",
+        "NO-CONTEST",
+        "DISQUALIFIED",
+        "INCOMPLETE",
+        "FAILED-TO-EXECUTE",
+        "PENDING"
+      ]
+    },
+    "tiebreak": {
+      "type": "string",
+      "description": "Present on exact ties: TIE_RULE_FIRST_LISTED"
+    },
+    "contenders": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "$ref": "contender.schema.json"
+      }
+    },
+    "stage": {
+      "$ref": "stage.schema.json"
+    },
+    "criteria": {
+      "$ref": "criteria.schema.json"
+    },
+    "mission": {
+      "type": "string"
+    },
+    "stage_id": {
+      "type": "string",
+      "pattern": "^JAH-OLY-STAGE-\\d{2}$"
+    },
+    "stage_version": {
+      "type": "string"
+    },
+    "criteria_id": {
+      "type": "string",
+      "pattern": "^JAH-OLY-CRIT-\\d{2}$"
+    },
+    "rubric_version": {
+      "type": "string"
+    },
+    "mission_id": {
+      "type": "string",
+      "pattern": "^JAH-OLY-MIS-\\d{2}$"
+    },
+    "mission_version": {
+      "type": "string"
+    },
     "rounds": {
-      "type": "array", "minItems": 3, "maxItems": 3,
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
       "items": {
         "type": "object",
-        "required": ["n", "moves", "winner"],
+        "required": [
+          "n",
+          "moves",
+          "winner"
+        ],
         "properties": {
-          "n": { "type": "integer" },
+          "n": {
+            "type": "integer"
+          },
           "moves": {
-            "type": "array", "minItems": 2, "maxItems": 2,
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
             "items": {
               "type": "object",
-              "required": ["contender", "name", "text", "verb", "noun", "scores", "total"],
+              "required": [
+                "contender",
+                "name",
+                "text",
+                "verb",
+                "noun",
+                "scores",
+                "total"
+              ],
               "properties": {
-                "contender": { "type": "string" },
-                "name": { "type": "string" },
-                "text": { "type": "string" },
-                "verb": { "type": "string" },
-                "noun": { "type": "string" },
-                "scores": { "type": "object", "additionalProperties": { "type": "number" } },
-                "total": { "type": "number" }
+                "contender": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "verb": {
+                  "type": "string"
+                },
+                "noun": {
+                  "type": "string"
+                },
+                "scores": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number"
+                  }
+                },
+                "total": {
+                  "type": "number"
+                }
               }
             }
           },
-          "winner": { "type": "string" }
+          "winner": {
+            "type": "string"
+          }
         }
       }
     },
-    "totals": { "type": "object", "additionalProperties": { "type": "number" } },
-    "winner": { "$ref": "contender.schema.json" },
-    "loser": { "$ref": "contender.schema.json" },
-    "margin": { "type": "number", "description": "winner total minus loser total, 1 decimal" },
-    "narrative": { "type": "string", "description": "Generated story; never overrides the record" },
-    "findings": { "type": "array", "items": { "$ref": "finding.schema.json" } },
-    "inventions": { "type": "array", "items": { "$ref": "invention.schema.json" } },
-    "created": { "type": "string", "format": "date-time" },
-    "exhibition": { "type": "boolean" },
-    "content_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$",
-      "description": "SHA-256 of canonical JSON (sorted keys, no spaces) of the record minus content_hash" }
+    "totals": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "winner": {
+      "$ref": "contender.schema.json"
+    },
+    "loser": {
+      "$ref": "contender.schema.json"
+    },
+    "margin": {
+      "type": "number",
+      "description": "winner total minus loser total, 1 decimal"
+    },
+    "narrative": {
+      "type": "string",
+      "description": "Generated story; never overrides the record"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "finding.schema.json"
+      }
+    },
+    "inventions": {
+      "type": "array",
+      "items": {
+        "$ref": "invention.schema.json"
+      }
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "exhibition": {
+      "type": "boolean"
+    },
+    "content_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "SHA-256 of canonical JSON (sorted keys, no spaces) of the record minus content_hash"
+    },
+    "event": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Olympic event (engine v2.1+); null for pre-Olympic bouts"
+    },
+    "event_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(JAH-OLY-EVENT-\\d{2})$"
+    },
+    "event_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "games_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(JAH-OLY-GAMES-\\d{4})$",
+      "description": "Weekly Games this bout belongs to, if any"
+    }
   }
 }

@@ -115,7 +115,14 @@ with open(os.path.join(ROOT, 'bouts.html'), 'w') as f:
 print('bouts.html: %d static tables' % len(parts))
 
 # --- FIX-02: modular sitemaps - index + batches of 1000 bout URLs ---
-urls = [BASE + '/', BASE + '/bouts.html']
+urls = [BASE + '/', BASE + '/bouts.html', BASE + '/games.html']
+# weekly games deep links
+games_dir = os.path.join(DATA, 'games')
+if os.path.isdir(games_dir):
+    for gf in sorted(os.listdir(games_dir)):
+        if gf.startswith('weekly-') and gf.endswith('.json'):
+            gid = 'JAH-OLY-GAMES-' + gf[len('weekly-'):-len('.json')]
+            urls.append(BASE + '/games.html?games=' + gid)
 urls += [BASE + '/?battle=' + r[0] for r in rows]
 batches = [urls[i:i + 1000] for i in range(0, len(urls), 1000)]
 batch_names = []

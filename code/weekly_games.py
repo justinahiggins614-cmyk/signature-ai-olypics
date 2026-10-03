@@ -314,6 +314,15 @@ def main():
     gp = os.path.join(games_dir, 'weekly-%04d.json' % week)
     json.dump(games_rec, open(gp, 'w'), indent=1)
 
+    # games index (for the Games Hall archive list)
+    idx = []
+    for p in sorted(glob.glob(os.path.join(games_dir, 'weekly-*.json'))):
+        g = json.load(open(p))
+        idx.append({'games_id': g['games_id'], 'week': g['week'],
+                    'week_start': g['week_start'], 'bout_count': g['bout_count'],
+                    'contenders': g['contenders']})
+    json.dump(idx, open(os.path.join(games_dir, 'index.json'), 'w'), indent=1)
+
     # rebuild derived artifacts
     from build_manifest import build_manifest
     man = build_manifest()
