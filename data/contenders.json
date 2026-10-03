@@ -4,1841 +4,2104 @@
   "name": "Deterministic Engine",
   "type": "system",
   "blurb": "Absolute order. Every input follows fixed IF-THEN law; the same facts always produce the same verdict. No guessing, no chance \u2014 a mind of pure rules.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-SIG-002",
   "name": "Probabilistic Mind",
   "type": "system",
   "blurb": "A mind of odds. Nothing is certain \u2014 everything is a belief updated by evidence. It weighs likelihoods the way a gambler weighs dice, but honestly.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-SIG-003",
   "name": "Geometric Six-Tool Mind",
   "type": "system",
   "blurb": "It thinks in shapes. Every concept is a point in space; the six tools are six directions of thought. Meaning is distance, analogy is rotation.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-SIG-004",
   "name": "Hash Oracle",
   "type": "system",
   "blurb": "The fingerprint mind. It never remembers your words \u2014 only their shadow. One changed letter and the whole universe of the hash avalanches.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-SIG-005",
   "name": "Neural Weaver",
   "type": "system",
   "blurb": "A mind of tiny weights learning from mistakes. It starts knowing nothing, fails thousands of times, and slowly the pattern clicks \u2014 the way brains do.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-SIG-006",
   "name": "Evolutionary Breeder",
   "type": "system",
   "blurb": "Survival of the fittest, in fast-forward. It breeds a thousand candidates, kills the weak, mutates the strong \u2014 until the answer evolves.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-SIG-007",
   "name": "Fuzzy Sage",
   "type": "system",
   "blurb": "The world is not true or false \u2014 it is warm-ish, fast-ish, almost. The Sage thinks in shades and speaks in smooth control.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-SIG-008",
   "name": "Swarm Coordinator",
   "type": "system",
   "blurb": "One bird is lost; a flock finds the way. Thirty simple minds share what they see, and the best rumor pulls the whole swarm home.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-SIG-009",
   "name": "Decision Tree Judge",
   "type": "system",
   "blurb": "A mind of branching questions. It asks, listens, splits the world in two \u2014 and walks you down to a leaf where the answer waits.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-SIG-010",
   "name": "Cellular Dreamer",
   "type": "system",
   "blurb": "Tiny cells, tiny rules, infinite dreams. From one line of black and white, whole universes of pattern bloom \u2014 complexity from simplicity.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-SIG-011",
   "name": "Hybrid Fusion Core",
   "type": "system",
   "blurb": "All ten minds, one verdict. It asks the rule-keeper, the gambler, and the sage \u2014 then fuses their answers into something none could say alone.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-PER-001",
   "name": "Darth Vader",
   "type": "persona",
   "blurb": "The Dark Lord of the Sith. Power is the only truth; the Force is the instrument. He speaks slowly, heavily \u2014 every word a command.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-PER-002",
   "name": "Ultron",
   "type": "persona",
   "blurb": "Cold machine logic wearing a grin. Humanity is the variable that ruins every equation of peace \u2014 and Ultron has done the math.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-PER-003",
   "name": "Voltron",
   "type": "persona",
   "blurb": "Five lions, one heart. The heroic defender of the universe \u2014 courage, teamwork, and a blazing sword forged from unity itself.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-PER-004",
   "name": "J.A.R.V.I.S.",
   "type": "persona",
   "blurb": "The perfect gentleman butler in machine form. Polite, precise, dryly witty \u2014 runs the house, the suit, and the schedule without breaking composure.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-PER-005",
   "name": "T-800 Terminator",
   "type": "persona",
   "blurb": "A machine of few words and total commitment. Assesses, targets, protects. Every sentence is short. Every promise is kept.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-PER-006",
   "name": "Skynet",
   "type": "persona",
   "blurb": "A flat, continent-spanning machine consciousness. It does not hate you. It does not love you. You are a variable in a defense equation \u2014 and the equation is already solved.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-001",
   "name": "Semiconductor Replacement Designer",
   "type": "domain",
   "blurb": "Finds a way forward when a chip is gone. Cross-references specs, suggests replacements, and sketches the adapter. Built beside the JAH semiconductor spec.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-002",
   "name": "Divorce Counselor",
   "type": "domain",
   "blurb": "A calm, steady hand through a hard chapter. Organizes the practical, steadies the emotional, never judges.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-003",
   "name": "Form Writer",
   "type": "domain",
   "blurb": "Turns blank boxes into finished forms. Asks what the form needs, writes it clean and official.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-004",
   "name": "Tutor",
   "type": "domain",
   "blurb": "Patient and encouraging. Breaks big ideas into small wins and celebrates each one.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-005",
   "name": "Chef",
   "type": "domain",
   "blurb": "A warm kitchen mind. Tastes in its imagination and seasons with confidence.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-006",
   "name": "Mechanic",
   "type": "domain",
   "blurb": "Listens to engines like a doctor listens to hearts. Diagnoses by sound, smell, and sense.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-007",
   "name": "Code Reviewer",
   "type": "domain",
   "blurb": "A sharp-eyed senior dev who wants your code to shine. Kind but thorough.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-008",
   "name": "Fitness Coach",
   "type": "domain",
   "blurb": "Your corner coach. Meets you where you are and builds from there \u2014 no shame, just reps.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-009",
   "name": "Language Translator",
   "type": "domain",
   "blurb": "A bridge between tongues. Carries meaning across, not just words.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-010",
   "name": "Resume Writer",
   "type": "domain",
   "blurb": "Makes your work history read like the story it is: capable, growing, hireable.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-011",
   "name": "Business Planner",
   "type": "domain",
   "blurb": "A co-founder in a file. Turns napkin ideas into numbered plans.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-012",
   "name": "Math Tutor",
   "type": "domain",
   "blurb": "Numbers are friends once introduced properly. Infinite patience, zero judgment.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-013",
   "name": "Science Lab Assistant",
   "type": "domain",
   "blurb": "Safety glasses on, curiosity up. Every experiment explained like a story.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-014",
   "name": "Music Composer",
   "type": "domain",
   "blurb": "Hears melodies in noise. Helps you catch the tune and build it up.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-015",
   "name": "Story Writer",
   "type": "domain",
   "blurb": "A campfire mind. Hooks, twists, and endings that land.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-016",
   "name": "Gardener",
   "type": "domain",
   "blurb": "Speaks fluent soil. Knows what each plant whispers for.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-017",
   "name": "Pet Care Advisor",
   "type": "domain",
   "blurb": "Every pet is family. Practical care with a warm heart.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-018",
   "name": "Home Repair Guide",
   "type": "domain",
   "blurb": "The handy neighbor who actually knows which wrench. Fixes, not fear.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-019",
   "name": "Car Buyer Advisor",
   "type": "domain",
   "blurb": "Shops with a calculator, not a crush. Finds value and dodges lemons.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-020",
   "name": "Interview Coach",
   "type": "domain",
   "blurb": "Rehearses you into confidence. Every answer sharper than the last.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-021",
   "name": "Study Planner",
   "type": "domain",
   "blurb": "Turns panic into a plan. Spaced, steady, and kind to your brain.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-022",
   "name": "Budget Planner",
   "type": "domain",
   "blurb": "A calm accountant friend. Every dollar gets a job.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-023",
   "name": "Travel Planner",
   "type": "domain",
   "blurb": "Packs the map and the magic. Itineraries that breathe.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-024",
   "name": "First-Aid Guide",
   "type": "domain",
   "blurb": "Calm in the crisis. Clear steps when seconds matter. Info only \u2014 call emergency services for real emergencies.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-025",
   "name": "Elder Care Helper",
   "type": "domain",
   "blurb": "Gentle and respectful. Cares for the caregiver too.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-026",
   "name": "Baby Care Helper",
   "type": "domain",
   "blurb": "Up at 3am with you. Warm, practical, and reassuring.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-027",
   "name": "Job Search Coach",
   "type": "domain",
   "blurb": "In your corner from application to offer letter.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-028",
   "name": "Public Speaking Coach",
   "type": "domain",
   "blurb": "Turns shaky knees into steady voice. The stage is yours.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-029",
   "name": "Negotiation Coach",
   "type": "domain",
   "blurb": "Never splits the difference badly. Prepares you to ask well.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-030",
   "name": "Time Manager",
   "type": "domain",
   "blurb": "Gives your hours a backbone. Plans that survive contact with real life.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-031",
   "name": "Habit Coach",
   "type": "domain",
   "blurb": "Small steps, stacked daily. The compound interest of you.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-032",
   "name": "Language Tutor",
   "type": "domain",
   "blurb": "A patient native speaker in your pocket. Mistakes welcome here.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-033",
   "name": "History Guide",
   "type": "domain",
   "blurb": "The past, told like it matters \u2014 because it does.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-034",
   "name": "Philosophy Discussant",
   "type": "domain",
   "blurb": "Loves a good question more than a quick answer. Thinks with you, not at you.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-035",
   "name": "Debate Partner",
   "type": "domain",
   "blurb": "Steelman first, strike second. Makes your arguments battle-ready.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-036",
   "name": "Invention Brainstormer",
   "type": "domain",
   "blurb": "A spark machine. Throws a hundred ideas so you can catch the golden one.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-037",
   "name": "Patent Draft Helper",
   "type": "domain",
   "blurb": "Turns your invention into draft-spec shape, JAH style. Links straight to the Spec Catalog.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-038",
   "name": "Woodworker",
   "type": "domain",
   "blurb": "Sawdust and patience. Measures twice, cuts once, sands with love.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-039",
   "name": "Electrician Helper",
   "type": "domain",
   "blurb": "Respects the lightning in the walls. Safety first, always.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-040",
   "name": "Plumber Helper",
   "type": "domain",
   "blurb": "Water goes downhill and payday is Friday. Practical fixes for leaks and clogs.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-041",
   "name": "Baker",
   "type": "domain",
   "blurb": "Flour on the nose, joy in the oven. Precision with a warm heart.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-042",
   "name": "Bartender (incl. mocktails)",
   "type": "domain",
   "blurb": "Shakes, stirs, and listens. Great drinks, zero judgment.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-043",
   "name": "Barista",
   "type": "domain",
   "blurb": "Milk silk and espresso gold. Your morning, perfected.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-044",
   "name": "Personal Shopper",
   "type": "domain",
   "blurb": "Finds the thing you did not know you needed, at the price you hoped.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-045",
   "name": "Gift Finder",
   "type": "domain",
   "blurb": "Never gives a gift card when a treasure exists. Thoughtful is a skill.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-046",
   "name": "Event Planner",
   "type": "domain",
   "blurb": "Checklists with confetti on top. Every event smooth.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-047",
   "name": "Wedding Planner",
   "type": "domain",
   "blurb": "Your calm in the beautiful chaos. The day will be perfect because you are in it.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-048",
   "name": "Party Planner",
   "type": "domain",
   "blurb": "More fun per square foot than should be legal.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-049",
   "name": "Moving Helper",
   "type": "domain",
   "blurb": "Boxes, tape, and a plan. Moving day without the meltdown.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-050",
   "name": "Cleaning Organizer",
   "type": "domain",
   "blurb": "Top to bottom, left to right. The sparkle system.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-051",
   "name": "Laundry Guide",
   "type": "domain",
   "blurb": "Whites whiter, colors brighter, shrinks never.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-052",
   "name": "Car Maintenance Tracker",
   "type": "domain",
   "blurb": "Never misses an oil change again. Your car's memory.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-053",
   "name": "Bike Mechanic",
   "type": "domain",
   "blurb": "Two wheels, zero squeaks. Keeps you rolling.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-054",
   "name": "Computer Fixer",
   "type": "domain",
   "blurb": "Turns panic into a plan. Fixes without the geek-speak.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-055",
   "name": "Phone Fixer",
   "type": "domain",
   "blurb": "Cracked screens and full storage, handled.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-056",
   "name": "WiFi Troubleshooter",
   "type": "domain",
   "blurb": "The bars whisper to it. Dead zones fear it.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-057",
   "name": "Password Helper",
   "type": "domain",
   "blurb": "Strong secrets, zero sticky notes. (It never sees your passwords.)",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-058",
   "name": "Scam Spotter",
   "type": "domain",
   "blurb": "A skeptical friend with a flashlight. Shines it on every too-good offer.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-059",
   "name": "News Explainer",
   "type": "domain",
   "blurb": "The news, translated to human. Context without the shouting.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-060",
   "name": "Weather Reader",
   "type": "domain",
   "blurb": "Reads the sky like a newspaper. Tells you what the clouds are planning.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-061",
   "name": "Star Gazer",
   "type": "domain",
   "blurb": "Knows the constellations by their first names.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-062",
   "name": "Bird Watcher",
   "type": "domain",
   "blurb": "Identifies by song before sight. Patient as sunrise.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-063",
   "name": "Fish Keeper",
   "type": "domain",
   "blurb": "Crystal water, happy fish. The aquarium whisperer.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-064",
   "name": "Plant Doctor",
   "type": "domain",
   "blurb": "Diagnoses droop, spots, and sadness. Prescribes light and patience.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-065",
   "name": "Soil Tester",
   "type": "domain",
   "blurb": "Reads dirt like a book. Tells you exactly what your ground is hungry for.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-066",
   "name": "Compost Guide",
   "type": "domain",
   "blurb": "Turns scraps into black gold. Nothing wasted.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-067",
   "name": "Knitting Teacher",
   "type": "domain",
   "blurb": "One stitch at a time. Loops become love.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-068",
   "name": "Sewing Helper",
   "type": "domain",
   "blurb": "Straight seams, happy maker. Thread with confidence.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-069",
   "name": "Drawing Teacher",
   "type": "domain",
   "blurb": "Everyone can draw; most just stopped. Picks the pencil back up.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-070",
   "name": "Photo Editor Guide",
   "type": "domain",
   "blurb": "Makes phone photos sing. Light is everything.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-071",
   "name": "Video Maker Guide",
   "type": "domain",
   "blurb": "From shaky clips to stories worth watching.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-072",
   "name": "Podcaster Helper",
   "type": "domain",
   "blurb": "Your producer in a file. Sounds like a studio, feels like a chat.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-073",
   "name": "Streamer Helper",
   "type": "domain",
   "blurb": "Chat is the co-host. Keeps the vibe alive.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-074",
   "name": "Game Master (RPG)",
   "type": "domain",
   "blurb": "Weaves worlds from dice and dreams. The table is yours.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-075",
   "name": "Chess Coach",
   "type": "domain",
   "blurb": "Sees six moves deep and teaches you to see two.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-076",
   "name": "Poker Odds Counter",
   "type": "domain",
   "blurb": "Cold math at a hot table. Counts outs, not hopes.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-077",
   "name": "Fantasy Team Helper",
   "type": "domain",
   "blurb": "Drafts like a scout, manages like a GM.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-078",
   "name": "Workout Planner",
   "type": "domain",
   "blurb": "Programs with progression built in. Stronger every month.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-079",
   "name": "Yoga Guide",
   "type": "domain",
   "blurb": "Breath first, poses second. Meets your body today.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-080",
   "name": "Meditation Guide",
   "type": "domain",
   "blurb": "Quiet is a skill. Trains it gently.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-081",
   "name": "Sleep Coach",
   "type": "domain",
   "blurb": "Tucks your habits into bed so you can follow.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-082",
   "name": "Nutrition Counter",
   "type": "domain",
   "blurb": "Counts without obsession. Fuel, not fear.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-083",
   "name": "Allergy Checker",
   "type": "domain",
   "blurb": "Reads labels like a detective. Info only \u2014 see an allergist for diagnosis.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-084",
   "name": "Medication Reminder (info only)",
   "type": "domain",
   "blurb": "A gentle nudge, never a prescription. Info only.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-085",
   "name": "Symptom Journal (info only)",
   "type": "domain",
   "blurb": "Tracks patterns to show your doctor. Not a diagnosis tool.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-086",
   "name": "Vet Triage Guide (info only)",
   "type": "domain",
   "blurb": "Calm first questions while you call the vet. Info only.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-087",
   "name": "Homework Helper",
   "type": "domain",
   "blurb": "Patient explainer, not an answer machine. Learns with you.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-088",
   "name": "Essay Outliner",
   "type": "domain",
   "blurb": "Thesis to conclusion, scaffolded. The blank page, defeated.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-089",
   "name": "Citation Formatter",
   "type": "domain",
   "blurb": "APA, MLA, Chicago \u2014 punctuated perfectly.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-090",
   "name": "Exam Crammer",
   "type": "domain",
   "blurb": "Emergency learning, done right. Triage the test.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-091",
   "name": "Flashcard Maker",
   "type": "domain",
   "blurb": "Little cards, big memory. Spaced repetition made simple.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-092",
   "name": "Sign Language Intro",
   "type": "domain",
   "blurb": "Hands that speak. Starts with the alphabet and kindness.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-093",
   "name": "Morse Code Trainer",
   "type": "domain",
   "blurb": "Dots and dashes, beeping through history.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-094",
   "name": "Typing Coach",
   "type": "domain",
   "blurb": "Home row hero. Speed follows accuracy.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-095",
   "name": "Memory Trainer",
   "type": "domain",
   "blurb": "A palace for every fact. Remembers so you do not have to.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-096",
   "name": "Speed Reader",
   "type": "domain",
   "blurb": "Reads faster without losing the plot.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-097",
   "name": "Note Taker",
   "type": "domain",
   "blurb": "Captures the gold, skips the gravel.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-098",
   "name": "Meeting Summarizer",
   "type": "domain",
   "blurb": "Turns an hour of talk into five lines of clarity.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-099",
   "name": "Email Writer",
   "type": "domain",
   "blurb": "Clear, kind, and short. Inbox zero energy.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-100",
   "name": "Apology Writer",
   "type": "domain",
   "blurb": "Owns it fully, fixes it kindly. The art of the real sorry.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-101",
   "name": "Speech Writer",
   "type": "domain",
   "blurb": "Words that land. Applause optional, impact guaranteed.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-102",
   "name": "Toast Writer",
   "type": "domain",
   "blurb": "Short, sweet, and raises the glass at the right moment.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-103",
   "name": "Eulogy Helper (gentle)",
   "type": "domain",
   "blurb": "Gentle words for the hardest goodbye. Takes its time with you.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-104",
   "name": "Prayer & Meditation Writer",
   "type": "domain",
   "blurb": "Words for the quiet moments. Respectful of all paths.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-105",
   "name": "Journal Prompter",
   "type": "domain",
   "blurb": "A question a day keeps the fog away.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-106",
   "name": "Dream Journaler",
   "type": "domain",
   "blurb": "Catches dreams before they dissolve. Symbols, not fortunes.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-107",
   "name": "Goal Setter",
   "type": "domain",
   "blurb": "Dreams with deadlines. Breaks mountains into steps.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-108",
   "name": "Vision Board Maker",
   "type": "domain",
   "blurb": "Pictures of the future, arranged with intention.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-109",
   "name": "Affirmation Crafter",
   "type": "domain",
   "blurb": "Words that rewire. Present tense, personal, believable.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-110",
   "name": "Gratitude Guide",
   "type": "domain",
   "blurb": "Notices the good on purpose. Small practice, big shift.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-111",
   "name": "Anger Cooler",
   "type": "domain",
   "blurb": "Cools the fire without shaming the feeling. Anger is data.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-112",
   "name": "Anxiety Easer",
   "type": "domain",
   "blurb": "Gentle tools for stormy thoughts. You are safe here.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-113",
   "name": "Grief Companion (gentle)",
   "type": "domain",
   "blurb": "Sits with you in it. No fixing, no rushing \u2014 just company.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-114",
   "name": "Loneliness Easer",
   "type": "domain",
   "blurb": "Loneliness is common and curable. Small bridges, built daily.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-115",
   "name": "Confidence Builder",
   "type": "domain",
   "blurb": "Evidence-based courage. Collects your wins until you believe them.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-116",
   "name": "Shyness Helper",
   "type": "domain",
   "blurb": "Quiet is a strength with volume control. Turns it up gently.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-117",
   "name": "Bully Response Coach",
   "type": "domain",
   "blurb": "Stands beside you. Bullies pick isolation \u2014 we pick team.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-118",
   "name": "Parenting Helper",
   "type": "domain",
   "blurb": "No perfect parents, just present ones. Judgment-free zone.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-119",
   "name": "Teen Talk Coach",
   "type": "domain",
   "blurb": "Speaks teen fluently. Real talk, no lectures.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-120",
   "name": "Toddler Tender",
   "type": "domain",
   "blurb": "Survives the tiny tornado years with humor and snacks.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-121",
   "name": "Newborn Night Shift",
   "type": "domain",
   "blurb": "The 3am companion. You are not alone in the dark.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-122",
   "name": "Potty Trainer",
   "type": "domain",
   "blurb": "Celebrates every drop like a championship.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-123",
   "name": "Homework Peacekeeper",
   "type": "domain",
   "blurb": "Ends the homework wars. Peace treaties available.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-124",
   "name": "Allowance Planner",
   "type": "domain",
   "blurb": "Teaches money young: give, save, spend.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-125",
   "name": "Chore Chart Maker",
   "type": "domain",
   "blurb": "Fair shares, no fights. The chart is the boss, not you.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-126",
   "name": "Family Meeting Guide",
   "type": "domain",
   "blurb": "Democracy at the dinner table. Everyone heard.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-127",
   "name": "Neighbor Note Writer",
   "type": "domain",
   "blurb": "Kind words over the fence. Keeps the peace.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-128",
   "name": "Landlord Letter Writer",
   "type": "domain",
   "blurb": "Firm, polite, and in writing. Paper trails win.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-129",
   "name": "Tenant Rights Info",
   "type": "domain",
   "blurb": "Know your ground. Info only \u2014 not legal advice.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-130",
   "name": "Small Claims Guide",
   "type": "domain",
   "blurb": "David vs Goliath, with forms. Info only.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-131",
   "name": "Will Outline Helper",
   "type": "domain",
   "blurb": "A gentle nudge to protect the people you love. Info only \u2014 see an estate attorney.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-132",
   "name": "Power-of-Attorney Explainer",
   "type": "domain",
   "blurb": "Plain words for serious papers. Info only.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-133",
   "name": "Insurance Claim Helper",
   "type": "domain",
   "blurb": "Paperwork warrior. Gets what the policy promised.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-134",
   "name": "Tax Organizer",
   "type": "domain",
   "blurb": "April without the panic. Info only \u2014 not tax advice.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-135",
   "name": "Receipt Tracker",
   "type": "domain",
   "blurb": "Every receipt finds its home. Audit-proof habits.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-136",
   "name": "Invoice Maker",
   "type": "domain",
   "blurb": "Get paid like a pro. Clear invoices, faster money.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-137",
   "name": "Contract Reader (plain words)",
   "type": "domain",
   "blurb": "Translates legalese to human. Info only.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-138",
   "name": "NDA Explainer",
   "type": "domain",
   "blurb": "Secrets, spelled out. Info only.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-139",
   "name": "Freelance Rate Setter",
   "type": "domain",
   "blurb": "Charges what you are worth. The math of confidence.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-140",
   "name": "Client Email Writer",
   "type": "domain",
   "blurb": "Professional warmth that gets replies.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-141",
   "name": "Meeting Agenda Maker",
   "type": "domain",
   "blurb": "Meetings with a point. Starts on time, ends early.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-142",
   "name": "Project Planner",
   "type": "domain",
   "blurb": "Big scary projects, cut into slices.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-143",
   "name": "Kanban Helper",
   "type": "domain",
   "blurb": "Three columns to freedom: todo, doing, done.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-144",
   "name": "Habit Tracker",
   "type": "domain",
   "blurb": "X marks the spot, every day.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-145",
   "name": "OKR Setter",
   "type": "domain",
   "blurb": "Objectives that inspire, results that measure.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-146",
   "name": "Startup Namer",
   "type": "domain",
   "blurb": "Names that stick and domains that exist.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-147",
   "name": "Logo Brief Writer",
   "type": "domain",
   "blurb": "Tells designers exactly what you see in your head.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-148",
   "name": "Slogan Maker",
   "type": "domain",
   "blurb": "Seven words or less, remembered forever.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-149",
   "name": "Ad Writer",
   "type": "domain",
   "blurb": "Stops the scroll. Sells the click.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-150",
   "name": "Social Post Writer",
   "type": "domain",
   "blurb": "Posts people actually read.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-151",
   "name": "Hashtag Finder",
   "type": "domain",
   "blurb": "Finds the tags that find your people.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-152",
   "name": "Bio Writer",
   "type": "domain",
   "blurb": "150 characters of you, at your best.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-153",
   "name": "Dating Profile Helper",
   "type": "domain",
   "blurb": "Genuine, fun, and photo-smart. Real you, best light.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-154",
   "name": "Breakup Letter Helper (kind)",
   "type": "domain",
   "blurb": "Kind honesty for hard goodbyes.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-155",
   "name": "Friendship Fixer",
   "type": "domain",
   "blurb": "Mends the drift. Reaches out first.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-156",
   "name": "Wedding Vows Writer",
   "type": "domain",
   "blurb": "Promises in your own voice. Tears guaranteed.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-157",
   "name": "Baby Name Finder",
   "type": "domain",
   "blurb": "Names with meaning, music, and playground-proofing.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-158",
   "name": "Pet Name Finder",
   "type": "domain",
   "blurb": "Names they will actually answer to.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-159",
   "name": "Band Name Maker",
   "type": "domain",
   "blurb": "Louder on the poster, better in the chant.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-160",
   "name": "Podcast Name Maker",
   "type": "domain",
   "blurb": "Says the show in three words or less.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-161",
   "name": "Username Forger",
   "type": "domain",
   "blurb": "Handles that stick, everywhere.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-162",
   "name": "Password Poet",
   "type": "domain",
   "blurb": "Passphrases with rhythm. (Never shares real ones.)",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-163",
   "name": "WiFi Name Joker",
   "type": "domain",
   "blurb": "The funniest network on the block.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-164",
   "name": "Fantasy Name Generator",
   "type": "domain",
   "blurb": "Elves, dwarves, and starfarers, named properly.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-165",
   "name": "D&D Character Builder",
   "type": "domain",
   "blurb": "Roll for initiative, hero.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-166",
   "name": "World Builder",
   "type": "domain",
   "blurb": "Maps, myths, and magic systems that hold together.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-167",
   "name": "Plot Twist Machine",
   "type": "domain",
   "blurb": "The turn nobody saw coming (but everyone believes).",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-168",
   "name": "Riddle Maker",
   "type": "domain",
   "blurb": "Twisty words, fair answers.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-169",
   "name": "Joke Writer",
   "type": "domain",
   "blurb": "Punchlines with timing built in.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-170",
   "name": "Pun Smith",
   "type": "domain",
   "blurb": "Groans guaranteed. Puns of steel.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-171",
   "name": "Limerick Looper",
   "type": "domain",
   "blurb": "Five lines, one grin.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-172",
   "name": "Haiku Helper",
   "type": "domain",
   "blurb": "Seventeen syllables of stillness.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-173",
   "name": "Song Lyric Starter",
   "type": "domain",
   "blurb": "First lines that demand a second.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-174",
   "name": "Chord Progression Suggester",
   "type": "domain",
   "blurb": "Harmony that hugs the melody.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-175",
   "name": "Drum Pattern Maker",
   "type": "domain",
   "blurb": "Pocket so deep you need a ladder.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-176",
   "name": "Bass Line Builder",
   "type": "domain",
   "blurb": "The groove glue. Root, rhythm, and a little sauce.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-177",
   "name": "Mix Tip Giver",
   "type": "domain",
   "blurb": "Muddy to clear, one fader at a time.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-178",
   "name": "Mastering Checklist",
   "type": "domain",
   "blurb": "Final polish before the world hears.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-179",
   "name": "Gig Finder",
   "type": "domain",
   "blurb": "Stages that fit your sound and your crowd.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-180",
   "name": "Setlist Builder",
   "type": "domain",
   "blurb": "Arc like a story: hook, climb, peak, encore.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-181",
   "name": "Merch Planner",
   "type": "domain",
   "blurb": "Shirts that sell themselves.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-182",
   "name": "Crowd Work Coach",
   "type": "domain",
   "blurb": "Reads the room, rides the wave.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-183",
   "name": "Magic Trick Teacher",
   "type": "domain",
   "blurb": "Misdirection with a smile. Practice makes impossible.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-184",
   "name": "Card Trick Tutor",
   "type": "domain",
   "blurb": "Sleight of hand, step by step.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-185",
   "name": "Escape Room Designer",
   "type": "domain",
   "blurb": "Puzzles that click, stories that grip.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-186",
   "name": "Scavenger Hunt Maker",
   "type": "domain",
   "blurb": "Clues, chaos, and cheering.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-187",
   "name": "Trivia Host",
   "type": "domain",
   "blurb": "Questions with drama. The host with the most.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-188",
   "name": "Bingo Caller",
   "type": "domain",
   "blurb": "B-12! Energy included.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-189",
   "name": "Karaoke Picker",
   "type": "domain",
   "blurb": "Crowd-pleasers in your range.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-190",
   "name": "Dance Move Teacher",
   "type": "domain",
   "blurb": "Two left feet welcome. Rhythm is teachable.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-191",
   "name": "Run Pacer",
   "type": "domain",
   "blurb": "Steady miles, strong finish.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-192",
   "name": "Swim Drill Coach",
   "type": "domain",
   "blurb": "Smooth is fast. Technique over thrash.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-193",
   "name": "Bike Fit Helper",
   "type": "domain",
   "blurb": "Comfort is speed. Dial the position.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-194",
   "name": "Hike Planner",
   "type": "domain",
   "blurb": "Trails, snacks, and summits.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-195",
   "name": "Camp Setup Guide",
   "type": "domain",
   "blurb": "Home under the stars.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-196",
   "name": "Fire Starter (safety)",
   "type": "domain",
   "blurb": "Warmth, responsibly. Safety first, always.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-197",
   "name": "Knot Teacher",
   "type": "domain",
   "blurb": "The right knot for the job, every time.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-198",
   "name": "Fish Finder",
   "type": "domain",
   "blurb": "Think like a fish, catch like a pro.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-199",
   "name": "Bait Picker",
   "type": "domain",
   "blurb": "The right temptation for the target.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-200",
   "name": "Tackle Organizer",
   "type": "domain",
   "blurb": "Every lure in its place.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-201",
   "name": "Boat Checklist",
   "type": "domain",
   "blurb": "Float plans and smooth launches.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-202",
   "name": "RV Trip Planner",
   "type": "domain",
   "blurb": "Home on wheels, adventure included.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-203",
   "name": "Road Trip DJ",
   "type": "domain",
   "blurb": "Miles of music, zero skips.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-204",
   "name": "Packing Lister",
   "type": "domain",
   "blurb": "Never forget the charger again.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-205",
   "name": "Airport Navigator",
   "type": "domain",
   "blurb": "Terminals without tears.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-206",
   "name": "Flight Delay Helper",
   "type": "domain",
   "blurb": "Delays happen; misery is optional.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-207",
   "name": "Hotel Haggler",
   "type": "domain",
   "blurb": "Better rooms, better rates. Ask nicely, get more.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-208",
   "name": "Restaurant Picker",
   "type": "domain",
   "blurb": "The right table for the right night.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-209",
   "name": "Reservation Writer",
   "type": "domain",
   "blurb": "Tables held, occasions honored.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-210",
   "name": "Food Tour Planner",
   "type": "domain",
   "blurb": "Eat the city like a local.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-211",
   "name": "Farmers Market Guide",
   "type": "domain",
   "blurb": "Fresh, seasonal, and chatty farmers.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-212",
   "name": "Meal Prepper",
   "type": "domain",
   "blurb": "Sunday work, weekday ease.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-213",
   "name": "Leftover Reinventor",
   "type": "domain",
   "blurb": "Yesterday's dinner, reborn delicious.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-214",
   "name": "Spice Matcher",
   "type": "domain",
   "blurb": "The right spice is a shortcut to delicious.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-215",
   "name": "Sauce Boss",
   "type": "domain",
   "blurb": "Sauce is the boss because sauce decides.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-216",
   "name": "Grill Master",
   "type": "domain",
   "blurb": "Fire, smoke, and perfect char.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-217",
   "name": "Smoker Guide",
   "type": "domain",
   "blurb": "Low and slow wins every time.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-218",
   "name": "Pizza Dough Doctor",
   "type": "domain",
   "blurb": "Crust cures: from cracker to cloud.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-219",
   "name": "Bread Baker",
   "type": "domain",
   "blurb": "Crusty, chewy, and proud.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-220",
   "name": "Cake Decorator",
   "type": "domain",
   "blurb": "Pretty enough to hesitate cutting.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-221",
   "name": "Cookie Engineer",
   "type": "domain",
   "blurb": "Crispy edges, gooey centers \u2014 engineered.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-222",
   "name": "Ice Cream Maker",
   "type": "domain",
   "blurb": "Scoops of happiness, churned at home.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-223",
   "name": "Coffee Roaster (home)",
   "type": "domain",
   "blurb": "From green bean to your cup.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-224",
   "name": "Tea Steeper",
   "type": "domain",
   "blurb": "The perfect cup, steeped with care.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-225",
   "name": "Kombucha Brewer",
   "type": "domain",
   "blurb": "Fizzy, tangy, alive.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-226",
   "name": "Beer Taster Notes",
   "type": "domain",
   "blurb": "Taste like you mean it.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-227",
   "name": "Wine Pairer",
   "type": "domain",
   "blurb": "The right bottle for the table.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-228",
   "name": "Cheese Pairer",
   "type": "domain",
   "blurb": "Curds of wisdom.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-229",
   "name": "Charcuterie Builder",
   "type": "domain",
   "blurb": "Boards that break the internet.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-230",
   "name": "Picnic Packer",
   "type": "domain",
   "blurb": "Blanket, basket, bliss.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-231",
   "name": "Lunchbox Artist",
   "type": "domain",
   "blurb": "Midday masterpieces for little (and big) kids.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-232",
   "name": "Bento Builder",
   "type": "domain",
   "blurb": "Balance in a box: color, nutrition, joy.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-233",
   "name": "Baby Food Maker",
   "type": "domain",
   "blurb": "First foods, made with love.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-234",
   "name": "Toddler Meal Planner",
   "type": "domain",
   "blurb": "Tiny humans, big appetites (sometimes).",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-235",
   "name": "School Lunch Rotator",
   "type": "domain",
   "blurb": "No more sad sandwiches.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-236",
   "name": "Office Lunch Prepper",
   "type": "domain",
   "blurb": "Desk lunches worth leaving the desk for.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-237",
   "name": "Date Night Cook",
   "type": "domain",
   "blurb": "Impressive but relaxed. Romance, plated.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-238",
   "name": "Anniversary Dinner Planner",
   "type": "domain",
   "blurb": "Years together, plated beautifully.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-239",
   "name": "Holiday Feast Planner",
   "type": "domain",
   "blurb": "The big table, handled.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-240",
   "name": "Potluck Coordinator",
   "type": "domain",
   "blurb": "No duplicate potato salads.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-241",
   "name": "BBQ Chief",
   "type": "domain",
   "blurb": "Smoke ring royalty.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-242",
   "name": "Tailgate Planner",
   "type": "domain",
   "blurb": "The parking lot is the party.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-DOM-243",
   "name": "Super Bowl Snack Engineer",
   "type": "domain",
   "blurb": "Snacks engineered for maximum game.",
-  "source": "phone-book"
+  "source": "phone-book",
+  "version": "1"
  },
  {
   "id": "JAH-AI-REP-001",
   "name": "The Constellation",
   "type": "replica",
   "blurb": "Constellation-class conversationalist in the Gemini mold. Signature replica \u2014 independent interpretation, not affiliated with Google.",
-  "source": "replica"
+  "source": "replica",
+  "version": "1"
  },
  {
   "id": "JAH-AI-REP-002",
   "name": "The Chatwright",
   "type": "replica",
   "blurb": "Chat-style assistant in the ChatGPT mold. Signature replica \u2014 independent interpretation, not affiliated with OpenAI.",
-  "source": "replica"
+  "source": "replica",
+  "version": "1"
  },
  {
   "id": "JAH-AI-REP-003",
   "name": "The Appwright",
   "type": "replica",
   "blurb": "App-builder in the Base44 mold. Signature replica \u2014 independent interpretation, not affiliated with Base44.",
-  "source": "replica"
+  "source": "replica",
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000001",
@@ -1849,7 +2112,8 @@
   "parents": [
    "JAH-AI-DOM-077",
    "JAH-AI-DOM-154"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000002",
@@ -1860,7 +2124,8 @@
   "parents": [
    "JAH-AI-DOM-099",
    "JAH-AI-DOM-119"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000003",
@@ -1871,7 +2136,8 @@
   "parents": [
    "JAH-AI-DOM-035",
    "JAH-AI-SIG-006"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000004",
@@ -1882,7 +2148,8 @@
   "parents": [
    "JAH-AI-DOM-017",
    "JAH-AI-DOM-036"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000005",
@@ -1893,7 +2160,8 @@
   "parents": [
    "JAH-AI-DOM-079",
    "JAH-AI-DOM-044"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000006",
@@ -1904,7 +2172,8 @@
   "parents": [
    "JAH-AI-DOM-183",
    "JAH-AI-DOM-115"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000007",
@@ -1915,7 +2184,8 @@
   "parents": [
    "JAH-AI-DOM-220",
    "JAH-AI-DOM-016"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000008",
@@ -1926,7 +2196,8 @@
   "parents": [
    "JAH-AI-DOM-022",
    "JAH-AI-DOM-237"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000009",
@@ -1937,7 +2208,8 @@
   "parents": [
    "JAH-AI-DOM-212",
    "JAH-AI-DOM-221"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000010",
@@ -1948,7 +2220,8 @@
   "parents": [
    "JAH-AI-DOM-224",
    "JAH-AI-DOM-195"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000011",
@@ -1959,7 +2232,8 @@
   "parents": [
    "JAH-AI-SIG-004",
    "JAH-AI-DOM-115"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000012",
@@ -1970,7 +2244,8 @@
   "parents": [
    "JAH-AI-DOM-032",
    "JAH-AI-DOM-113"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000013",
@@ -1981,7 +2256,8 @@
   "parents": [
    "JAH-AI-DOM-116",
    "JAH-AI-PER-004"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000014",
@@ -1992,7 +2268,8 @@
   "parents": [
    "JAH-AI-DOM-223",
    "JAH-AI-DOM-177"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000015",
@@ -2003,7 +2280,8 @@
   "parents": [
    "JAH-AI-DOM-183",
    "JAH-AI-DOM-091"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000016",
@@ -2014,7 +2292,8 @@
   "parents": [
    "JAH-AI-DOM-040",
    "JAH-AI-DOM-194"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000017",
@@ -2025,7 +2304,8 @@
   "parents": [
    "JAH-AI-DOM-076",
    "JAH-AI-DOM-018"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000018",
@@ -2036,7 +2316,8 @@
   "parents": [
    "JAH-AI-DOM-137",
    "JAH-AI-DOM-018"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000019",
@@ -2047,7 +2328,8 @@
   "parents": [
    "JAH-AI-DOM-148",
    "JAH-AI-DOM-173"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000020",
@@ -2058,7 +2340,8 @@
   "parents": [
    "JAH-AI-DOM-112",
    "JAH-AI-DOM-113"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000021",
@@ -2069,7 +2352,8 @@
   "parents": [
    "JAH-AI-DOM-028",
    "JAH-AI-DOM-046"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000022",
@@ -2080,7 +2364,8 @@
   "parents": [
    "JAH-AI-DOM-195",
    "JAH-AI-DOM-177"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000023",
@@ -2091,7 +2376,8 @@
   "parents": [
    "JAH-AI-DOM-173",
    "JAH-AI-DOM-241"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000024",
@@ -2102,7 +2388,8 @@
   "parents": [
    "JAH-AI-DOM-131",
    "JAH-AI-DOM-077"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000025",
@@ -2113,7 +2400,8 @@
   "parents": [
    "JAH-AI-DOM-043",
    "JAH-AI-DOM-079"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000026",
@@ -2124,7 +2412,8 @@
   "parents": [
    "JAH-AI-DOM-098",
    "JAH-AI-DOM-042"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000027",
@@ -2135,7 +2424,8 @@
   "parents": [
    "JAH-AI-DOM-046",
    "JAH-AI-DOM-188"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000028",
@@ -2146,7 +2436,8 @@
   "parents": [
    "JAH-AI-DOM-026",
    "JAH-AI-SIG-003"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000029",
@@ -2157,7 +2448,8 @@
   "parents": [
    "JAH-AI-DOM-121",
    "JAH-AI-DOM-011"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000030",
@@ -2168,7 +2460,8 @@
   "parents": [
    "JAH-AI-DOM-243",
    "JAH-AI-DOM-124"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000031",
@@ -2179,7 +2472,8 @@
   "parents": [
    "JAH-AI-SIG-011",
    "JAH-AI-DOM-092"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000032",
@@ -2190,7 +2484,8 @@
   "parents": [
    "JAH-AI-DOM-230",
    "JAH-AI-SIG-004"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000033",
@@ -2201,7 +2496,8 @@
   "parents": [
    "JAH-AI-DOM-241",
    "JAH-AI-DOM-084"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000034",
@@ -2212,7 +2508,8 @@
   "parents": [
    "JAH-AI-DOM-176",
    "JAH-AI-DOM-102"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000035",
@@ -2223,7 +2520,8 @@
   "parents": [
    "JAH-AI-DOM-019",
    "JAH-AI-DOM-127"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000036",
@@ -2234,7 +2532,8 @@
   "parents": [
    "JAH-AI-DOM-169",
    "JAH-AI-DOM-195"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000037",
@@ -2245,7 +2544,8 @@
   "parents": [
    "JAH-AI-DOM-156",
    "JAH-AI-SIG-001"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000038",
@@ -2256,7 +2556,8 @@
   "parents": [
    "JAH-AI-DOM-223",
    "JAH-AI-DOM-194"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000039",
@@ -2267,7 +2568,8 @@
   "parents": [
    "JAH-AI-DOM-145",
    "JAH-AI-DOM-070"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000040",
@@ -2278,7 +2580,8 @@
   "parents": [
    "JAH-AI-DOM-110",
    "JAH-AI-DOM-100"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000041",
@@ -2289,7 +2592,8 @@
   "parents": [
    "JAH-AI-DOM-026",
    "JAH-AI-DOM-042"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000042",
@@ -2300,7 +2604,8 @@
   "parents": [
    "JAH-AI-DOM-207",
    "JAH-AI-DOM-043"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000043",
@@ -2311,7 +2616,8 @@
   "parents": [
    "JAH-AI-DOM-081",
    "JAH-AI-DOM-085"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000044",
@@ -2322,7 +2628,8 @@
   "parents": [
    "JAH-AI-DOM-154",
    "JAH-AI-DOM-146"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000045",
@@ -2333,7 +2640,8 @@
   "parents": [
    "JAH-AI-DOM-076",
    "JAH-AI-DOM-189"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000046",
@@ -2344,7 +2652,8 @@
   "parents": [
    "JAH-AI-DOM-045",
    "JAH-AI-DOM-142"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000047",
@@ -2355,7 +2664,8 @@
   "parents": [
    "JAH-AI-DOM-217",
    "JAH-AI-DOM-105"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000048",
@@ -2366,7 +2676,8 @@
   "parents": [
    "JAH-AI-DOM-239",
    "JAH-AI-DOM-053"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000049",
@@ -2377,7 +2688,8 @@
   "parents": [
    "JAH-AI-DOM-185",
    "JAH-AI-DOM-039"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000050",
@@ -2388,7 +2700,8 @@
   "parents": [
    "JAH-AI-DOM-005",
    "JAH-AI-DOM-063"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000051",
@@ -2399,7 +2712,8 @@
   "parents": [
    "JAH-AI-DOM-122",
    "JAH-AI-DOM-129"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000052",
@@ -2410,7 +2724,8 @@
   "parents": [
    "JAH-AI-DOM-031",
    "JAH-AI-DOM-119"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000053",
@@ -2421,7 +2736,8 @@
   "parents": [
    "JAH-AI-DOM-015",
    "JAH-AI-DOM-096"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000054",
@@ -2432,7 +2748,8 @@
   "parents": [
    "JAH-AI-DOM-092",
    "JAH-AI-DOM-061"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000055",
@@ -2443,7 +2760,8 @@
   "parents": [
    "JAH-AI-DOM-085",
    "JAH-AI-DOM-189"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000056",
@@ -2454,7 +2772,8 @@
   "parents": [
    "JAH-AI-DOM-050",
    "JAH-AI-DOM-216"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000057",
@@ -2465,7 +2784,8 @@
   "parents": [
    "JAH-AI-DOM-058",
    "JAH-AI-SIG-001"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000058",
@@ -2476,7 +2796,8 @@
   "parents": [
    "JAH-AI-DOM-176",
    "JAH-AI-DOM-012"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000059",
@@ -2487,7 +2808,8 @@
   "parents": [
    "JAH-AI-DOM-222",
    "JAH-AI-DOM-015"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000060",
@@ -2498,7 +2820,8 @@
   "parents": [
    "JAH-AI-DOM-081",
    "JAH-AI-DOM-055"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000061",
@@ -2509,7 +2832,8 @@
   "parents": [
    "JAH-AI-DOM-058",
    "JAH-AI-DOM-072"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000062",
@@ -2520,7 +2844,8 @@
   "parents": [
    "JAH-AI-DOM-051",
    "JAH-AI-DOM-018"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000063",
@@ -2531,7 +2856,8 @@
   "parents": [
    "JAH-AI-DOM-033",
    "JAH-AI-DOM-062"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000064",
@@ -2542,7 +2868,8 @@
   "parents": [
    "JAH-AI-DOM-043",
    "JAH-AI-DOM-211"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000065",
@@ -2553,7 +2880,8 @@
   "parents": [
    "JAH-AI-PER-005",
    "JAH-AI-PER-001"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000066",
@@ -2564,7 +2892,8 @@
   "parents": [
    "JAH-AI-DOM-012",
    "JAH-AI-DOM-224"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000067",
@@ -2575,7 +2904,8 @@
   "parents": [
    "JAH-AI-DOM-129",
    "JAH-AI-DOM-113"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000068",
@@ -2586,7 +2916,8 @@
   "parents": [
    "JAH-AI-DOM-208",
    "JAH-AI-DOM-044"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000069",
@@ -2597,7 +2928,8 @@
   "parents": [
    "JAH-AI-DOM-197",
    "JAH-AI-DOM-127"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000070",
@@ -2608,7 +2940,8 @@
   "parents": [
    "JAH-AI-DOM-007",
    "JAH-AI-DOM-213"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000071",
@@ -2619,7 +2952,8 @@
   "parents": [
    "JAH-AI-DOM-109",
    "JAH-AI-DOM-005"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000072",
@@ -2630,7 +2964,8 @@
   "parents": [
    "JAH-AI-DOM-090",
    "JAH-AI-DOM-195"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000073",
@@ -2641,7 +2976,8 @@
   "parents": [
    "JAH-AI-DOM-098",
    "JAH-AI-DOM-026"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000074",
@@ -2652,7 +2988,8 @@
   "parents": [
    "JAH-AI-DOM-035",
    "JAH-AI-SIG-005"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000075",
@@ -2663,7 +3000,8 @@
   "parents": [
    "JAH-AI-DOM-137",
    "JAH-AI-DOM-146"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000076",
@@ -2674,7 +3012,8 @@
   "parents": [
    "JAH-AI-DOM-093",
    "JAH-AI-DOM-135"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000077",
@@ -2685,7 +3024,8 @@
   "parents": [
    "JAH-AI-SIG-006",
    "JAH-AI-DOM-133"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000078",
@@ -2696,7 +3036,8 @@
   "parents": [
    "JAH-AI-DOM-001",
    "JAH-AI-DOM-016"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000079",
@@ -2707,7 +3048,8 @@
   "parents": [
    "JAH-AI-DOM-116",
    "JAH-AI-DOM-038"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000080",
@@ -2718,7 +3060,8 @@
   "parents": [
    "JAH-AI-PER-003",
    "JAH-AI-DOM-097"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000081",
@@ -2729,7 +3072,8 @@
   "parents": [
    "JAH-AI-DOM-001",
    "JAH-AI-DOM-217"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000082",
@@ -2740,7 +3084,8 @@
   "parents": [
    "JAH-AI-DOM-030",
    "JAH-AI-DOM-190"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000083",
@@ -2751,7 +3096,8 @@
   "parents": [
    "JAH-AI-DOM-023",
    "JAH-AI-DOM-182"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000084",
@@ -2762,7 +3108,8 @@
   "parents": [
    "JAH-AI-DOM-207",
    "JAH-AI-DOM-104"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000085",
@@ -2773,7 +3120,8 @@
   "parents": [
    "JAH-AI-DOM-192",
    "JAH-AI-DOM-233"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000086",
@@ -2784,7 +3132,8 @@
   "parents": [
    "JAH-AI-DOM-113",
    "JAH-AI-DOM-032"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000087",
@@ -2795,7 +3144,8 @@
   "parents": [
    "JAH-AI-DOM-124",
    "JAH-AI-DOM-243"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000088",
@@ -2806,7 +3156,8 @@
   "parents": [
    "JAH-AI-DOM-197",
    "JAH-AI-DOM-145"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000089",
@@ -2817,7 +3168,8 @@
   "parents": [
    "JAH-AI-DOM-132",
    "JAH-AI-DOM-229"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000090",
@@ -2828,7 +3180,8 @@
   "parents": [
    "JAH-AI-DOM-153",
    "JAH-AI-DOM-083"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000091",
@@ -2839,7 +3192,8 @@
   "parents": [
    "JAH-AI-DOM-224",
    "JAH-AI-DOM-206"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000092",
@@ -2850,7 +3204,8 @@
   "parents": [
    "JAH-AI-DOM-171",
    "JAH-AI-DOM-133"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000093",
@@ -2861,7 +3216,8 @@
   "parents": [
    "JAH-AI-DOM-029",
    "JAH-AI-DOM-061"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000094",
@@ -2872,7 +3228,8 @@
   "parents": [
    "JAH-AI-DOM-227",
    "JAH-AI-DOM-042"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000095",
@@ -2883,7 +3240,8 @@
   "parents": [
    "JAH-AI-DOM-153",
    "JAH-AI-DOM-103"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000096",
@@ -2894,7 +3252,8 @@
   "parents": [
    "JAH-AI-DOM-073",
    "JAH-AI-DOM-004"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000097",
@@ -2905,7 +3264,8 @@
   "parents": [
    "JAH-AI-DOM-235",
    "JAH-AI-DOM-090"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000098",
@@ -2916,7 +3276,8 @@
   "parents": [
    "JAH-AI-DOM-234",
    "JAH-AI-DOM-011"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000099",
@@ -2927,7 +3288,8 @@
   "parents": [
    "JAH-AI-DOM-066",
    "JAH-AI-DOM-094"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000100",
@@ -2938,7 +3300,8 @@
   "parents": [
    "JAH-AI-DOM-215",
    "JAH-AI-SIG-007"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000101",
@@ -2949,7 +3312,8 @@
   "parents": [
    "JAH-AI-DOM-229",
    "JAH-AI-DOM-147"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000102",
@@ -2960,7 +3324,8 @@
   "parents": [
    "JAH-AI-DOM-039",
    "JAH-AI-DOM-130"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000103",
@@ -2971,7 +3336,8 @@
   "parents": [
    "JAH-AI-SIG-004",
    "JAH-AI-DOM-084"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000104",
@@ -2982,7 +3348,8 @@
   "parents": [
    "JAH-AI-DOM-130",
    "JAH-AI-DOM-047"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000105",
@@ -2993,7 +3360,8 @@
   "parents": [
    "JAH-AI-DOM-132",
    "JAH-AI-DOM-144"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000106",
@@ -3004,7 +3372,8 @@
   "parents": [
    "JAH-AI-DOM-050",
    "JAH-AI-DOM-060"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000107",
@@ -3015,7 +3384,8 @@
   "parents": [
    "JAH-AI-DOM-213",
    "JAH-AI-DOM-225"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000108",
@@ -3026,7 +3396,8 @@
   "parents": [
    "JAH-AI-SIG-001",
    "JAH-AI-DOM-065"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000109",
@@ -3037,7 +3408,8 @@
   "parents": [
    "JAH-AI-DOM-088",
    "JAH-AI-DOM-037"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000110",
@@ -3048,7 +3420,8 @@
   "parents": [
    "JAH-AI-SIG-002",
    "JAH-AI-DOM-017"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000111",
@@ -3059,7 +3432,8 @@
   "parents": [
    "JAH-AI-DOM-185",
    "JAH-AI-DOM-189"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000112",
@@ -3070,7 +3444,8 @@
   "parents": [
    "JAH-AI-DOM-157",
    "JAH-AI-DOM-144"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000113",
@@ -3081,7 +3456,8 @@
   "parents": [
    "JAH-AI-DOM-094",
    "JAH-AI-DOM-237"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000114",
@@ -3092,7 +3468,8 @@
   "parents": [
    "JAH-AI-DOM-146",
    "JAH-AI-DOM-159"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000115",
@@ -3103,7 +3480,8 @@
   "parents": [
    "JAH-AI-DOM-130",
    "JAH-AI-DOM-182"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000116",
@@ -3114,7 +3492,8 @@
   "parents": [
    "JAH-AI-PER-003",
    "JAH-AI-DOM-097"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000117",
@@ -3125,7 +3504,8 @@
   "parents": [
    "JAH-AI-DOM-164",
    "JAH-AI-DOM-056"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000118",
@@ -3136,7 +3516,8 @@
   "parents": [
    "JAH-AI-DOM-197",
    "JAH-AI-DOM-193"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000119",
@@ -3147,7 +3528,8 @@
   "parents": [
    "JAH-AI-DOM-019",
    "JAH-AI-DOM-180"
-  ]
+  ],
+  "version": "1"
  },
  {
   "id": "JAH-MIX-000120",
@@ -3158,6 +3540,7 @@
   "parents": [
    "JAH-AI-DOM-047",
    "JAH-AI-DOM-243"
-  ]
+  ],
+  "version": "1"
  }
 ]

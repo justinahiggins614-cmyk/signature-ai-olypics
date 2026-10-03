@@ -1,5 +1,8 @@
 /* AI Olypics bout engine — deterministic, runs in node AND browser.
- * Same seed -> same bout, forever. No backend calls. */
+ * Same seed -> same bout, forever. No backend calls.
+ * ENGINE_VERSION 2.0: formal JAH-OLY-STAGE/CRIT/MIS IDs + versions, structured
+ * findings, invention status, contender stat overrides (for user-entered AIs).
+ * Scoring math is byte-identical to v1 — archived bouts reproduce exactly. */
 (function (root, factory) {
   if (typeof module !== 'undefined' && module.exports) module.exports = factory();
   else root.OlyEngine = factory();
@@ -23,6 +26,11 @@
     return h >>> 0;
   }
   function pick(r, arr) { return arr[Math.floor(r() * arr.length) % arr.length]; }
+
+  var ENGINE_VERSION = '2.0';
+  /* Published tie rule: if both three-round totals are EXACTLY equal, the
+   * first-listed contender takes the bout. Deterministic, never blank. */
+  var TIE_RULE = 'TIE_RULE_FIRST_LISTED: exact ties go to the first-listed contender';
 
   // ---------- arenas ----------
   var STAGES = [
@@ -85,6 +93,12 @@
     'Create a motto for a school of young inventors'
   ];
 
+  /* Formal permanent IDs + versions (engine v2). Order is frozen — never reorder. */
+  STAGES.forEach(function (s, i) { s.id = 'JAH-OLY-STAGE-' + String(i + 1).padStart(2, '0'); s.version = '1'; });
+  CRITERIA.forEach(function (c, i) { c.id = 'JAH-OLY-CRIT-' + String(i + 1).padStart(2, '0'); c.version = '1'; });
+  function missionId(i) { return 'JAH-OLY-MIS-' + String(i + 1).padStart(2, '0'); }
+  var MISSION_VERSION = '1';
+
   var ROUND_VERBS = ['opens', 'counters', 'presses the attack', 'weaves', 'unleashes', 'steadies', 'ripples', 'detonates'];
   var ROUND_NOUNS = ['a volley of reasoning', 'a feint of pure logic', 'a cascade of examples', 'a shield-wall of facts', 'a lightning analogy', 'a gambit of wit', 'a surge of structured thought', 'a precision strike of clarity'];
 
@@ -121,14 +135,25 @@
     opts = opts || {};
     var seed = opts.seed != null ? opts.seed : (1000003 + n * 7919);
     var r = mulberry32(seed >>> 0);
-    var i1 = Math.floor(r() * roster.length) % roster.length;
-    var i2 = Math.floor(r() * (roster.length - 1)) % (roster.length - 1);
-    if (i2 >= i1) i2++;
-    var c1 = roster[i1], c2 = roster[i2];
-    var stage = opts.stage != null ? STAGES[opts.stage % STAGES.length] : pick(r, STAGES);
-    var crit = opts.criteria != null ? CRITERIA[opts.criteria % CRITERIA.length] : pick(r, CRITERIA);
-    var mission = opts.mission != null ? MISSIONS[opts.mission % MISSIONS.length] : pick(r, MISSIONS);
-    var s1 = statsFor(c1.id), s2 = statsFor(c2.id);
+    /* Explicit pair (exhibitions, user-entered AIs): no roster draws consumed,
+     * so round randomness derives from the supplied seed alone. */
+    var c1, c2;
+    if (opts.pair && opts.pair.length === 2) { c1 = opts.pair[0]; c2 = opts.pair[1]; }
+    else {
+      var i1 = Math.floor(r() * roster.length) % roster.length;
+      var i2 = Math.floor(r() * (roster.length - 1)) % (roster.length - 1);
+      if (i2 >= i1) i2++;
+      c1 = roster[i1]; c2 = roster[i2];
+    }
+    /* PRNG draw order is frozen (v1-compatible): stage, criteria, mission. */
+    var stageIdx = opts.stage != null ? opts.stage % STAGES.length : Math.floor(r() * STAGES.length) % STAGES.length;
+    var stage = STAGES[stageIdx];
+    var critIdx = opts.criteria != null ? opts.criteria % CRITERIA.length : Math.floor(r() * CRITERIA.length) % CRITERIA.length;
+    var crit = CRITERIA[critIdx];
+    var misIdx = opts.mission != null ? opts.mission % MISSIONS.length : Math.floor(r() * MISSIONS.length) % MISSIONS.length;
+    var mission = MISSIONS[misIdx];
+    /* User-entered AIs may carry explicit stats; roster contenders hash from ID. */
+    var s1 = c1.stats || statsFor(c1.id), s2 = c2.stats || statsFor(c2.id);
 
     var rounds = [], t1 = 0, t2 = 0;
     for (var rn = 1; rn <= 3; rn++) {
@@ -169,18 +194,30 @@
     var narrative = buildNarrative(id, c1, c2, stage, crit, mission, rounds, winner, loser, margin, t1, t2, bestDim, upset);
     var findings = buildFindings(c1, c2, winner, loser, margin, crit, bestDim, upset, t1, t2);
     var inventions = buildInventions(n, id, winner, loser, crit, mission, bestDim);
+    var tie = (t1 === t2);
 
-    return {
+    var boutRec = {
       id: id, n: n, seed: seed >>> 0,
+      engine_version: ENGINE_VERSION,
+      battle_version: 1,
+      status: opts.exhibition ? 'EXHIBITION' : 'ARCHIVED',
+      execution_mode: 'SIMULATED',
+      simulation_status: 'SIMULATED',
+      winner_status: 'WINNER',
       contenders: [contenderRec(c1), contenderRec(c2)],
       stage: stage, criteria: crit, mission: mission,
+      stage_id: stage.id, stage_version: stage.version,
+      criteria_id: crit.id, rubric_version: crit.version,
+      mission_id: missionId(misIdx), mission_version: MISSION_VERSION,
       rounds: rounds,
       totals: {}, winner: contenderRec(winner), loser: contenderRec(loser),
       margin: margin, narrative: narrative, findings: findings, inventions: inventions
     };
+    if (tie) boutRec.tiebreak = 'TIE_RULE_FIRST_LISTED';
+    return boutRec;
   }
 
-  function contenderRec(c) { return { id: c.id, name: c.name, type: c.type, blurb: c.blurb, stats: statsFor(c.id) }; }
+  function contenderRec(c) { return { id: c.id, name: c.name, type: c.type, blurb: c.blurb, stats: c.stats || statsFor(c.id), version: c.version || '1', source: c.source || 'unknown' }; }
 
   function buildNarrative(id, c1, c2, stage, crit, mission, rounds, winner, loser, margin, t1, t2, bestDim, upset) {
     var L = [];
@@ -195,14 +232,16 @@
     return L.join('\n\n');
   }
 
+  /* Finding classes: calculated (from the score math), observed (read off the
+   * record), derived (inferred recommendation), speculative (interpretive). */
   function buildFindings(c1, c2, winner, loser, margin, crit, bestDim, upset, t1, t2) {
     var F = [];
-    F.push(winner.name + ' won on ' + crit.name + ' with a ' + margin + '-point margin (' + Math.max(t1, t2) + ' vs ' + Math.min(t1, t2) + ').');
-    F.push('Strongest dimension: ' + bestDim + ' — ' + winner.name + "'s " + bestDim.toLowerCase() + ' carried all three rounds.');
-    F.push(upset ? 'UPSET: ' + winner.name + ' entered as the statistical underdog and won anyway — adaptability beat raw power.' : winner.name + ' was the statistical favorite and converted — power held under pressure.');
-    if (winner.type === 'hybrid') F.push('Hybrid vigor confirmed: the fused lineage (' + winner.blurb + ') outperformed both parent archetypes tonight.');
-    if (loser.type === 'replica') F.push('The Signature replica ' + loser.name + ' fought product-smooth but fell short — note for the rematch lab.');
-    F.push('Rematch recommendation: run ' + loser.name + ' against a ' + (loser.type === 'hybrid' ? 'pure system' : 'hybrid') + ' contender to isolate the ' + bestDim.toLowerCase() + ' gap.');
+    F.push({ t: winner.name + ' won on ' + crit.name + ' with a ' + margin + '-point margin (' + Math.max(t1, t2) + ' vs ' + Math.min(t1, t2) + ').', c: 'calculated' });
+    F.push({ t: 'Strongest dimension: ' + bestDim + ' — ' + winner.name + "'s " + bestDim.toLowerCase() + ' carried all three rounds.', c: 'observed' });
+    F.push({ t: upset ? 'UPSET: ' + winner.name + ' entered as the statistical underdog and won anyway — adaptability beat raw power.' : winner.name + ' was the statistical favorite and converted — power held under pressure.', c: 'calculated' });
+    if (winner.type === 'hybrid') F.push({ t: 'Hybrid vigor confirmed: the fused lineage (' + winner.blurb + ') outperformed both parent archetypes tonight.', c: 'speculative' });
+    if (loser.type === 'replica') F.push({ t: 'The Signature replica ' + loser.name + ' fought product-smooth but fell short — note for the rematch lab.', c: 'observed' });
+    F.push({ t: 'Rematch recommendation: run ' + loser.name + ' against a ' + (loser.type === 'hybrid' ? 'pure system' : 'hybrid') + ' contender to isolate the ' + bestDim.toLowerCase() + ' gap.', c: 'derived' });
     return F;
   }
 
@@ -211,6 +250,9 @@
     inv.push({
       id: 'JAH-OLY-INV-' + String(base).padStart(6, '0'),
       battle: battleId,
+      version: 1,
+      record_type: 'DERIVED_INVENTION',
+      status: 'CONCEPT',
       title: 'Adaptive ' + crit.name + ' for machine bout judging',
       problem: 'Judging AI-versus-AI bouts is subjective; human judges disagree and drift between rounds.',
       solution: 'A deterministic weighted rubric (' + crit.dims.map(function (d) { return d[0] + ' ' + Math.round(d[1] * 100) + '%'; }).join(', ') + ') derived from battle ' + battleId + ', seeded and reproducible, with per-round score sheets.',
@@ -223,6 +265,9 @@
     inv.push({
       id: 'JAH-OLY-INV-' + String(base + 1).padStart(6, '0'),
       battle: battleId,
+      version: 1,
+      record_type: 'DERIVED_INVENTION',
+      status: 'CONCEPT',
       title: winner.name + "'s " + bestDim.toLowerCase() + '-first drill for "' + mission.slice(0, 42) + '"',
       problem: 'AI contenders underperform on ' + bestDim.toLowerCase() + ' when missions demand it under dome pressure.',
       solution: 'A training drill distilled from ' + winner.name + "'s winning strategy in " + battleId + ': isolate ' + bestDim.toLowerCase() + ', rehearse the mission in three timed rounds, score against the same rubric until the gap closes.',
@@ -236,7 +281,8 @@
   }
 
   return {
-    STAGES: STAGES, CRITERIA: CRITERIA, MISSIONS: MISSIONS,
+    ENGINE_VERSION: ENGINE_VERSION, TIE_RULE: TIE_RULE,
+    STAGES: STAGES, CRITERIA: CRITERIA, MISSIONS: MISSIONS, missionId: missionId,
     statsFor: statsFor, bout: bout, fnv1a: fnv1a, mulberry32: mulberry32
   };
 });

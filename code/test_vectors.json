@@ -1,0 +1,58 @@
+[
+ {
+  "n": 1,
+  "id": "JAH-OLY-000001",
+  "seed": 1007922,
+  "winner": "JAH-AI-DOM-026",
+  "margin": 11.4,
+  "content_hash": "sha256:547216e47deed874e2598258a6b28e80a2e71d37611e335906d588a463b811e4"
+ },
+ {
+  "n": 2059,
+  "id": "JAH-OLY-002059",
+  "seed": 17305224,
+  "winner": "JAH-AI-DOM-184",
+  "margin": 0,
+  "content_hash": "sha256:0b20556b4996d15c1a8ecdf3aff8b74121a3b6fab2825334bea3232e6a77bbd1"
+ },
+ {
+  "n": 4535,
+  "id": "JAH-OLY-004535",
+  "seed": 36912668,
+  "winner": "JAH-AI-DOM-241",
+  "margin": 0,
+  "content_hash": "sha256:4f1731ffedbff9eb5ff5e0dc08828a35a4a34311dbb23de1ed96e594a097de86"
+ },
+ {
+  "n": 6000,
+  "id": "JAH-OLY-006000",
+  "seed": 48514003,
+  "winner": "JAH-MIX-000067",
+  "margin": 9.5,
+  "content_hash": "sha256:d69d8321a9216489de17bbe1c6a5d6eecf4a545e14d05602c0fa2694b472f346"
+ },
+ {
+  "n": 12000,
+  "id": "JAH-OLY-012000",
+  "seed": 96028003,
+  "winner": "JAH-AI-DOM-086",
+  "margin": 10.2,
+  "content_hash": "sha256:e3092307a06baf74256fe84e238f6c0ce709f051356c441837726c36be514f4d"
+ },
+ {
+  "n": "exhibition-fixed-seed",
+  "id": "JAH-OLY-EXH-00001",
+  "seed": 424242,
+  "winner": "JAH-AI-DOM-075",
+  "margin": 1,
+  "note": "exhibition code path"
+ },
+ {
+  "n": "user-ai-pair",
+  "id": "JAH-OLY-USER-0001-VS-SYS1",
+  "seed": 3539923081,
+  "winner": "JAH-OLY-USER-0001",
+  "margin": 61.6,
+  "note": "user-AI explicit-pair + custom stats code path"
+ }
+]
