@@ -148,4 +148,19 @@ api.update({
     'updated': today,
 })
 json.dump(api, open(api_p, 'w'), indent=1)
+
+# --- wave-17: stamp the live bout count into index.html so the header chip
+# never boots as a bare "..." (JS overwrites it live after the manifest loads).
+try:
+    import re as _re
+    p = os.path.join(ROOT, 'index.html')
+    html = open(p, encoding='utf-8').read()
+    stamp = '{:,}'.format(len(all_rows))
+    html2 = _re.sub(r'(<b id="marchCount">)[^<]*(</b>)', r'\g<1>' + stamp + r'\g<2>', html, count=1)
+    if html2 != html:
+        open(p, 'w', encoding='utf-8').write(html2)
+        print('marchCount stamped: ' + stamp)
+except Exception as e:
+    print('marchCount stamp skipped: %s' % e)
+
 print(f"seeded {n} bouts ({start}..{start+n-1}); total {len(all_rows)}; chunks {chunk_no-1}")
