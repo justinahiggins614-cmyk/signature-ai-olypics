@@ -110,6 +110,12 @@ button[disabled]{opacity:.55;cursor:wait}
 .filterline{display:flex;gap:8px;align-items:center;font-family:Arial,sans-serif;font-size:13px;color:#b9a284}
 .filterline select{width:auto;flex:1;padding:7px}
 #hitCount{white-space:nowrap;color:#ffd97a}
+/* GEMINI-FIX: rubric preview + battle record panel */
+.rubprev{font-family:Arial,sans-serif;font-size:13px;color:#ffd97a;background:#241109;border:1px solid #5a2c12;border-radius:8px;padding:8px 12px;margin:10px 0}
+.brec{font-family:Arial,sans-serif;font-size:13px;color:#d8c6a8;background:#1d0d05;border:1px solid #5a2c12;border-radius:10px;padding:12px 14px;margin:12px 0;line-height:1.55}
+.brec>b{color:#ffd97a;letter-spacing:1px}
+.brecrow{margin:3px 0}
+.brecrow b{color:#ffd97a}
 </style>
 </head>
 <body>
@@ -143,7 +149,7 @@ button[disabled]{opacity:.55;cursor:wait}
 </nav>
 <div class="sisters" aria-label="AI sister sites">
 <a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">&#9742; AI Phone Book</a>
-<span class="soon">AI Mix Lab — coming soon</span>
+<a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/">&#129514; AI Mix Lab</a>
 <a class="you" href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">&#9876; AI Olypics — you are here</a>
 </div>
 <header class="hero">
@@ -160,6 +166,8 @@ button[disabled]{opacity:.55;cursor:wait}
 <div><label for="selMission">Mission (the task)</label><select id="selMission"></select></div>
 </div>
 <p class="note">Leave all three on "Random" and hit the pit for a fully automatic matchup. Exhibition bouts are deterministic — the seed shown under the battle reproduces it exactly.</p>
+<div id="rubricPreview" class="rubprev" aria-live="polite"></div>
+<p class="note"><b>How the winner is decided:</b> the judging rubric above is a weighted scoring formula — points per dimension, summed over three rounds. The winner is whoever scores highest <i>under that rubric</i>; it is <b>not</b> an objective measurement of AI intelligence.</p>
 <button class="big" id="btnPit">&#128293; UNIVERSAL PIT — AUTO BOUT</button>
 <button class="ghost" id="btnStage">Stage this bout</button>
 </div>
@@ -168,6 +176,7 @@ button[disabled]{opacity:.55;cursor:wait}
 <h2 id="bvTitle">BATTLE</h2>
 <div id="battleLoader" role="status" aria-live="polite"><span class="olyloader" aria-hidden="true"></span><p>⚔️ BATTLE RUNNING — THE DOME IS JUDGING…</p></div>
 <div class="versus" id="bvVersus"></div>
+<div class="brec" id="bvRecord"></div>
 <div class="tabs" role="tablist">
 <button class="on" data-t="story">Battle Story</button>
 <button data-t="airec">AI Record</button>
@@ -240,6 +249,8 @@ function init(){
   ss.innerHTML='<option value="-1">Random arena</option>'+E.STAGES.map(function(s,i){return '<option value="'+i+'">'+esc(s.name)+'</option>';}).join('');
   sc.innerHTML='<option value="-1">Random rubric</option>'+E.CRITERIA.map(function(c,i){return '<option value="'+i+'">'+esc(c.name)+'</option>';}).join('');
   sm.innerHTML='<option value="-1">Random mission</option>'+E.MISSIONS.map(function(m,i){return '<option value="'+i+'">'+esc(m.slice(0,64))+'</option>';}).join('');
+  /* GEMINI-FIX: rubric preview before the battle */
+  sc.addEventListener('change',showRubric);showRubric();
   Promise.all([gz('data/index.json.gz'),fetch('data/contenders.json').then(function(r){return r.json();}),fetch('data/manifest.json').then(function(r){return r.json();}).catch(function(){return manifest;})]).then(function(v){
     v[0].split('\n').forEach(function(l){if(l.trim())bindex.push(JSON.parse(l));});
     roster=v[1];manifest=v[2];
@@ -263,6 +274,39 @@ function init(){
   qbox.addEventListener('input',function(){if(qdt)clearTimeout(qdt);qdt=setTimeout(doSearch,150);});
   qbox.addEventListener('keydown',function(e){if(e.key==='Enter'){if(qdt)clearTimeout(qdt);doSearch();}});
   var fs=$('fStage');if(fs)fs.addEventListener('change',doSearch);
+}
+/* GEMINI-FIX: judging criteria visible BEFORE the battle */
+function showRubric(){
+  var el=$('rubricPreview');if(!el||typeof OlyEngine==='undefined')return;
+  var v=+$('selCrit').value;
+  if(v<0){el.innerHTML='<b>Judging rubric:</b> Random — the bout seed picks one of the 6 rubrics.';return;}
+  var c=OlyEngine.CRITERIA[v];
+  el.innerHTML='<b>Judging rubric:</b> '+esc(c.name)+' — '+c.dims.map(function(d){return esc(d[0])+' '+Math.round(d[1]*100)+'%';}).join(' · ');
+}
+/* GEMINI-FIX: contender source/type labels + replica affiliation */
+var TYPE_LABELS={system:'Signature original AI',domain:'Signature domain AI',persona:'Persona',hybrid:'Mix-and-match hybrid',replica:'Industry-style replica'};
+var REPLICA_AFFIL={'The Constellation':'not affiliated with Google','The Chatwright':'not affiliated with OpenAI','The Appwright':'not affiliated with Base44'};
+function fighterType(c){
+  var t='<div class="tp">'+esc(TYPE_LABELS[c.type]||c.type)+'</div>';
+  if(c.type==='replica')t+='<div class="replicalabel">independent interpretation — '+(REPLICA_AFFIL[c.name]||'not affiliated')+'</div>';
+  return t;
+}
+/* GEMINI-FIX: full battle record panel — seed, criteria, mission, inputs, outputs, scoring logic */
+function battleRecord(b){
+  var c0=b.contenders[0],c1=b.contenders[1];
+  function row(k,v){return '<div class="brecrow"><b>'+k+':</b> '+v+'</div>';}
+  var crit=esc(b.criteria.name)+' — '+b.criteria.dims.map(function(d){return esc(d[0])+' '+Math.round(d[1]*100)+'%';}).join(' · ');
+  var t0=b.totals[c0.id],t1=b.totals[c1.id];
+  var h='<b>BATTLE RECORD</b>';
+  h+=row('Bout',esc(b.id)+(b.exhibition?' (exhibition — not in the record books)':''));
+  h+=row('Seed',esc(String(b.seed))+' — same seed, same bout, forever. Re-run it and you get this exact fight.');
+  h+=row('Stage',esc(b.stage.name));
+  h+=row('Mission','&ldquo;'+esc(b.mission)+'&rdquo;');
+  h+=row('Judging rubric',crit);
+  h+=row('Inputs',esc(c0.name)+' ('+esc(c0.id)+', '+(TYPE_LABELS[c0.type]||esc(c0.type))+') vs '+esc(c1.name)+' ('+esc(c1.id)+', '+(TYPE_LABELS[c1.type]||esc(c1.type))+')');
+  h+=row('Outputs',esc(b.winner.name)+' defeats '+esc(b.loser.name)+', '+Math.max(t0,t1).toFixed(1)+' to '+Math.min(t0,t1).toFixed(1)+' — margin '+b.margin+' pts');
+  h+=row('Scoring logic','Each round, every rubric dimension scores from the contender\u2019s mapped stat (75%) plus seeded randomness (25%) with bounded jitter (\u00b111%), then weights the dimension by the rubric. The highest round total takes the round; the highest three-round total takes the bout.');
+  return h;
 }
 /* SITE19-FIX-01: per-bout JSON-LD schema on every rendered battle */
 function setBattleHead(b){
@@ -356,9 +400,11 @@ function renderBout(b,asModal){
   var c0=b.contenders[0],c1=b.contenders[1];
   var t0=b.totals[c0.id],t1=b.totals[c1.id];
   $('bvVersus').innerHTML=
-    '<div class="fighter'+(b.winner.id===c0.id?' winner':'')+'"><div class="tp">'+esc(c0.type)+'</div><div class="nm">'+esc(c0.name)+'</div><div class="score">'+t0.toFixed(1)+' pts</div></div>'+
+    '<div class="fighter'+(b.winner.id===c0.id?' winner':'')+'">'+fighterType(c0)+'<div class="nm">'+esc(c0.name)+'</div><div class="score">'+t0.toFixed(1)+' pts</div></div>'+
     '<div class="vs">VS</div>'+
-    '<div class="fighter'+(b.winner.id===c1.id?' winner':'')+'"><div class="tp">'+esc(c1.type)+'</div><div class="nm">'+esc(c1.name)+'</div><div class="score">'+t1.toFixed(1)+' pts</div></div>';
+    '<div class="fighter'+(b.winner.id===c1.id?' winner':'')+'">'+fighterType(c1)+'<div class="nm">'+esc(c1.name)+'</div><div class="score">'+t1.toFixed(1)+' pts</div></div>';
+  /* GEMINI-FIX: seed, criteria, mission, inputs, outputs, scoring logic */
+  $('bvRecord').innerHTML=battleRecord(b);
   $('tp-story').textContent=b.narrative;
   $('tp-airec').textContent=JSON.stringify({id:b.id,seed:b.seed,contenders:b.contenders.map(function(c){return{id:c.id,name:c.name,type:c.type,stats:c.stats};}),stage:b.stage,criteria:{name:b.criteria.name,dims:b.criteria.dims},mission:b.mission,rounds:b.rounds.map(function(rd){return{n:rd.n,winner:rd.winner,moves:rd.moves.map(function(m){return{contender:m.contender,total:m.total,scores:m.scores};})};}),totals:b.totals,winner:b.winner.id,margin:b.margin,findings:b.findings,inventions:b.inventions},null,1);
   $('tp-find').innerHTML='<ul class="findings">'+b.findings.map(function(f){return '<li>'+esc(f)+'</li>';}).join('')+'</ul>';
