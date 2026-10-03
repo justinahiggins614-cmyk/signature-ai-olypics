@@ -112,40 +112,10 @@ state['next_index'] = start + n
 json.dump(state, open(state_p, 'w'), indent=1)
 
 # --- authoritative manifest v2 (ONE count source) ---
-today = now.date().isoformat()
-by_type, by_source = {}, {}
-for c in roster:
-    by_type[c['type']] = by_type.get(c['type'], 0) + 1
-    by_source[c.get('source', '?')] = by_source.get(c.get('source', '?'), 0) + 1
-first_id = all_rows[0][0] if all_rows else None
-last_id = all_rows[-1][0] if all_rows else None
-with open(idx_p, 'rb') as f:
-    index_hash = 'sha256:' + hashlib.sha256(f.read()).hexdigest()
-man = {
-    'manifest_version': '2.0',
-    'site': 'signature-ai-olypics',
-    'generated_at': created,
-    'bouts': len(all_rows),
-    'goal': 1000000,
-    'bout_id_range': [first_id, last_id],
-    'contenders': {'total': len(roster), 'by_type': by_type,
-                   'by_source': by_source, 'roster_version': '1'},
-    'stages': {'count': 12, 'version': '1'},
-    'criteria': {'count': 6, 'version': '1', 'weights_verified_sum_to_1': True},
-    'missions': {'count': 30, 'version': '1'},
-    'inventions': {'count': len(all_rows) * 2,
-                   'id_range': ['JAH-OLY-INV-%06d' % 1,
-                                'JAH-OLY-INV-%06d' % (len(all_rows) * 2)]},
-    'chunks': chunk_no - 1,
-    'per_chunk': args.per_chunk,
-    'engine_version': '2.0',
-    'schema_version': 'JAH-OLY-RECORD/2.0',
-    'index_version': '1',
-    'index_hash': index_hash,
-    'archive_status': 'ARCHIVED',
-    'updated': today,
-}
-json.dump(man, open(os.path.join(DATA, 'manifest.json'), 'w'), indent=1)
+from build_manifest import build_manifest
+man = build_manifest()
+today = man['updated']
+by_type = man['contenders']['by_type']
 
 # --- api.json: keep keys, refresh counts/versions/date ---
 api_p = os.path.join(ROOT, 'api.json')
