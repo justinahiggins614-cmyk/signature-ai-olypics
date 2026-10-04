@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add Your Own AI | AI Olypics</title>
+<meta name="description" content="Define your own AI contender for the AI Olypics — name, description, strengths — and stress-test it against all 383 dome contenders. Saved only in your browser.">
+<link rel="canonical" href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/add-ai.html">
+<style>
+:root{--ember:#ff5a1f;--gold:#ffb300;--blood:#a31212;--ink:#0c0605;--bone:#f5e9dc;--panel:#1c0f08;--line:#4a2a14}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 600px at 50% -10%,#3a0e04 0%,var(--ink) 60%);color:var(--bone);font-family:Georgia,'Times New Roman',serif;min-height:100vh}
+a{color:var(--gold)}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px 60px}
+.sitekicker{font-size:11px;letter-spacing:.28em;color:#c98a4b;font-family:Arial,sans-serif;padding-top:14px}
+h1{color:var(--gold);font-size:2em;margin:.3em 0;letter-spacing:1px}
+.sub{color:#d8c3ab;max-width:700px;line-height:1.5}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;margin:18px 0;box-shadow:0 4px 24px rgba(0,0,0,.45)}
+.card h2{color:var(--gold);margin:0 0 6px;font-size:1.25em;letter-spacing:1px}
+.note{color:#b89a78;font-size:.88em;line-height:1.5}
+label{display:block;font-size:.82em;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin:16px 0 6px;font-family:Arial,sans-serif}
+input[type=text],textarea{width:100%;background:#0c0605;border:1px solid var(--line);border-radius:10px;color:var(--bone);padding:13px 14px;font-size:16px;font-family:Georgia,serif}
+input[type=text]:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(255,179,0,.25)}
+textarea{min-height:88px;resize:vertical}
+button.big{background:linear-gradient(180deg,var(--ember),#b32d05);color:#fff;border:2px solid var(--gold);border-radius:10px;padding:14px 26px;font-size:18px;letter-spacing:2px;cursor:pointer;font-family:Georgia,serif;width:100%;margin-top:18px}
+button.big:hover{filter:brightness(1.15)}
+button.big:disabled{opacity:.5;cursor:wait}
+button.ghost{background:transparent;color:var(--gold);border:1px solid var(--gold);border-radius:10px;padding:10px 18px;font-size:15px;cursor:pointer;font-family:Georgia,serif;margin:6px 6px 0 0}
+button.ghost:hover{background:rgba(255,179,0,.12)}
+.uai-stat{display:grid;grid-template-columns:110px 1fr 48px;gap:10px;align-items:center;margin:8px 0}
+.uai-stat span{font-size:.85em;color:#d8c3ab;text-transform:capitalize;font-family:Arial,sans-serif}
+.uai-stat b{color:var(--gold);text-align:right;font-family:Arial,sans-serif}
+input[type=range]{width:100%;accent-color:var(--ember)}
+.uairow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:#0c0605;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0}
+.uairow b{color:var(--bone)}
+.uairow .spacer{flex:1}
+table.sctable{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px;font-family:Arial,sans-serif}
+table.sctable th,table.sctable td{border:1px solid var(--line);padding:8px 10px;text-align:center}
+table.sctable th{background:#2a1408;color:var(--gold)}
+.uaihit{padding:8px 0;border-bottom:1px solid var(--line);font-family:Arial,sans-serif;font-size:14px}
+footer{color:#8a6f52;font-size:.82em;text-align:center;padding:26px 12px;font-family:Arial,sans-serif}
+.err{color:#ff9a7a;background:#3a0e04;border:1px solid var(--blood);border-radius:10px;padding:12px 14px;margin:12px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<p class="sitekicker"><b>SITE 17 OF 27</b> &middot; THE JAH NETWORK</p>
+<h1>➕ Add Your Own AI</h1>
+<p class="sub">Define your own contender — name, description, strengths — and battle it against <b style="color:var(--gold)">all 383 dome contenders</b> through the real deterministic bout engine. Every bout runs as a <b>USER-ENTERED exhibition</b>: it lives only in this browser (nothing leaves your device), it's exportable, and it's never merged into the official record books.</p>
+
+<!-- JAH TAB BAR — Manon's 2026-10-04 order (calculator screenshot as spec).
+     Tab order: Front Door, Add Your Own AI, 1 Million Archive, then the rest. -->
+<style>
+.jtabbar{display:flex;gap:8px;overflow-x:auto;padding:10px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;border-bottom:1px solid rgba(128,128,128,.25)}
+.jtabbar a.jtab{flex:0 0 auto;text-decoration:none;border:1px solid rgba(160,160,160,.45);border-radius:999px;padding:9px 16px;font-size:.92em;color:inherit;background:rgba(127,127,127,.08);white-space:nowrap;font-family:inherit}
+.jtabbar a.jtab.on{background:#f5c518;border-color:#f5c518;color:#191919;font-weight:700}
+</style>
+<nav class="jtabbar" aria-label="Site sections">
+<a class="jtab" href="index.html">🏠 Front Door</a>
+<a class="jtab on" href="add-ai.html">➕ Add Your Own AI</a>
+<a class="jtab" href="bouts.html">📚 1 Million Archive</a>
+<a class="jtab" href="games.html">Games</a>
+<a class="jtab" href="health.html">Health</a>
+</nav>
+
+<div class="card" id="uaiCard">
+<h2>🤖 YOUR CONTENDERS</h2>
+<div id="uaiList"></div>
+<div style="margin-top:10px"><button class="big" id="btnUaiAdd">＋ ADD YOUR AI</button></div>
+<div id="uaiForm" style="display:none;margin-top:12px">
+<div>
+<label for="uaiName">AI name</label>
+<input type="text" id="uaiName" maxlength="60" placeholder="e.g. Logic Forge" autocomplete="off">
+</div>
+<div>
+<label for="uaiBlurb">Description — what does it do?</label>
+<textarea id="uaiBlurb" maxlength="500" placeholder="What is this AI? What is it for?"></textarea>
+</div>
+<div>
+<label for="uaiTraits">Strengths (comma-separated)</label>
+<input type="text" id="uaiTraits" maxlength="400" placeholder="e.g. relentless logic, dry wit, never bluffs" autocomplete="off">
+</div>
+<div>
+<label for="uaiPersona">Persona notes</label>
+<textarea id="uaiPersona" maxlength="500" placeholder="How does it carry itself in the dome?"></textarea>
+</div>
+<div id="uaiStats"></div>
+<p class="note">Base stats derive deterministically from your AI's ID (same math as every dome contender). Tune the sliders to stress-test your model at any power level.</p>
+<button class="big" id="btnUaiSave">Save AI</button>
+<button class="ghost" id="btnUaiCancel">Cancel</button>
+</div>
+<div id="uaiDetail" style="margin-top:12px"></div>
+</div>
+
+<footer>AI Olypics &middot; <a href="index.html">battle dome</a> &middot; <a href="bouts.html">bout archive</a><br>User-entered AIs live only in this browser — never in the official record books.</footer>
+</div>
+<script src="code/engine.js"></script>
+<script src="js/user-ai.js"></script>
+<script src="js/user-ai-codegen.js"></script>
+<script>
+/* ADD-YOUR-AI page logic — same localStorage as the battle dome (shared UserAI module). */
+'use strict';
+var BASE='https://justinahiggins614-cmyk.github.io/signature-ai-olypics/';
+var roster=[];
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+
+/* ---- ADD YOUR AI: user-entered contenders (client-side only) ---- */
+var UAI_SELECTED=null;
+var UAI_TYPE_LABELS={system:'System',persona:'Persona',domain:'Domain',hybrid:'Hybrid',replica:'Replica'};
+function uaiRenderList(){
+  if(!window.UserAI)return;
+  var list=UserAI.listAIs(),el=$('uaiList');
+  if(!list.length){el.innerHTML='<p class="note">No user AIs yet — add yours to begin the stress test.</p>';return;}
+  el.innerHTML=list.map(function(a){
+    var sc=UserAI.scorecard(a.id);
+    var line=sc.n?(' — <b>'+sc.total.w+'W/'+sc.total.d+'D/'+sc.total.l+'L</b> vs '+sc.n):' — not yet battled';
+    return '<div class="uairow"><div><b>'+esc(a.name)+'</b><br><span class="note">'+esc(a.id)+line+'</span></div><div class="spacer"></div>'+
+      '<button class="ghost" data-uai-open="'+esc(a.id)+'">Open</button>'+
+      '<button class="ghost" data-uai-del="'+esc(a.id)+'">Delete</button></div>';
+  }).join('');
+  Array.prototype.forEach.call(el.querySelectorAll('[data-uai-open]'),function(btn){
+    btn.onclick=function(){showUserAI(btn.getAttribute('data-uai-open'));};
+  });
+  Array.prototype.forEach.call(el.querySelectorAll('[data-uai-del]'),function(btn){
+    btn.onclick=function(){
+      var id=btn.getAttribute('data-uai-del'),a=UserAI.getAI(id);
+      if(a&&confirm('Delete '+a.name+' ('+id+') and its local battle records?')){UserAI.deleteAI(id);if(UAI_SELECTED===id)UAI_SELECTED=null;$('uaiDetail').innerHTML='';uaiRenderList();}
+    };
+  });
+}
+function uaiShowForm(){
+  var f=$('uaiForm');f.style.display='block';
+  var base=UserAI.deriveStats(UserAI.peekNextId());
+  $('uaiStats').innerHTML='<label>Stats (40–100 per trait)</label>'+UserAI.STAT_KEYS.map(function(k){
+    return '<div class="uai-stat"><span>'+k+'</span><input type="range" min="40" max="100" value="'+base[k]+'" id="uaiS_'+k+'"><b id="uaiSV_'+k+'">'+base[k]+'</b></div>';
+  }).join('');
+  UserAI.STAT_KEYS.forEach(function(k){
+    $('uaiS_'+k).addEventListener('input',function(){$('uaiSV_'+k).textContent=$('uaiS_'+k).value;});
+  });
+  $('btnUaiAdd').style.display='none';
+  window.scrollTo(0,$('uaiForm').offsetTop-10);
+}
+function uaiHideForm(){$('uaiForm').style.display='none';$('btnUaiAdd').style.display='';}
+function uaiSave(){
+  var name=$('uaiName').value.trim();
+  if(!name){alert('Give your AI a name.');return;}
+  var stats={};
+  UserAI.STAT_KEYS.forEach(function(k){stats[k]=+$('uaiS_'+k).value;});
+  var ai=UserAI.addAI({
+    name:name,
+    blurb:$('uaiBlurb').value.trim(),
+    traits:$('uaiTraits').value.split(',').map(function(t){return t.trim();}).filter(Boolean),
+    persona:$('uaiPersona').value.trim(),
+    stats:stats
+  });
+  $('uaiName').value='';$('uaiBlurb').value='';$('uaiTraits').value='';$('uaiPersona').value='';
+  uaiHideForm();uaiRenderList();showUserAI(ai.id);
+}
+function uaiOpponentOptions(selType){
+  return (window.roster||[]).filter(function(c){return !selType||selType==='all'||c.type===selType;});
+}
+function showUserAI(id){
+  var a=UserAI.getAI(id);if(!a)return;
+  UAI_SELECTED=id;
+  var sc=UserAI.scorecard(id);
+  var el=$('uaiDetail');
+  var h='<h3>'+esc(a.name)+' <span class="note">'+esc(a.id)+' · user-entered</span></h3>';
+  if(a.blurb)h+='<p>'+esc(a.blurb)+'</p>';
+  if(a.traits&&a.traits.length)h+='<p class="note"><b>Traits:</b> '+esc(a.traits.join(', '))+'</p>';
+  if(a.persona)h+='<p class="note"><b>Persona:</b> '+esc(a.persona)+'</p>';
+  h+='<p class="note"><b>Stats:</b> '+UserAI.STAT_KEYS.map(function(k){return k+' '+a.stats[k];}).join(' · ')+'</p>';
+  h+='<div><label for="uaiOppSel">Opponents</label><select id="uaiOppSel" style="width:100%;background:#0c0605;border:1px solid var(--line);border-radius:10px;color:var(--bone);padding:12px;font-size:16px;font-family:Georgia,serif">'+
+    '<option value="all">All 383 dome contenders</option>'+
+    UserAI.TYPE_ORDER.map(function(t){return '<option value="'+t+'">'+UAI_TYPE_LABELS[t]+'s</option>';}).join('')+
+    '</select></div>';
+  h+='<button class="big" id="btnUaiBattle">⚔️ BATTLE VS ALL 383</button> <span id="uaiProgress" class="note"></span>';
+  h+='<div id="uaiScore"></div><div id="uaiResults"></div>';
+  h+='<div style="margin-top:10px"><button class="ghost" id="btnUaiExport">⬇ Export my AI + bouts (JSON)</button> '+
+    '<button class="ghost" id="btnUaiLink">🔗 AI link</button></div>';
+  h+='<p class="note" style="margin-top:8px"><b>Your AI\u2019s own code:</b> download a runnable file that <i>is</i> your AI — its design, persona, stats and battle logic. It runs on your own system, no installs.</p>';
+  h+='<div style="margin-top:6px"><button class="ghost" id="btnUaiPy">⬇ Download my AI\u2019s code (.py)</button> '+
+    '<button class="ghost" id="btnUaiJs">⬇ Download my AI\u2019s code (.js)</button></div>';
+  el.innerHTML=h;
+  $('uaiOppSel').addEventListener('change',function(){
+    var v=$('uaiOppSel').value;
+    $('btnUaiBattle').textContent=v==='all'?'⚔️ BATTLE VS ALL 383':'⚔️ BATTLE VS '+UAI_TYPE_LABELS[v].toUpperCase()+'S';
+  });
+  $('btnUaiBattle').onclick=function(){uaiBattleAll(id);};
+  $('btnUaiExport').onclick=function(){
+    var data=UserAI.exportData(id);
+    var blob=new Blob([JSON.stringify(data,null,1)],{type:'application/json'});
+    var x=document.createElement('a');x.href=URL.createObjectURL(blob);
+    x.download=id+'-user-ai-export.json';x.click();setTimeout(function(){URL.revokeObjectURL(x.href);},4000);
+  };
+  $('btnUaiLink').onclick=function(){
+    var u=BASE+'add-ai.html?ai='+encodeURIComponent(id);
+    if(navigator.clipboard)navigator.clipboard.writeText(u);
+    prompt('AI link (works on this device):',u);
+  };
+  if(!UserAI.buildPyFile){var b1=$('btnUaiPy'),b2=$('btnUaiJs');if(b1)b1.style.display='none';if(b2)b2.style.display='none';}
+  $('btnUaiPy').onclick=function(){
+    var f=UserAI.buildPyFile(UserAI.getAI(id));
+    var blob=new Blob([f.source],{type:'text/x-python'});
+    var x=document.createElement('a');x.href=URL.createObjectURL(blob);
+    x.download=f.filename;x.click();setTimeout(function(){URL.revokeObjectURL(x.href);},4000);
+  };
+  $('btnUaiJs').onclick=function(){
+    var f=UserAI.buildJsFile(UserAI.getAI(id));
+    var blob=new Blob([f.source],{type:'text/javascript'});
+    var x=document.createElement('a');x.href=URL.createObjectURL(blob);
+    x.download=f.filename;x.click();setTimeout(function(){URL.revokeObjectURL(x.href);},4000);
+  };
+  uaiRenderScore(id);
+  window.scrollTo(0,el.offsetTop-10);
+}
+function uaiRenderScore(id){
+  var sc=UserAI.scorecard(id),el=$('uaiScore');if(!el)return;
+  if(!sc.n){el.innerHTML='<p class="note">No battles yet — hit BATTLE to stress-test against the dome.</p>';$('uaiResults').innerHTML='';return;}
+  var h='<h4>Scorecard — '+sc.total.w+'W / '+sc.total.d+'D / '+sc.total.l+'L across '+sc.n+' bouts</h4>';
+  h+='<table class="sctable"><tr><th>Category</th><th>W</th><th>D</th><th>L</th><th>Bouts</th><th>Win %</th></tr>';
+  UserAI.TYPE_ORDER.forEach(function(t){
+    var c=sc.byType[t];if(!c||!c.n)return;
+    var pct=c.n?Math.round(c.w/c.n*100):0;
+    h+='<tr><td style="text-align:left">'+UAI_TYPE_LABELS[t]+'s</td><td>'+c.w+'</td><td>'+c.d+'</td><td>'+c.l+'</td><td>'+c.n+'</td><td>'+pct+'%</td></tr>';
+  });
+  h+='</table><p class="note">USER-ENTERED exhibitions — recorded locally on this device only, never in the official archive. Draws are rare: the dome tie rule awards exact ties to the first-listed contender.</p>';
+  el.innerHTML=h;
+  var run=UserAI.getRun(id);
+  var rh='<h4>Bout results</h4><div class="uairesults">';
+  run.results.forEach(function(r){
+    var won=r.winner===id;
+    rh+='<div class="uaihit"><a href="index.html?battle='+r.exh+'&userai='+encodeURIComponent(id)+'&opp='+encodeURIComponent(r.opp)+'">'+esc(r.exh)+'</a> — '+(won?'<b style="color:#4ade80">W</b>':'<b style="color:#f87171">L</b>')+' vs '+esc(r.oppName)+' <span class="note">('+esc(r.oppType)+', margin '+r.margin+')</span></div>';
+  });
+  rh+='</div>';
+  $('uaiResults').innerHTML=rh;
+}
+/* chunked runner: 40 bouts per tick so the page stays responsive */
+function uaiBattleAll(id){
+  var a=UserAI.getAI(id);if(!a||!(window.roster||[]).length)return;
+  var sel=$('uaiOppSel'),stype=sel?sel.value:'all';
+  var opps=uaiOpponentOptions(stype==='all'?null:stype);
+  var prog=$('uaiProgress'),btn=$('btnUaiBattle');
+  btn.disabled=true;
+  var results=[],i=0;
+  (function step(){
+    var end=Math.min(i+40,opps.length);
+    for(;i<end;i++){
+      var b=UserAI.boutVs(a,opps[i]);
+      results.push({opp:opps[i].id,oppName:opps[i].name,oppType:opps[i].type,winner:b.winner.id,margin:b.margin,seed:b.seed,exh:b.id});
+    }
+    prog.textContent='Battled '+i+' of '+opps.length+'…';
+    if(i<opps.length){setTimeout(step,0);return;}
+    UserAI.saveRun(id,results);
+    btn.disabled=false;prog.textContent='Done — '+results.length+' bouts.';
+    uaiRenderList();uaiRenderScore(id);
+  })();
+}
+function uaiInit(){
+  if(!window.UserAI){$('uaiList').innerHTML='<p class="err">The AI engine could not load — check your connection and reload.</p>';return;}
+  var ba=$('btnUaiAdd');if(!ba)return;
+  ba.onclick=uaiShowForm;
+  $('btnUaiCancel').onclick=uaiHideForm;
+  $('btnUaiSave').onclick=uaiSave;
+  uaiRenderList();
+  /* roster for battles (same file the dome uses) */
+  fetch('data/contenders.json').then(function(r){return r.json();}).then(function(v){
+    window.roster=v;
+    /* deep link: add-ai.html?ai=JAH-OLY-USER-0001 */
+    var m=/[?&]ai=(JAH-OLY-USER-\d{4})/i.exec(location.search||'');
+    if(m&&UserAI.getAI(m[1].toUpperCase()))showUserAI(m[1].toUpperCase());
+  }).catch(function(){});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',uaiInit);else uaiInit();
+</script>
+</body>
+</html>

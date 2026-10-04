@@ -207,6 +207,130 @@ ARCH_CSS = ('.archbox{border:2px solid #b36b00;background:#fff8ec;border-radius:
             '.azmore{display:block;margin:10px auto;padding:10px 22px;background:#fff8ec;'
             'border:1px solid #b36b00;color:#8a4b00;border-radius:8px;cursor:pointer;font-size:14px}'
             '.azload,.azerr{color:#666;font-size:13px;text-align:center;padding:12px}')
+# --- TAB-WAVE (2026-10-04): calculator-style tab bar + Ask-the-AI box, baked into
+# every regenerated bouts.html (drip-proof).
+TABBAR_OLY = r"""<!-- JAH TAB BAR — Manon's 2026-10-04 order (calculator screenshot as spec).
+     Paste right after </header> (or after the hero/title block) on index.html AND on the archive page.
+     On index.html: "Front Door" carries class "on". On the archive page: "1 Million Archive" carries "on".
+     Replace <a class="jtab" href="games.html">Games</a><a class="jtab" href="health.html">Health</a> with <a class="jtab" href="...">Label</a> items (may be empty). -->
+<style>
+.jtabbar{display:flex;gap:8px;overflow-x:auto;padding:10px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;border-bottom:1px solid rgba(128,128,128,.25)}
+.jtabbar a.jtab{flex:0 0 auto;text-decoration:none;border:1px solid rgba(160,160,160,.45);border-radius:999px;padding:9px 16px;font-size:.92em;color:inherit;background:rgba(127,127,127,.08);white-space:nowrap;font-family:inherit}
+.jtabbar a.jtab.on{background:#f5c518;border-color:#f5c518;color:#191919;font-weight:700}
+</style>
+<nav class="jtabbar" aria-label="Site sections">
+<a class="jtab" href="index.html">🏠 Front Door</a>
+<a class="jtab" href="add-ai.html">➕ Add Your Own AI</a>
+<a class="jtab on" href="bouts.html">📚 1 Million Archive</a>
+<a class="jtab" href="games.html">Games</a><a class="jtab" href="health.html">Health</a>
+</nav>
+"""
+ASKAI_OLY = r"""<!-- ASK THE AI — Manon's 2026-10-04 order. Paste on the archive page, directly under the
+     search/filter area (or at the top of the archive section if there is no search box).
+     It FINDS records by scanning the page's own archive list, and ANSWERS with his real
+     Signature Llama (same loader as the phone book). Never fake: if the Llama can't load,
+     the found records are still shown honestly. Replace AI Olypics and the battle-bout archive. -->
+<div class="jah-askai" id="jah-askai">
+<style>
+.jah-askai{border:1px solid rgba(160,160,160,.4);border-radius:12px;padding:14px;margin:14px 0;background:rgba(127,127,127,.06)}
+.jah-askai h2{margin:0 0 4px;font-size:1.15em}
+.jah-askai .jah-askai-sub{margin:0 0 10px;font-size:.9em;opacity:.85}
+.jah-askai .jah-askai-row{display:flex;gap:8px}
+.jah-askai input#jah-askai-q{flex:1;min-width:0;padding:10px 12px;border-radius:8px;border:1px solid rgba(160,160,160,.5);font-size:1em;background:#fff;color:#111}
+.jah-askai button#jah-askai-go{padding:10px 18px;border-radius:8px;border:1px solid #f5c518;background:#f5c518;color:#191919;font-weight:700;font-size:1em;cursor:pointer}
+.jah-askai #jah-askai-out{margin-top:10px;font-size:.95em}
+.jah-askai #jah-askai-out ul{margin:6px 0;padding-left:20px}
+.jah-askai .jah-askai-ans{border-left:3px solid #f5c518;padding-left:10px;margin-top:8px}
+.jah-askai .jah-askai-thinking{opacity:.7;font-style:italic}
+</style>
+<h2>🤖 Ask the AI</h2>
+<p class="jah-askai-sub">Ask about anything in this archive — the AI searches the records and answers.</p>
+<div class="jah-askai-row">
+<input id="jah-askai-q" type="text" autocomplete="off" placeholder="Ask about this archive…" aria-label="Ask about this archive">
+<button id="jah-askai-go" type="button">Ask</button>
+</div>
+<div id="jah-askai-out" aria-live="polite"></div>
+<script>
+(function(){
+var SITE="AI Olypics", DESC="the battle-bout archive";
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+/* Real Signature Llama loader — same pattern as the phone book. */
+var LLAMA_BASE="https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/";
+var LLAMA_VOCAB="vocab2.json", LLAMA_BIN="sigllama-v2.bin";
+var net={loading:null,ready:false};
+function llamaEnsure(){
+  if(net.ready) return Promise.resolve(true);
+  if(net.loading) return net.loading;
+  net.loading=new Promise(function(resolve){
+    function fin(ok){net.ready=!!ok;resolve(net.ready);}
+    function boot(){try{
+      if(typeof SigLlama==="undefined"){fin(false);return;}
+      SigLlama.load(LLAMA_BASE,LLAMA_VOCAB,LLAMA_BIN).then(function(){fin(true);},function(){fin(false);});
+    }catch(e){fin(false);}}
+    if(typeof SigLlama!=="undefined"){boot();return;}
+    var s=document.createElement("script");s.src=LLAMA_BASE+"sigllama.js";s.async=true;
+    s.onload=boot;s.onerror=function(){fin(false);};document.head.appendChild(s);
+  });
+  return net.loading;
+}
+/* FIND: keyword scan over the page's own archive list links. */
+function findRecords(q){
+  var words=String(q).toLowerCase().split(/[^a-z0-9]+/).filter(function(w){return w.length>2;});
+  if(!words.length) return [];
+  var scope=document.getElementById("jah-askai-scope")||document.querySelector("main")||document.body;
+  var links=scope.getElementsByTagName("a"),out=[],seen={};
+  for(var i=0;i<links.length;i++){
+    var a=links[i];
+    if(a.closest("nav")||a.closest("header")||a.closest("footer")||a.closest(".jah-askai")) continue;
+    var t=(a.textContent||"").replace(/\s+/g," ").trim();
+    if(t.length<3||t.length>160) continue;
+    var tl=t.toLowerCase(),score=0;
+    for(var j=0;j<words.length;j++) if(tl.indexOf(words[j])>=0) score++;
+    if(score>0&&!seen[a.href]){seen[a.href]=1;out.push({t:t,h:a.href,s:score});}
+    if(out.length>=60) break;
+  }
+  out.sort(function(x,y){return y.s-x.s;});
+  return out.slice(0,5);
+}
+function ask(){
+  var q=document.getElementById("jah-askai-q").value.trim();
+  var out=document.getElementById("jah-askai-out");
+  if(!q){out.innerHTML="<p>Please type a question first.</p>";return;}
+  var found=findRecords(q),html="";
+  if(found.length){
+    html+="<p><b>📎 I found "+found.length+" record"+(found.length>1?"s":"")+" matching your words:</b></p><ul>"+
+      found.map(function(f){return '<li><a href="'+esc(f.h)+'">'+esc(f.t)+"</a></li>";}).join("")+"</ul>";
+  }else{
+    html+="<p>No record titles matched those words — asking the AI anyway.</p>";
+  }
+  html+='<p class="jah-askai-thinking">🤖 thinking…</p>';
+  out.innerHTML=html;
+  var think=out.querySelector(".jah-askai-thinking");
+  llamaEnsure().then(function(ok){
+    if(!ok||typeof SigLlama==="undefined"||!SigLlama.loaded||!SigLlama.loaded()){
+      think.textContent="The AI voice could not load right now — the records above are what matched your words.";return;}
+    var ctx="You are the "+SITE+" archive helper. "+DESC+".\n"+
+      (found.length?("Records matching the question: "+found.map(function(f){return f.t;}).join(" | ")+"\n"):"")+
+      "User: "+q.slice(0,300)+"\nHelper (one to three sentences, plain words):";
+    var done=false;
+    function show(t){
+      if(done) return; done=true;
+      t=String(t||"").trim().replace(/^Helper\s*:\s*/i,"");
+      if(t.length<8||/User\s*:/.test(t)) t="I searched the archive for you — the matching records are listed above.";
+      think.outerHTML='<p class="jah-askai-ans">🤖 '+esc(t)+"</p>";
+    }
+    try{
+      SigLlama.generate(ctx,{maxTokens:90,temperature:0.5,topK:40}).then(show,function(){show("");});
+      setTimeout(function(){show("");},25000);
+    }catch(e){show("");}
+  });
+}
+document.getElementById("jah-askai-go").addEventListener("click",ask);
+document.getElementById("jah-askai-q").addEventListener("keydown",function(e){if(e.key==="Enter")ask();});
+})();
+</script>
+</div>
+"""
 # --- FIX-03: bouts.html static tables (100 bouts per table) ---
 # CONSISTENCY PASS: every bout row carries the SIMULATION record-status badge.
 # NETWORK ORDER (Manon, 2026-10-04): the page opens with the full Bout Archive
@@ -280,12 +404,17 @@ page = ('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
         ''.join(med_rows), ''.join(ev_med_rows),
         nav, ''.join(parts))
         + ARCH_JS + '</body></html>')
+# TAB-WAVE: tab bar after the intro block, Ask-the-AI under the search box.
+page = page.replace('<a href="./">Back to the battle dome</a>.</p>',
+                    '<a href="./">Back to the battle dome</a>.</p>' + TABBAR_OLY, 1)
+page = page.replace('results link straight to each battle.</p></div></div>',
+                    'results link straight to each battle.</p></div></div>' + ASKAI_OLY, 1)
 with open(os.path.join(ROOT, 'bouts.html'), 'w') as f:
     f.write(page)
 print('bouts.html: %d static tables + %d event archive lists' % (len(parts), len(ev_az)))
 
 # --- FIX-02: modular sitemaps - index + batches of 1000 bout URLs ---
-urls = [BASE + '/', BASE + '/bouts.html', BASE + '/games.html']
+urls = [BASE + '/', BASE + '/bouts.html', BASE + '/games.html', BASE + '/add-ai.html']
 # weekly games deep links
 games_dir = os.path.join(DATA, 'games')
 if os.path.isdir(games_dir):
