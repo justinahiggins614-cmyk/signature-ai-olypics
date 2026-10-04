@@ -1,19 +1,19 @@
 {
  "site": "AI Olypics",
- "checked_at": "2026-10-04T05:05:19+00:00",
+ "checked_at": "2026-10-04T06:08:18+00:00",
  "overall": "HEALTHY",
- "bouts": 22063,
+ "bouts": 23063,
  "contenders": 383,
  "checks": [
   {
    "name": "chunk files present",
    "ok": true,
-   "detail": "221 files, manifest says 221"
+   "detail": "231 files, manifest says 231"
   },
   {
    "name": "bout count matches manifest",
    "ok": true,
-   "detail": "22063 records, manifest 22063"
+   "detail": "23063 records, manifest 23063"
   },
   {
    "name": "no duplicate bout IDs",
@@ -23,17 +23,17 @@
   {
    "name": "ID range contiguous",
    "ok": true,
-   "detail": "JAH-OLY-000001 .. JAH-OLY-022063"
+   "detail": "JAH-OLY-000001 .. JAH-OLY-023063"
   },
   {
    "name": "content_hash spot-check",
    "ok": true,
-   "detail": "22 records re-hashed"
+   "detail": "23 records re-hashed"
   },
   {
    "name": "index rows match manifest",
    "ok": true,
-   "detail": "22063 rows"
+   "detail": "23063 rows"
   },
   {
    "name": "index hash matches manifest",
@@ -58,7 +58,7 @@
   {
    "name": "data dir under 800MB guard",
    "ok": true,
-   "detail": "24.1 MB"
+   "detail": "25.3 MB"
   },
   {
    "name": "file present: index.html",
