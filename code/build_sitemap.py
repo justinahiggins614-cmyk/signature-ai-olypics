@@ -55,9 +55,11 @@ def esc(s):
 # (event_id, else deterministic seed%8) so the archive agrees with
 # data/medals.json exactly.
 from build_medals import event_key_for, EVENTS
+from build_az import write_az, load_games
 EV_DIR = os.path.join(DATA, 'events')
 os.makedirs(EV_DIR, exist_ok=True)
 ev_rows = {key: [] for key, name, emoji, eid in EVENTS}
+az_rows = []  # [bout_id, mission, stage_name] -> data/index/az/ (bouts.html A-Z)
 for f_ in sorted(os.listdir(os.path.join(DATA, 'chunks'))):
     if not f_.endswith('.jsonl.gz'):
         continue
@@ -70,9 +72,11 @@ for f_ in sorted(os.listdir(os.path.join(DATA, 'chunks'))):
             w = b['winner']['name']
             c0 = b['contenders'][0]['name']
             c1 = b['contenders'][1]['name']
-            ev_rows[ek].append([b['id'], c0, c1, w,
-                               b['stage'].get('name', b['stage'].get('key', '')),
+            st = b.get('stage', {}) or {}
+            st_name = st.get('name', st.get('key', ''))
+            ev_rows[ek].append([b['id'], c0, c1, w, st_name,
                                b['mission'][:60]])
+            az_rows.append([b['id'], b.get('mission', ''), st_name])
 for key, name, emoji, eid in EVENTS:
     with open(os.path.join(EV_DIR, key + '.json'), 'w') as f:
         json.dump({'event': key, 'name': name, 'emoji': emoji,
@@ -80,6 +84,11 @@ for key, name, emoji, eid in EVENTS:
                   ensure_ascii=False)
 print('events: %d per-event lists -> data/events/ (%d bouts)' %
       (len(EVENTS), sum(len(v) for v in ev_rows.values())))
+
+# --- A-Z archive: per-letter bout lists for the bouts.html "Every battle,
+# A-Z by mission" section (+ Weekly Games mode). Built here, in the same
+# chunk scan, so it can never go stale relative to the event lists above.
+az_manifest = write_az(az_rows, load_games())
 
 # medal leaders for the archive summaries / charts (rebuilt by seed.py's
 # build_medals() call BEFORE this script runs in the drip, so never stale)
@@ -139,6 +148,25 @@ document.querySelectorAll('details.ev').forEach(function(det){det.addEventListen
 function olySearch(){var q=document.getElementById('olyq').value.trim().toLowerCase();var res=document.getElementById('olyres');if(q.length<2){res.innerHTML='<p class="note">Type at least 2 characters &mdash; a contender, winner, arena, mission, or JAH-OLY-&hellip;</p>';return;}res.innerHTML='<p class="note">Searching every battle&hellip;</p>';var keys=Array.prototype.map.call(document.querySelectorAll('details.ev'),function(d){return d.getAttribute('data-ev');});Promise.all(keys.map(function(k){return fetch('data/events/'+k+'.json').then(function(r){return r.json();});})).then(function(all){var hits=[];all.forEach(function(d){d.rows.forEach(function(r){if((r[0]+' '+r[1]+' '+r[2]+' '+r[3]+' '+r[4]+' '+r[5]).toLowerCase().indexOf(q)>=0)hits.push(r);});});if(!hits.length){res.innerHTML='<p class="note">No battles match.</p>';return;}var h='<ul class="boutlist">'+hits.slice(0,50).map(olyRow).join('')+'</ul>';if(hits.length>50)h+='<p class="note">Showing 50 of '+hits.length+' matches &mdash; narrow your search for more.</p>';res.innerHTML=h;}).catch(function(){res.innerHTML='<p class="note">Search failed &mdash; try again.</p>';});}
 document.getElementById('olygo').addEventListener('click',olySearch);
 document.getElementById('olyq').addEventListener('keydown',function(e){if(e.key==='Enter')olySearch();});
+/* ---- Every battle, A-Z by mission ----
+   Per-letter files at data/index/az/<LETTER>.json.gz (+ manifest.json,
+   games.json) are built by code/build_az.py, called from build_sitemap.py
+   in the same chunk scan as the event lists, so the archive can never go
+   stale. A letter's file loads only on first open. Entries deep-link to
+   ./?battle=<id> (the battle record); games deep-link to games.html?games=. */
+var AZLETTERS="ABCDEFGHIJKLMNOPQRSTUVWXYZ#".split(""),AZ={counts:null,rows:{},shown:{},loading:{}},AZ_PAGE=250;
+function azGunzip(url){return fetch(url).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.arrayBuffer();}).then(function(ab){if(typeof DecompressionStream==="undefined")throw new Error("gzip unsupported");var ds=new DecompressionStream("gzip");return new Response(new Blob([ab]).stream().pipeThrough(ds)).text();});}
+function azItemHtml(r){return '<a class="azitem" href="./?battle='+r[0]+'"><span class="azid">'+r[0]+'</span><span class="aztitle">'+olyEsc(r[1])+'</span><span class="azcat">'+olyEsc(r[2]||"")+'</span></a>';}
+function azRenderPage(L){var rows=AZ.rows[L]||[],shown=AZ.shown[L]||0;var body=document.querySelector('[data-azbody="'+L+'"]');if(!body)return;var h="",i;for(i=0;i<shown&&i<rows.length;i++)h+=azItemHtml(rows[i]);if(shown<rows.length){h+='<button type="button" class="azmore" data-azmore="'+L+'">SHOW MORE ('+(rows.length-shown).toLocaleString()+' REMAINING)</button>';}else{h+='<p class="note">End of letter '+olyEsc(L)+' \u2014 '+rows.length.toLocaleString()+' battles shown.</p>';}body.innerHTML=h;}
+function azLoadLetter(L){if(AZ.rows[L]||AZ.loading[L])return;AZ.loading[L]=true;var body=document.querySelector('[data-azbody="'+L+'"]');azGunzip("data/index/az/"+L+".json.gz").then(function(text){var rows=[];text.split("\n").forEach(function(ln){ln=ln.trim();if(!ln)return;try{rows.push(JSON.parse(ln));}catch(x){}});AZ.rows[L]=rows;AZ.shown[L]=Math.min(AZ_PAGE,rows.length);delete AZ.loading[L];azRenderPage(L);}).catch(function(){delete AZ.loading[L];if(body)body.innerHTML='<p class="azerr">Could not load letter '+olyEsc(L)+' \u2014 check your connection and reopen.</p>';});}
+function azHandleLetterParam(){var m=/[?&]letter=([A-Za-z#])/.exec(location.search);if(!m)return;var L=m[1].toUpperCase();var d=document.querySelector('#azletters details[data-letter="'+L+'"]');if(!d)return;d.open=true;azLoadLetter(L);}
+function azRenderLetters(){var box=document.getElementById("azletters");if(!box||!AZ.counts)return;var h="";AZLETTERS.forEach(function(L){var n=AZ.counts[L]||0;h+='<details class="azsec" data-letter="'+L+'"><summary><span class="azletter">'+L+'</span><span class="azcount">'+n.toLocaleString()+' battles</span></summary><div class="azbody" data-azbody="'+L+'"><p class="azload">Open to load this letter&hellip;</p></div></details>';});box.innerHTML=h;azHandleLetterParam();}
+function azRenderGames(list){var box=document.getElementById("azgames");if(!box||box.getAttribute("data-done"))return;box.setAttribute("data-done","1");var h="";if(!list.length)h='<p class="note">No weekly games archived yet.</p>';list.forEach(function(g){h+='<a class="azitem" href="games.html?games='+olyEsc(g.id)+'"><span class="azid">'+olyEsc(g.id)+'</span><span class="aztitle">Week '+g.week+' \u2014 week of '+olyEsc(g.week_start||"")+'</span><span class="azcat">'+Number(g.bout_count||0).toLocaleString()+' bouts</span></a>';});box.innerHTML=h;}
+function azBuild(){var box=document.getElementById("azletters");if(!box)return;fetch("data/index/az/manifest.json").then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();}).then(function(m){AZ.counts=m.counts||{};var el=document.getElementById("azTotal");if(el&&m.total)el.textContent=Number(m.total).toLocaleString();azRenderLetters();return fetch("data/index/az/games.json").then(function(r){return r.ok?r.json():[];}).catch(function(){return[];});}).then(function(g){azRenderGames(g||[]);}).catch(function(){box.innerHTML='<p class="note">The archive index could not be loaded \u2014 check your connection and reload. Search still works.</p>';});}
+document.querySelectorAll(".azmode").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll(".azmode").forEach(function(x){x.classList.remove("active")});b.classList.add("active");var letters=document.getElementById("azletters"),games=document.getElementById("azgames");if(b.getAttribute("data-azmode")==="games"){letters.hidden=true;games.hidden=false;}else{letters.hidden=false;games.hidden=true;}});});
+document.addEventListener("click",function(e){var m=e.target&&e.target.getAttribute?e.target.getAttribute("data-azmore"):null;if(m){AZ.shown[m]=(AZ.shown[m]||0)+AZ_PAGE;azRenderPage(m);}});
+document.addEventListener("toggle",function(e){var d=e.target;if(d&&d.tagName==="DETAILS"&&d.classList.contains("azsec")&&d.open){azLoadLetter(d.getAttribute("data-letter"));}},true);
+azBuild();
 </script>
 """
 
@@ -155,7 +183,30 @@ ARCH_CSS = ('.archbox{border:2px solid #b36b00;background:#fff8ec;border-radius:
             '#olyq{width:68%%;max-width:420px;padding:11px;font-size:15px;border:1px solid #999;border-radius:6px}'
             'button.go{padding:11px 18px;font-size:15px;cursor:pointer;margin-left:6px}'
             'table.med{font-size:13px}table.med td,table.med th{padding:5px 8px}'
-            '.note{color:#555;font-size:13px}')
+            '.note{color:#555;font-size:13px}'
+            '.azmodes{display:flex;gap:10px;margin:10px 0;flex-wrap:wrap}'
+            '.azmode{background:#fff8ec;border:1px solid #b36b00;color:#8a4b00;'
+            'border-radius:8px;padding:9px 18px;font-size:14px;cursor:pointer}'
+            '.azmode.active,.azmode:hover{background:#b36b00;color:#fff}'
+            'details.azsec{border:1px solid #999;border-radius:8px;margin:8px 0;background:#fff}'
+            'details.azsec summary{cursor:pointer;padding:12px;font-size:15px;'
+            'list-style:none;display:flex;gap:12px;align-items:baseline}'
+            'details.azsec summary::-webkit-details-marker{display:none}'
+            'details.azsec summary:before{content:"\\25B6  ";color:#b36b00}'
+            'details.azsec[open] summary:before{content:"\\25BC  "}'
+            '.azletter{font-weight:bold;color:#8a4b00;min-width:30px;font-size:17px}'
+            '.azcount{margin-left:auto;color:#666;font-size:13px}'
+            '.azbody{padding:0 12px 12px}'
+            'a.azitem{display:flex;gap:10px;align-items:baseline;padding:7px 4px;'
+            'border-top:1px solid #eee;font-size:13px;text-decoration:none;color:inherit}'
+            'a.azitem:hover{background:#fff8ec}'
+            '.azid{color:#8a4b00;font-weight:bold;white-space:nowrap;font-size:12px}'
+            '.aztitle{flex:1;min-width:0}'
+            '.azcat{color:#666;font-size:12px;white-space:nowrap;overflow:hidden;'
+            'text-overflow:ellipsis;max-width:32%}'
+            '.azmore{display:block;margin:10px auto;padding:10px 22px;background:#fff8ec;'
+            'border:1px solid #b36b00;color:#8a4b00;border-radius:8px;cursor:pointer;font-size:14px}'
+            '.azload,.azerr{color:#666;font-size:13px;text-align:center;padding:12px}')
 # --- FIX-03: bouts.html static tables (100 bouts per table) ---
 # CONSISTENCY PASS: every bout row carries the SIMULATION record-status badge.
 # NETWORK ORDER (Manon, 2026-10-04): the page opens with the full Bout Archive
@@ -209,6 +260,13 @@ page = ('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
         '<h2>&#127963;&#65039; The eight Olypics events &mdash; A&ndash;Z</h2>'
         '<p class="note">Open an event to load its battles &mdash; each event loads on demand, never all at once.</p>'
         '%s'
+        '<h2>&#127993;&#65039; Every battle, A&ndash;Z by mission</h2>'
+        '<p class="note">The whole bout catalog, A&ndash;Z by battle mission &mdash; <b id="azTotal">%s</b> battles, every one deep-linked to its battle record. Open a letter &mdash; its list loads on demand, so the page stays fast on phones. Or browse the Weekly Olypics games hall records.</p>'
+        '<div class="azmodes" role="group" aria-label="Archive browse mode">'
+        '<button type="button" class="azmode active" data-azmode="letters">A&ndash;Z by mission</button>'
+        '<button type="button" class="azmode" data-azmode="games">Weekly games</button></div>'
+        '<div id="azletters"><p class="note">Loading archive index&hellip;</p></div>'
+        '<div id="azgames" hidden></div>'
         '<h2>&#127941; Medal charts</h2>'
         '<h3>Overall champions</h3>'
         '<table class="med"><tr><th></th><th>Champion</th><th>&#129351;</th><th>&#129352;</th><th>&#129353;</th></tr>%s</table>'
@@ -218,6 +276,7 @@ page = ('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
         '<nav class="toc" aria-label="Bout batches">%s</nav>%s' % (
         '{:,}'.format(len(catalog)),
         ''.join(details_html),
+        '{:,}'.format(len(az_rows)),
         ''.join(med_rows), ''.join(ev_med_rows),
         nav, ''.join(parts))
         + ARCH_JS + '</body></html>')
