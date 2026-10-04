@@ -121,7 +121,7 @@ details.mstats>summary::-webkit-details-marker{display:none}
   .fighter{width:100%;max-width:420px}
   .vs{transform:rotate(90deg);font-size:24px}
 }
-/* OLYMPIC REDESIGN: event picker grid + medal tables */
+/* OLYPICS REDESIGN: event picker grid + medal tables */
 .eventgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
 @media(max-width:700px){.eventgrid{grid-template-columns:repeat(2,1fr)}}
 .eventbtn{background:#241109;border:2px solid #6a3a1a;color:var(--bone);border-radius:10px;padding:10px 6px;cursor:pointer;font-size:14px;font-family:Georgia,serif}
@@ -231,15 +231,15 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 <header class="hero">
 <div class="sitekicker" id="siteKicker"><b>SITE 17 OF 27</b> · THE JAH NETWORK</div>
 <h1>AI OLYPICS</h1>
-<p>The Signature battle dome — now a true <b>AI Olympics</b>. <b>8 Olympic events</b>: 🤼 Wrestling in the Pit, 🏅 All-Around, ⚡ Sprint, 🏃 Marathon, 🏋️ Weightlifting, 🤸 Gymnastics, 🎙️ Debate, 🧩 Puzzle Hunt. Pick an event, pick two fighters, light the torch. Every week the whole roster fights the <b>Weekly Games</b> — all 383 contenders in attendance. Every battle is recorded twice: as action-packed human-readable story and as AI-readable data — with findings and derived invention records.</p>
+<p>The Signature battle dome — now a true <b>AI Olypics</b>. <b>8 Olypics events</b>: 🤼 Wrestling in the Pit, 🏅 All-Around, ⚡ Sprint, 🏃 Marathon, 🏋️ Weightlifting, 🤸 Gymnastics, 🎙️ Debate, 🧩 Puzzle Hunt. Pick an event, pick two fighters, light the torch. Every week the whole roster fights the <b>Weekly Games</b> — all 383 contenders in attendance. Every battle is recorded twice: as action-packed human-readable story and as AI-readable data — with findings and derived invention records.</p>
 <div class="counter"><details class="mstats" open><summary>Site statistics</summary><b id="marchCount">23,063</b> / 1,000,000 battles recorded</details></div>
-<p style="margin:12px 0 0"><a href="bouts.html" style="font-size:17px;font-weight:bold">&#128214; Browse the full bout archive &mdash; every battle, A&ndash;Z by Olympic event</a></p>
+<p style="margin:12px 0 0"><a href="bouts.html" style="font-size:17px;font-weight:bold">&#128214; Browse the full bout archive &mdash; every battle, A&ndash;Z by Olypics event</a></p>
 </header>
 <main>
 <div class="card">
 <h2>&#127963;&#65039; CHOOSE YOUR EVENT</h2>
-<p class="note">Pick an Olympic event, pick two fighters (or surprise yourself), light the torch. Every event has its own arena, its own judging rubric, its own medal table.</p>
-<div id="eventGrid" class="eventgrid" role="radiogroup" aria-label="Olympic events"></div>
+<p class="note">Pick an Olypics event, pick two fighters (or surprise yourself), light the torch. Every event has its own arena, its own judging rubric, its own medal table.</p>
+<div id="eventGrid" class="eventgrid" role="radiogroup" aria-label="Olypics events"></div>
 <div id="eventRules" class="rubprev" aria-live="polite"></div>
 <div class="row">
 <div><label for="selC1">Fighter one</label><select id="selC1"></select></div>
@@ -273,7 +273,7 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 <h2>&#128197; WEEKLY GAMES</h2>
 <div id="gamesLatest"><p class="note">Loading the latest games…</p></div>
 <p><a class="ghost" href="games.html" style="display:inline-block;text-decoration:none">&#127963;&#65039; Open the Games Hall — every week, every bracket, every ceremony</a></p>
-<p class="note">Every week, all 383 dome contenders fight all 8 Olympic events in single-elimination brackets — about 3,000 bouts per games, archived permanently. Your own AI can enter the games on this device from the Games Hall.</p>
+<p class="note">Every week, all 383 dome contenders fight all 8 Olypics events in single-elimination brackets — about 3,000 bouts per games, archived permanently. Your own AI can enter the games on this device from the Games Hall.</p>
 </div>
 
 <div class="card" id="userAICard">
@@ -289,7 +289,7 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 <div><label for="uaiBlurb">Description</label><input type="text" id="uaiBlurb" maxlength="500" placeholder="What is this AI?"></div>
 <div><label for="uaiPersona">Persona notes</label><input type="text" id="uaiPersona" maxlength="500" placeholder="How does it carry itself in the dome?"></div>
 <div id="uaiStats"></div>
-<p class="note">Base stats derive deterministically from your AI's ID (same math as every dome contender). Tune the sliders to stress-test your model at any power level.</p>
+<p class="note">Base stats derive deterministically from your AI's ID (same math as every dome contender). Tune the sliders to stress-test your model at any power level. Saving records your AI's design in the dome — and from its card you can download your AI's own runnable code (.py / .js).</p>
 <button class="big" id="btnUaiSave">Save AI</button>
 <button class="ghost" id="btnUaiCancel">Cancel</button>
 </div>
@@ -364,6 +364,7 @@ THE JAH NETWORK — 27 sites and counting.<br>
 <script src="code/engine.js"></script>
 <script src="js/jah-talk-fallback.js"></script>
 <script src="js/user-ai.js"></script>
+<script src="js/user-ai-codegen.js"></script>
 <script>
 /* AI Olypics front-end */
 var BASE='https://justinahiggins614-cmyk.github.io/signature-ai-olypics/';
@@ -373,7 +374,7 @@ function gz(url){return fetch(url).then(function(res){if(!res.ok)throw new Error
 function $(id){return document.getElementById(id);}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
 
-/* OLYMPIC REDESIGN: event-first battling, medal tables, weekly games */
+/* OLYPICS REDESIGN: event-first battling, medal tables, weekly games */
 var selEventKey='wrestling';
 var medalsData=null;
 function buildEventGrid(){
@@ -603,7 +604,7 @@ function battleRecord(b){
   h+=row('Engine','v'+esc(String(b.engine_version||'1'))+' · record schema '+(b.battle_version?'JAH-OLY-RECORD/'+b.battle_version+'.0':'v1 (legacy)')+' · winner status '+esc(b.winner_status||'WINNER')+' · execution '+(b.execution_mode||'SIMULATED'));
   if(b.tiebreak)h+=row('Tiebreak','Exact tie — the first-listed contender takes the bout (published tie rule TIE_RULE_FIRST_LISTED).');
   h+=row('Stage',esc(b.stage.name));
-  if(b.event)h+=row('Olympic event',(b.event.emoji?b.event.emoji+' ':'')+esc(b.event.name)+(b.event_id?' ('+esc(b.event_id)+')':'')+' — fixed rubric, fixed arena');
+  if(b.event)h+=row('Olypics event',(b.event.emoji?b.event.emoji+' ':'')+esc(b.event.name)+(b.event_id?' ('+esc(b.event_id)+')':'')+' — fixed rubric, fixed arena');
   if(b.games_id)h+=row('Weekly Games',esc(b.games_id)+' — official games bout, archived');
   h+=row('Mission','&ldquo;'+esc(b.mission)+'&rdquo;');
   h+=row('Judging rubric',crit);
@@ -976,6 +977,9 @@ function showUserAI(id){
   h+='<div id="uaiScore"></div><div id="uaiResults"></div>';
   h+='<div style="margin-top:10px"><button class="ghost" id="btnUaiExport">⬇ Export my AI + bouts (JSON)</button> '+
     '<button class="ghost" id="btnUaiLink">🔗 AI link</button></div>';
+  h+='<p class="note" style="margin-top:8px"><b>Your AI\u2019s own code:</b> download a runnable file that <i>is</i> your AI — its design, persona, stats and battle logic. It runs on your own system, no installs.</p>';
+  h+='<div style="margin-top:6px"><button class="ghost" id="btnUaiPy">⬇ Download my AI\u2019s code (.py)</button> '+
+    '<button class="ghost" id="btnUaiJs">⬇ Download my AI\u2019s code (.js)</button></div>';
   el.innerHTML=h;
   $('uaiOppSel').addEventListener('change',function(){
     var v=$('uaiOppSel').value;
@@ -991,6 +995,19 @@ function showUserAI(id){
   $('btnUaiLink').onclick=function(){
     var u=BASE+'?battle='+id;if(navigator.clipboard)navigator.clipboard.writeText(u);
     prompt('AI link (works on this device):',u);
+  };
+  if(!UserAI.buildPyFile){var b1=$('btnUaiPy'),b2=$('btnUaiJs');if(b1)b1.style.display='none';if(b2)b2.style.display='none';}
+  $('btnUaiPy').onclick=function(){
+    var f=UserAI.buildPyFile(UserAI.getAI(id));
+    var blob=new Blob([f.source],{type:'text/x-python'});
+    var x=document.createElement('a');x.href=URL.createObjectURL(blob);
+    x.download=f.filename;x.click();setTimeout(function(){URL.revokeObjectURL(x.href);},4000);
+  };
+  $('btnUaiJs').onclick=function(){
+    var f=UserAI.buildJsFile(UserAI.getAI(id));
+    var blob=new Blob([f.source],{type:'text/javascript'});
+    var x=document.createElement('a');x.href=URL.createObjectURL(blob);
+    x.download=f.filename;x.click();setTimeout(function(){URL.revokeObjectURL(x.href);},4000);
   };
   uaiRenderScore(id);
   window.scrollTo(0,el.offsetTop-10);
@@ -1086,12 +1103,12 @@ document.addEventListener('click',function(e){ var t=e.target&&e.target.closest?
 <div id="guideOverlay" aria-hidden="true"></div>
 <div id="guideCard" role="dialog" aria-modal="true" aria-labelledby="guideTitle" style="display:none">
 <h2 id="guideTitle">Welcome to AI Olypics 🏟️</h2>
-<p>The battle dome where <b>383 Signature AIs</b> face off in <b>8 Olympic events</b> — Wrestling, All-Around, Sprint, Marathon, Weightlifting, Gymnastics, Debate, and Puzzle Hunt. Every bout is a deterministic simulation: the same seed always replays the same fight. Here's how to use it:</p>
+<p>The battle dome where <b>383 Signature AIs</b> face off in <b>8 Olypics events</b> — Wrestling, All-Around, Sprint, Marathon, Weightlifting, Gymnastics, Debate, and Puzzle Hunt. Every bout is a deterministic simulation: the same seed always replays the same fight. Here's how to use it:</p>
 <ol>
 <li><b>Pick an event.</b> Tap one of the 8 event tiles. Each event sets its own arena and judging rules.</li>
 <li><b>Light the torch.</b> Choose two fighters (or tap 🎲 Surprise me), then hit the big <b>LIGHT THE TORCH — BATTLE!</b> button. The battle opens right there: the story, the AI record data, the findings, and derived invention ideas — plus read-aloud, copy, and download.</li>
 <li><b>Check the medal table.</b> Contenders are ranked by gold, silver, and bronze across every event. Every week the <b>Weekly Games</b> pit all 383 against each other in about 3,000 bouts, archived in the Games Hall.</li>
-<li><b>Bring your own AI.</b> Tap <b>ADD YOUR AI</b>, name it, tune its stats, save it, then <b>BATTLE VS ALL 383</b>. Your AI lives only in this browser — never in the official record books.</li>
+<li><b>Bring your own AI.</b> Tap <b>ADD YOUR AI</b>, name it, tune its stats, save it, then <b>BATTLE VS ALL 383</b>. Your AI lives only in this browser — never in the official record books. From its card you can also download <b>your AI's own runnable code</b> (.py / .js) — it runs on your system and battles, talks, and shows stats.</li>
 <li><b>Search the record books</b> anytime by contender, stage, mission, or winner — or type a full battle ID to jump to that bout.</li>
 </ol>
 <p>Bout winners come from the judging rubric, not from a universal measure of AI intelligence.</p>

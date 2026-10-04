@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run a full Weekly Olympics: ALL roster contenders, 8 Olympic events,
+"""Run a full Weekly Olypics: ALL roster contenders, 8 Olypics events,
 single-elimination brackets. Deterministic from the week number.
 
 Usage: weekly_games.py [--week N]
@@ -282,8 +282,8 @@ def main():
         return names[cid]['name'] if cid in names else cid
 
     ceremony_lines = [
-        '\U0001F3DF\uFE0F WEEKLY OLYMPICS #%d — %s' % (week, week_start),
-        '%d contenders entered all 8 Olympic events. %d bouts fought. The torch is lit.' % (len(roster), len(all_bouts)),
+        '\U0001F3DF\uFE0F WEEKLY OLYPICSS #%d — %s' % (week, week_start),
+        '%d contenders entered all 8 Olypics events. %d bouts fought. The torch is lit.' % (len(roster), len(all_bouts)),
     ]
     for ev in events_out:
         ek, nm = ev['event_key'], ev['event_name']

@@ -99,8 +99,8 @@
   function missionId(i) { return 'JAH-OLY-MIS-' + String(i + 1).padStart(2, '0'); }
   var MISSION_VERSION = '1';
 
-  // ---------- Olympic event categories (engine v2.1) ----------
-  /* Every bout belongs to an Olympic event. Events are first-class citizens:
+  // ---------- Olypics event categories (engine v2.1) ----------
+  /* Every bout belongs to an Olypics event. Events are first-class citizens:
    * permanent JAH-OLY-EVENT-## IDs, each with a fixed judging rubric (one of
    * the 6 versioned rubrics above), a home arena, and published rules.
    * Order is frozen — never reorder. */
@@ -197,7 +197,7 @@
       if (i2 >= i1) i2++;
       c1 = roster[i1]; c2 = roster[i2];
     }
-    /* Olympic event (v2.1): opts.event = event key or index. The event fixes
+    /* Olypics event (v2.1): opts.event = event key or index. The event fixes
      * the arena and the judging rubric — no PRNG draws are consumed for them,
      * so event bouts stay fully deterministic from the seed alone.
      * Default path (no event): the frozen v1 draw order stage, criteria,
@@ -289,7 +289,7 @@
   function buildNarrative(id, c1, c2, stage, crit, mission, rounds, winner, loser, margin, t1, t2, bestDim, upset, event) {
     var L = [];
     L.push('BATTLE ' + id + ' — ' + stage.name.toUpperCase());
-    if (event) L.push('Olympic event: ' + event.emoji + ' ' + event.name + ' (' + event.id + ') — ' + event.tagline);
+    if (event) L.push('Olypics event: ' + event.emoji + ' ' + event.name + ' (' + event.id + ') — ' + event.tagline);
     L.push(stage.desc);
     L.push('Tonight the dome hosts ' + c1.name + ' (' + c1.type + ') against ' + c2.name + ' (' + c2.type + '). Judging: ' + crit.name + '. The mission: "' + mission + '." Three rounds. No mercy.');
     rounds.forEach(function (rd) {

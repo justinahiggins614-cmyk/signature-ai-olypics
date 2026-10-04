@@ -50,7 +50,7 @@ def esc(s):
 
 # --- per-event compact bout lists for the bouts.html archive ---
 # NETWORK ORDER (Manon, 2026-10-04): bouts.html carries the full bout catalog
-# as A-Z collapsible <details> lists (one per Olympic event) that lazy-load
+# as A-Z collapsible <details> lists (one per Olypics event) that lazy-load
 # their bouts on demand. Event assignment reuses build_medals.event_key_for
 # (event_id, else deterministic seed%8) so the archive agrees with
 # data/medals.json exactly.
@@ -183,7 +183,7 @@ nav = ' '.join('<a href="#batch-%d">%d&ndash;%d</a>' % (i // 100 + 1, i + 1, min
 page = ('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
         '<title>AI Olypics — Bout Archive &amp; Record Tables</title>'
-        '<meta name="description" content="The full AI Olypics bout archive: every battle by Olympic event (A-Z), medal charts, search, and static record tables with bout ID, contenders, winner, stage, mission.">'
+        '<meta name="description" content="The full AI Olypics bout archive: every battle by Olypics event (A-Z), medal charts, search, and static record tables with bout ID, contenders, winner, stage, mission.">'
         '<link rel="canonical" href="%s/bouts.html">' % BASE +
         '<script type="application/ld+json">' +
         json.dumps({"@context": "https://schema.org", "@type": "Dataset",
@@ -206,7 +206,7 @@ page = ('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
         '<input id="olyq" type="search" placeholder="Contender, winner, arena, mission, JAH-OLY-&hellip;" aria-label="Search battles">'
         '<button class="go" id="olygo" type="button">Search</button>'
         '<div id="olyres"><p class="note">Search runs across all eight events &mdash; results link straight to each battle.</p></div></div>'
-        '<h2>&#127963;&#65039; The eight Olympic events &mdash; A&ndash;Z</h2>'
+        '<h2>&#127963;&#65039; The eight Olypics events &mdash; A&ndash;Z</h2>'
         '<p class="note">Open an event to load its battles &mdash; each event loads on demand, never all at once.</p>'
         '%s'
         '<h2>&#127941; Medal charts</h2>'

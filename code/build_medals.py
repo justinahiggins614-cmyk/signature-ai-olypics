@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build data/medals.json — Olympic medal tables from the archived bouts.
+"""Build data/medals.json — Olypics medal tables from the archived bouts.
 
 Rules (published, deterministic):
 - Every archived 1v1 bout awards GOLD to the winner, SILVER to the loser.
 - BRONZE is awarded only in Weekly Games (third-place bouts; double-bronze
   for wrestling semifinal losers, per wrestling tradition).
-- Bouts fought before Olympic events existed carry no event_id; they are
+- Bouts fought before Olypics events existed carry no event_id; they are
   assigned an event deterministically from their seed: EVENTS[seed % 8].
   Documented, reproducible, never re-rolled.
 - Rankings sort by gold desc, then silver desc, then bronze desc, then name.
@@ -65,7 +65,7 @@ def event_key_for(bout):
     eid = bout.get('event_id')
     if eid and eid in EVENT_BY_ID:
         return EVENT_BY_ID[eid]
-    # legacy bouts (pre-Olympic): deterministic assignment from the seed
+    # legacy bouts (pre-Olypics): deterministic assignment from the seed
     return EVENTS[(bout.get('seed') or 0) % len(EVENTS)][0]
 
 
@@ -189,7 +189,7 @@ def build_medals():
             'gold': 'bout winner (1v1)',
             'silver': 'bout loser (1v1)',
             'bronze': 'weekly games third-place bouts only; wrestling awards double bronze',
-            'legacy_events': 'pre-Olympic bouts (no event_id) assigned EVENTS[seed % 8], deterministic',
+            'legacy_events': 'pre-Olypics bouts (no event_id) assigned EVENTS[seed % 8], deterministic',
             'ranking': 'gold desc, silver desc, bronze desc, name asc',
         },
     }

@@ -32620,7 +32620,7 @@
   "gold": "bout winner (1v1)",
   "silver": "bout loser (1v1)",
   "bronze": "weekly games third-place bouts only; wrestling awards double bronze",
-  "legacy_events": "pre-Olympic bouts (no event_id) assigned EVENTS[seed % 8], deterministic",
+  "legacy_events": "pre-Olypics bouts (no event_id) assigned EVENTS[seed % 8], deterministic",
   "ranking": "gold desc, silver desc, bronze desc, name asc"
  }
 }

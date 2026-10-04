@@ -48,7 +48,7 @@ const E = require({json.dumps(os.path.join(HERE, 'engine.js'))});
 const roster = require({json.dumps(os.path.join(DATA, 'contenders.json'))});
 let out = [];
 for (let i = 0; i < {n}; i++) {{
-  /* Olympic rotation: drip bouts cycle through the 8 events in order, so
+  /* Olypics rotation: drip bouts cycle through the 8 events in order, so
    * every event's medal table grows evenly. Deterministic from the bout n. */
   const b = E.bout({start} + i, roster, {{event: (({start} + i - 1) % 8)}});
   b.totals[b.contenders[0].id] = b.rounds.reduce((s,rd)=>s+rd.moves[0].total,0);

@@ -85,8 +85,8 @@ verify with `node code/qa_engine.js`.
 - JAH-OLY-MIS-29: Write a weather report for a planet with two suns
 - JAH-OLY-MIS-30: Create a motto for a school of young inventors
 
-## Olympic events (JAH-OLY-EVENT-##)
-Every bout belongs to one Olympic event (engine v2.1+). Events fix the arena
+## Olypics events (JAH-OLY-EVENT-##)
+Every bout belongs to one Olypics event (engine v2.1+). Events fix the arena
 and the judging rubric. Weekly Games run all 8 events as single-elimination
 brackets (JAH-OLY-GAMES-####).
 - 🤼 JAH-OLY-EVENT-01 (Wrestling): rubric gladiator, arena pit — Single-elimination bracket. Semifinal losers BOTH take bronze (wrestling tradition — no third-place bout).

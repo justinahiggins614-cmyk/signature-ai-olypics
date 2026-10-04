@@ -70,8 +70,8 @@ verify with `node code/qa_engine.js`.
 ## Missions (JAH-OLY-MIS-##)
 {missions}
 
-## Olympic events (JAH-OLY-EVENT-##)
-Every bout belongs to one Olympic event (engine v2.1+). Events fix the arena
+## Olypics events (JAH-OLY-EVENT-##)
+Every bout belongs to one Olypics event (engine v2.1+). Events fix the arena
 and the judging rubric. Weekly Games run all 8 events as single-elimination
 brackets (JAH-OLY-GAMES-####).
 {events}
