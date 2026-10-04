@@ -1,6 +1,6 @@
 {
  "site": "AI Olypics",
- "checked_at": "2026-10-04T04:08:06+00:00",
+ "checked_at": "2026-10-04T05:05:19+00:00",
  "overall": "HEALTHY",
  "bouts": 22063,
  "contenders": 383,
@@ -58,7 +58,7 @@
   {
    "name": "data dir under 800MB guard",
    "ok": true,
-   "detail": "20.4 MB"
+   "detail": "24.1 MB"
   },
   {
    "name": "file present: index.html",
