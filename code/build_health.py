@@ -135,6 +135,21 @@ table{{width:100%;border-collapse:collapse;margin-top:16px}}td,th{{border:1px so
 <h1>🏟️ AI Olympics — Archive Health</h1>
 <div class="banner">Status: <strong class="{cls}">{overall}</strong> · checked {at} ·
 {bouts:,} archived bouts · {cont} contenders · <a href="index.html">back to the dome</a></div>
+<!-- JAH TAB BAR — Manon's 2026-10-04 order (calculator screenshot as spec).
+     Paste right after </header> (or after the hero/title block) on index.html AND on the archive page.
+     On index.html: "Front Door" carries class "on". On the archive page: "1 Million Archive" carries "on".
+     Replace <a class="jtab" href="games.html">Games</a><a class="jtab" href="health.html">Health</a> with <a class="jtab" href="...">Label</a> items (may be empty). -->
+<style>
+.jtabbar{{display:flex;gap:8px;overflow-x:auto;padding:10px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;border-bottom:1px solid rgba(128,128,128,.25)}}
+.jtabbar a.jtab{{flex:0 0 auto;text-decoration:none;border:1px solid rgba(160,160,160,.45);border-radius:999px;padding:9px 16px;font-size:.92em;color:inherit;background:rgba(127,127,127,.08);white-space:nowrap;font-family:inherit}}
+.jtabbar a.jtab.on{{background:#f5c518;border-color:#f5c518;color:#191919;font-weight:700}}
+</style>
+<nav class="jtabbar" aria-label="Site sections">
+<a class="jtab" href="index.html">🏠 Front Door</a>
+<a class="jtab" href="add-ai.html">➕ Add Your Own AI</a>
+<a class="jtab" href="bouts.html">📚 1 Million Archive</a>
+<a class="jtab" href="games.html">Games</a><a class="jtab on" href="health.html">Health</a>
+</nav>
 <table><tr><th>Check</th><th>Result</th><th>Detail</th></tr>
 {rows}
 </table>
