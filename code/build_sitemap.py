@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""AI Olypics feed + sitemap builder (the 2h bout drip calls this after each run).
+"""AI Olympics feed + sitemap builder (the 2h bout drip calls this after each run).
 
 Outputs (idempotent, cheap):
   olypics-catalog.json  - one compact record per bout (id, contenders, winner,
@@ -50,7 +50,7 @@ def esc(s):
 
 # --- per-event compact bout lists for the bouts.html archive ---
 # NETWORK ORDER (Manon, 2026-10-04): bouts.html carries the full bout catalog
-# as A-Z collapsible <details> lists (one per Olypics event) that lazy-load
+# as A-Z collapsible <details> lists (one per Olympics event) that lazy-load
 # their bouts on demand. Event assignment reuses build_medals.event_key_for
 # (event_id, else deterministic seed%8) so the archive agrees with
 # data/medals.json exactly.
@@ -111,7 +111,7 @@ for r in rows:
         'mission': mission,
     })
 with open(os.path.join(ROOT, 'olypics-catalog.json'), 'w') as f:
-    json.dump({'site': 'AI Olypics', 'updated': today, 'bouts': len(catalog),
+    json.dump({'site': 'AI Olympics', 'updated': today, 'bouts': len(catalog),
                'records': catalog}, f, indent=1)
 print('catalog: %d bouts -> olypics-catalog.json' % len(catalog))
 
@@ -229,7 +229,7 @@ ASKAI_OLY = r"""<!-- ASK THE AI — Manon's 2026-10-04 order. Paste on the archi
      search/filter area (or at the top of the archive section if there is no search box).
      It FINDS records by scanning the page's own archive list, and ANSWERS with his real
      Signature Llama (same loader as the phone book). Never fake: if the Llama can't load,
-     the found records are still shown honestly. Replace AI Olypics and the battle-bout archive. -->
+     the found records are still shown honestly. Replace AI Olympics and the battle-bout archive. -->
 <div class="jah-askai" id="jah-askai">
 <style>
 .jah-askai{border:1px solid rgba(160,160,160,.4);border-radius:12px;padding:14px;margin:14px 0;background:rgba(127,127,127,.06)}
@@ -252,7 +252,7 @@ ASKAI_OLY = r"""<!-- ASK THE AI — Manon's 2026-10-04 order. Paste on the archi
 <div id="jah-askai-out" aria-live="polite"></div>
 <script>
 (function(){
-var SITE="AI Olypics", DESC="the battle-bout archive";
+var SITE="AI Olympics", DESC="the battle-bout archive";
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
 /* Real Signature Llama loader — same pattern as the phone book. */
 var LLAMA_BASE="https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/";
@@ -357,15 +357,15 @@ nav = ' '.join('<a href="#batch-%d">%d&ndash;%d</a>' % (i // 100 + 1, i + 1, min
                for i in range(0, len(catalog), 100))
 page = ('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
-        '<title>AI Olypics — Bout Archive &amp; Record Tables</title>'
-        '<meta name="description" content="The full AI Olypics bout archive: every battle by Olypics event (A-Z), medal charts, search, and static record tables with bout ID, contenders, winner, stage, mission.">'
+        '<title>AI Olympics — Bout Archive &amp; Record Tables</title>'
+        '<meta name="description" content="The full AI Olympics bout archive: every battle by Olympics event (A-Z), medal charts, search, and static record tables with bout ID, contenders, winner, stage, mission.">'
         '<link rel="canonical" href="%s/bouts.html">' % BASE +
         '<script type="application/ld+json">' +
         json.dumps({"@context": "https://schema.org", "@type": "Dataset",
-                    "name": "AI Olypics bout records",
+                    "name": "AI Olympics bout records",
                     "url": BASE + "/bouts.html",
                     "creator": {"@type": "Person", "name": "Justin Addam Higgins"},
-                    "description": "The full AI Olypics bout archive and static HTML record tables for every bout."}) +
+                    "description": "The full AI Olympics bout archive and static HTML record tables for every bout."}) +
         '</script><style>body{font-family:Arial,sans-serif;max-width:1100px;margin:0 auto;padding:16px}'
         'table{border-collapse:collapse;width:100%%;margin:12px 0;font-size:13px}'
         'th,td{border:1px solid #999;padding:6px 8px;text-align:left;vertical-align:top}'
@@ -375,17 +375,17 @@ page = ('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
         + ARCH_CSS +
         '</style></head><body>'
         '<p class="sitekicker"><b>SITE 17 OF 27</b> &middot; THE JAH NETWORK</p>'
-        '<h1>AI Olypics &mdash; Bout Archive</h1>'
+        '<h1>AI Olympics &mdash; Bout Archive</h1>'
         '<p><b id="boutCount">%s</b> battles recorded. Every bout is a deterministic <span class="recbadge">SIMULATION</span> &mdash; no real AIs fought. The battles are the product: open an event, search the archive, pick a fight to relive. <a href="./">Back to the battle dome</a>.</p>'
         '<div class="archbox"><h2>&#128269; Search every battle</h2>'
         '<input id="olyq" type="search" placeholder="Contender, winner, arena, mission, JAH-OLY-&hellip;" aria-label="Search battles">'
         '<button class="go" id="olygo" type="button">Search</button>'
         '<div id="olyres"><p class="note">Search runs across all eight events &mdash; results link straight to each battle.</p></div></div>'
-        '<h2>&#127963;&#65039; The eight Olypics events &mdash; A&ndash;Z</h2>'
+        '<h2>&#127963;&#65039; The eight Olympics events &mdash; A&ndash;Z</h2>'
         '<p class="note">Open an event to load its battles &mdash; each event loads on demand, never all at once.</p>'
         '%s'
         '<h2>&#127993;&#65039; Every battle, A&ndash;Z by mission</h2>'
-        '<p class="note">The whole bout catalog, A&ndash;Z by battle mission &mdash; <b id="azTotal">%s</b> battles, every one deep-linked to its battle record. Open a letter &mdash; its list loads on demand, so the page stays fast on phones. Or browse the Weekly Olypics games hall records.</p>'
+        '<p class="note">The whole bout catalog, A&ndash;Z by battle mission &mdash; <b id="azTotal">%s</b> battles, every one deep-linked to its battle record. Open a letter &mdash; its list loads on demand, so the page stays fast on phones. Or browse the Weekly Olympics games hall records.</p>'
         '<div class="azmodes" role="group" aria-label="Archive browse mode">'
         '<button type="button" class="azmode active" data-azmode="letters">A&ndash;Z by mission</button>'
         '<button type="button" class="azmode" data-azmode="games">Weekly games</button></div>'

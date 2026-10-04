@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Per-letter A-Z archive builder for the AI Olypics bout catalog.
+"""Per-letter A-Z archive builder for the AI Olympics bout catalog.
 
 Feeds the "Every battle, A-Z by mission" section of bouts.html (plus the
 Weekly Games mode). Row layout: [bout_id, mission, stage_name], sorted by

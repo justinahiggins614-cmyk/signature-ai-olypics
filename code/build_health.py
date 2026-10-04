@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Archive health: verify the Olypics archive end-to-end and publish
+"""Archive health: verify the Olympics archive end-to-end and publish
 health.json + health.html. Run after every drip (cron)."""
 import json, os, gzip, glob, hashlib, subprocess
 import datetime
@@ -109,7 +109,7 @@ for rel in ['index.html', 'api.json', 'llms.txt', 'ai-manifest.json',
     check('file present: ' + rel, os.path.exists(os.path.join(ROOT, rel)))
 
 health = {
-    'site': 'AI Olypics',
+    'site': 'AI Olympics',
     'checked_at': now.isoformat(timespec='seconds'),
     'overall': 'HEALTHY' if all(c['ok'] for c in checks) else 'ATTENTION',
     'bouts': man['bouts'],
@@ -126,13 +126,13 @@ rows_html = '\n'.join(
 html = """<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI Olypics — Archive Health</title>
+<title>AI Olympics — Archive Health</title>
 <style>body{{background:#0a0a12;color:#e8e8f0;font-family:system-ui,sans-serif;max-width:900px;margin:0 auto;padding:24px}}
 h1{{color:#ffd700}}a{{color:#7fd4ff}}.ok{{color:#4ade80;font-weight:700}}.bad{{color:#f87171;font-weight:700}}
 table{{width:100%;border-collapse:collapse;margin-top:16px}}td,th{{border:1px solid #333;padding:8px;text-align:left}}
 .banner{{padding:12px;border:2px solid #ffd700;border-radius:8px;margin:16px 0}}</style></head>
 <body>
-<h1>🏟️ AI Olypics — Archive Health</h1>
+<h1>🏟️ AI Olympics — Archive Health</h1>
 <div class="banner">Status: <strong class="{cls}">{overall}</strong> · checked {at} ·
 {bouts:,} archived bouts · {cont} contenders · <a href="index.html">back to the dome</a></div>
 <table><tr><th>Check</th><th>Result</th><th>Detail</th></tr>

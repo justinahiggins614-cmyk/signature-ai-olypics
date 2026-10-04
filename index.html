@@ -4,26 +4,26 @@
 <meta charset="utf-8">
 <script>try{var _jt=localStorage.getItem('jah-theme');if(_jt==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(_je){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Olypics — The Signature Battle Dome</title>
-<meta name="description" content="AI Olypics: the Signature battle dome where AIs compete. User-staged bouts or the Universal Pit. Every battle recorded in human-readable and AI-readable form, with findings and derived invention records. Marching to 1,000,000 battles.">
+<title>AI Olympics — The Signature Battle Dome</title>
+<meta name="description" content="AI Olympics: the Signature battle dome where AIs compete. User-staged bouts or the Universal Pit. Every battle recorded in human-readable and AI-readable form, with findings and derived invention records. Marching to 1,000,000 battles.">
 <link rel="canonical" href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="AI Olypics">
-<meta property="og:title" content="AI Olypics — The Signature Battle Dome">
+<meta property="og:site_name" content="AI Olympics">
+<meta property="og:title" content="AI Olympics — The Signature Battle Dome">
 <meta property="og:description" content="The battle dome where Signature AIs, industry-style replicas, and mix-and-match hybrids compete. Every bout recorded in human-readable narrative and AI-readable JSON, with findings and derived invention records.">
 <meta property="og:url" content="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AI Olypics — The Signature Battle Dome">
+<meta name="twitter:title" content="AI Olympics — The Signature Battle Dome">
 <meta name="twitter:description" content="The battle dome where AIs compete — user-staged bouts or the Universal Pit. Marching to 1,000,000 battles.">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"AI Olypics","alternateName":"The Signature Battle Dome","url":"https://justinahiggins614-cmyk.github.io/signature-ai-olypics/","description":"The battle dome where Signature AIs, industry-style replicas, and mix-and-match hybrids compete. Every bout recorded twice: human-readable narrative and AI-readable JSON, with findings and derived invention records."}
+{"@context":"https://schema.org","@type":"WebSite","name":"AI Olympics","alternateName":"The Signature Battle Dome","url":"https://justinahiggins614-cmyk.github.io/signature-ai-olypics/","description":"The battle dome where Signature AIs, industry-style replicas, and mix-and-match hybrids compete. Every bout recorded twice: human-readable narrative and AI-readable JSON, with findings and derived invention records."}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Dataset","name":"AI Olypics","alternateName":"The Signature Battle Dome","url":"https://justinahiggins614-cmyk.github.io/signature-ai-olypics/","creator":{"@type":"Person","name":"Justin Addam Higgins"},"description":"The battle dome where Signature AIs, industry-style replicas, and mix-and-match hybrids compete. Every bout recorded twice: human-readable narrative and AI-readable JSON, with findings and derived invention records."}
+{"@context":"https://schema.org","@type":"Dataset","name":"AI Olympics","alternateName":"The Signature Battle Dome","url":"https://justinahiggins614-cmyk.github.io/signature-ai-olypics/","creator":{"@type":"Person","name":"Justin Addam Higgins"},"description":"The battle dome where Signature AIs, industry-style replicas, and mix-and-match hybrids compete. Every bout recorded twice: human-readable narrative and AI-readable JSON, with findings and derived invention records."}
 </script>
 <!-- FIX-01: SportsEvent series schema + per-bout schema (set by setBattleHead) -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SportsEvent","name":"AI Olypics — The Signature Battle Dome","url":"https://justinahiggins614-cmyk.github.io/signature-ai-olypics/","organizer":{"@type":"Person","name":"Justin Addam Higgins"},"sport":"AI competition","description":"Recorded AI-versus-AI bouts: Signature AIs, industry-style replicas, and mix-and-match hybrids. Every bout recorded twice — human-readable narrative and AI-readable JSON — with findings and derived invention records."}
+{"@context":"https://schema.org","@type":"SportsEvent","name":"AI Olympics — The Signature Battle Dome","url":"https://justinahiggins614-cmyk.github.io/signature-ai-olypics/","organizer":{"@type":"Person","name":"Justin Addam Higgins"},"sport":"AI competition","description":"Recorded AI-versus-AI bouts: Signature AIs, industry-style replicas, and mix-and-match hybrids. Every bout recorded twice — human-readable narrative and AI-readable JSON — with findings and derived invention records."}
 </script>
 <script type="application/ld+json" id="battleSchema"></script>
 <style>
@@ -121,7 +121,7 @@ details.mstats>summary::-webkit-details-marker{display:none}
   .fighter{width:100%;max-width:420px}
   .vs{transform:rotate(90deg);font-size:24px}
 }
-/* OLYPICS REDESIGN: event picker grid + medal tables */
+/* OLYMPICS REDESIGN: event picker grid + medal tables */
 .eventgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
 @media(max-width:700px){.eventgrid{grid-template-columns:repeat(2,1fr)}}
 .eventbtn{background:#241109;border:2px solid #6a3a1a;color:var(--bone);border-radius:10px;padding:10px 6px;cursor:pointer;font-size:14px;font-family:Georgia,serif}
@@ -191,7 +191,7 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 </style>
 </head>
 <body>
-<div class="jah-hero-slim" style="max-height:200px;overflow:hidden"><img src="assets/hero.jpg" alt="AI Olypics hero banner" style="display:block;width:100%;height:200px;object-fit:cover"></div>
+<div class="jah-hero-slim" style="max-height:200px;overflow:hidden"><img src="assets/hero.jpg" alt="AI Olympics hero banner" style="display:block;width:100%;height:200px;object-fit:cover"></div>
 <button type="button" id="jahThemeToggle" aria-label="Toggle dark mode" title="Dark mode">◐</button>
 <button type="button" id="btnGuideFix" aria-haspopup="dialog" title="How to use this site">? Guide</button>
 <div id="scrim" aria-hidden="true"></div>
@@ -199,14 +199,14 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 <div class="sisters" aria-label="AI sister sites">
 <a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">&#9742; AI Phone Book</a>
 <a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/">&#129514; AI Mix Lab</a>
-<a class="you" href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">&#9876; AI Olypics — you are here</a>
+<a class="you" href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">&#9876; AI Olympics — you are here</a>
 </div>
 <header class="hero">
 <div class="sitekicker" id="siteKicker"><b>SITE 17 OF 27</b> · THE JAH NETWORK</div>
-<h1>AI OLYPICS</h1>
-<p>The Signature battle dome — now a true <b>AI Olypics</b>. <b>8 Olypics events</b>: 🤼 Wrestling in the Pit, 🏅 All-Around, ⚡ Sprint, 🏃 Marathon, 🏋️ Weightlifting, 🤸 Gymnastics, 🎙️ Debate, 🧩 Puzzle Hunt. Pick an event, pick two fighters, light the torch. Every week the whole roster fights the <b>Weekly Games</b> — all 383 contenders in attendance. Every battle is recorded twice: as action-packed human-readable story and as AI-readable data — with findings and derived invention records.</p>
+<h1>AI OLYMPICS</h1>
+<p>The Signature battle dome — now a true <b>AI Olympics</b>. <b>8 Olympics events</b>: 🤼 Wrestling in the Pit, 🏅 All-Around, ⚡ Sprint, 🏃 Marathon, 🏋️ Weightlifting, 🤸 Gymnastics, 🎙️ Debate, 🧩 Puzzle Hunt. Pick an event, pick two fighters, light the torch. Every week the whole roster fights the <b>Weekly Games</b> — all 383 contenders in attendance. Every battle is recorded twice: as action-packed human-readable story and as AI-readable data — with findings and derived invention records.</p>
 <div class="counter"><details class="mstats" open><summary>Site statistics</summary><b id="marchCount">28,063</b> / 1,000,000 battles recorded</details></div>
-<p style="margin:12px 0 0"><a href="bouts.html" style="font-size:17px;font-weight:bold">&#128214; Browse the full bout archive &mdash; every battle, A&ndash;Z by Olypics event</a></p>
+<p style="margin:12px 0 0"><a href="bouts.html" style="font-size:17px;font-weight:bold">&#128214; Browse the full bout archive &mdash; every battle, A&ndash;Z by Olympics event</a></p>
 </header>
 <!-- JAH TAB BAR — Manon's 2026-10-04 order (calculator screenshot as spec).
      Paste right after </header> (or after the hero/title block) on index.html AND on the archive page.
@@ -227,8 +227,8 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 <main>
 <div class="card">
 <h2>&#127963;&#65039; CHOOSE YOUR EVENT</h2>
-<p class="note">Pick an Olypics event, pick two fighters (or surprise yourself), light the torch. Every event has its own arena, its own judging rubric, its own medal table.</p>
-<div id="eventGrid" class="eventgrid" role="radiogroup" aria-label="Olypics events"></div>
+<p class="note">Pick an Olympics event, pick two fighters (or surprise yourself), light the torch. Every event has its own arena, its own judging rubric, its own medal table.</p>
+<div id="eventGrid" class="eventgrid" role="radiogroup" aria-label="Olympics events"></div>
 <div id="eventRules" class="rubprev" aria-live="polite"></div>
 <div class="row">
 <div><label for="selC1">Fighter one</label><select id="selC1"></select></div>
@@ -262,7 +262,7 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 <h2>&#128197; WEEKLY GAMES</h2>
 <div id="gamesLatest"><p class="note">Loading the latest games…</p></div>
 <p><a class="ghost" href="games.html" style="display:inline-block;text-decoration:none">&#127963;&#65039; Open the Games Hall — every week, every bracket, every ceremony</a></p>
-<p class="note">Every week, all 383 dome contenders fight all 8 Olypics events in single-elimination brackets — about 3,000 bouts per games, archived permanently. Your own AI can enter the games on this device from the Games Hall.</p>
+<p class="note">Every week, all 383 dome contenders fight all 8 Olympics events in single-elimination brackets — about 3,000 bouts per games, archived permanently. Your own AI can enter the games on this device from the Games Hall.</p>
 </div>
 
 <div class="card" id="userAICard">
@@ -348,7 +348,7 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 <a href="https://justinahiggins614-cmyk.github.io/signature-backend/">14 The Signature AI Mad Scientist Creation Lab</a>
 <a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">15 The Signature Boundless Generator Archive</a>
 <a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/">16 The Signature AI Mix Lab</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">17 AI Olypics</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">17 AI Olympics</a>
 <a href="https://justinahiggins614-cmyk.github.io/signature-chip-maker/">18 The Signature Computer Chip Maker and Archive</a>
 <a href="https://justinahiggins614-cmyk.github.io/signature-app-archive/">19 The Signature App Archive</a>
 <a href="https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher/">20 The Signature AI Robot Matcher</a>
@@ -363,7 +363,7 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 <div class="sig-stamp" style="text-align:center;margin:18px 8px 6px"><img src="assets/signature-stamp.jpg" alt="Official Signature stamp of Justin Addam Higgins" style="width:150px;max-width:40%;height:auto;border-radius:8px" loading="lazy"><div style="font-size:.72em;opacity:.75">Official Signature stamp</div></div>
 <footer>
 THE JAH NETWORK — 27 sites and counting.<br>
-<a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">Phone Book</a> · <a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">AI Olypics</a> · <a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">Generators</a><br>
+<a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">Phone Book</a> · <a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">AI Olympics</a> · <a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">Generators</a><br>
 <span class="note">Every bout deterministic and reproducible. Marching to 1,000,000 battles.</span>
 </footer>
 <script src="code/engine.js"></script>
@@ -371,7 +371,7 @@ THE JAH NETWORK — 27 sites and counting.<br>
 <script src="js/user-ai.js"></script>
 <script src="js/user-ai-codegen.js"></script>
 <script>
-/* AI Olypics front-end */
+/* AI Olympics front-end */
 var BASE='https://justinahiggins614-cmyk.github.io/signature-ai-olypics/';
 var roster=[], bindex=[], manifest={bouts:2000,goal:1000000}, curBout=null, chunkCache={};
 var idxLoaded=false; /* CONSISTENCY PASS: honest loading state — never "No battles match" before the index resolves */
@@ -379,7 +379,7 @@ function gz(url){return fetch(url).then(function(res){if(!res.ok)throw new Error
 function $(id){return document.getElementById(id);}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
 
-/* OLYPICS REDESIGN: event-first battling, medal tables, weekly games */
+/* OLYMPICS REDESIGN: event-first battling, medal tables, weekly games */
 var selEventKey='wrestling';
 var medalsData=null;
 function buildEventGrid(){
@@ -598,7 +598,7 @@ function battleRecord(b){
   var h='<b>BATTLE RECORD</b>';
   /* CONSISTENCY PASS: canonical record-status badge + provenance (every bout is a deterministic simulation) */
   h+=row('Record status','<span class="recbadge sim">SIMULATION</span>');
-  h+='<p class="provline"><b>Provenance:</b> made by the Olypics bout engine (deterministic, seeded) · bout seed '+esc(String(b.seed))+' · this battle is a simulated bout — no real AIs fought; the same seed always replays this exact fight.</p>';
+  h+='<p class="provline"><b>Provenance:</b> made by the Olympics bout engine (deterministic, seeded) · bout seed '+esc(String(b.seed))+' · this battle is a simulated bout — no real AIs fought; the same seed always replays this exact fight.</p>';
   h+=row('Bout',esc(b.id)+(b.exhibition?' (exhibition — not in the record books)':''));
   if(b.user_entered)h+='<p class="provline"><b>USER-ENTERED exhibition</b> — fought by a visitor-defined AI on this device. Recorded locally only; never merged into the official archive.</p>';
   h+=row('Seed',esc(String(b.seed))+' — same seed, same bout, forever. Re-run it and you get this exact fight.');
@@ -609,7 +609,7 @@ function battleRecord(b){
   h+=row('Engine','v'+esc(String(b.engine_version||'1'))+' · record schema '+(b.battle_version?'JAH-OLY-RECORD/'+b.battle_version+'.0':'v1 (legacy)')+' · winner status '+esc(b.winner_status||'WINNER')+' · execution '+(b.execution_mode||'SIMULATED'));
   if(b.tiebreak)h+=row('Tiebreak','Exact tie — the first-listed contender takes the bout (published tie rule TIE_RULE_FIRST_LISTED).');
   h+=row('Stage',esc(b.stage.name));
-  if(b.event)h+=row('Olypics event',(b.event.emoji?b.event.emoji+' ':'')+esc(b.event.name)+(b.event_id?' ('+esc(b.event_id)+')':'')+' — fixed rubric, fixed arena');
+  if(b.event)h+=row('Olympics event',(b.event.emoji?b.event.emoji+' ':'')+esc(b.event.name)+(b.event_id?' ('+esc(b.event_id)+')':'')+' — fixed rubric, fixed arena');
   if(b.games_id)h+=row('Weekly Games',esc(b.games_id)+' — official games bout, archived');
   h+=row('Mission','&ldquo;'+esc(b.mission)+'&rdquo;');
   h+=row('Judging rubric',crit);
@@ -646,7 +646,7 @@ function setBattleHead(b){
   var el=document.getElementById('battleSchema');if(!el)return;
   var c0=b.contenders[0],c1=b.contenders[1];
   el.textContent=JSON.stringify({"@context":"https://schema.org","@type":"SportsEvent",
-    "name":"AI Olypics bout "+b.id+": "+c0.name+" vs "+c1.name,
+    "name":"AI Olympics bout "+b.id+": "+c0.name+" vs "+c1.name,
     "url":BASE+'?battle='+b.id+(b.exhibition&&b.seed!=null?'&seed='+b.seed:'')+((b.user_entered&&b.user_ai_id)?'&userai='+encodeURIComponent(b.user_ai_id)+'&opp='+encodeURIComponent(b.contenders[1].id):''),
     "identifier":b.id,
     "sport":"AI competition",
@@ -663,9 +663,9 @@ function olyRecInfoBox(){return $('recinfo');}
 function olyRecShow(html){var b=olyRecInfoBox();if(!b)return;b.style.display='block';b.innerHTML=html;}
 function olyRecDeep(){if(!curBout)return BASE;var u=BASE+'?battle='+curBout.id;if(curBout.exhibition&&curBout.seed!=null)u+='&seed='+curBout.seed;if(curBout.user_entered&&curBout.user_ai_id)u+='&userai='+encodeURIComponent(curBout.user_ai_id)+'&opp='+encodeURIComponent(curBout.contenders[1].id);return u;}
 function olyRecOpen(){window.open(olyRecDeep(),'_blank','noopener');}
-function olyRecSrc(){if(!curBout)return;var b=olyRecInfoBox();if(b.style.display==='block'&&b.dataset.kind==='src'){b.style.display='none';b.dataset.kind='';return;}olyRecShow('<b>SOURCE</b> — simulated bout from the Olypics bout engine: '+esc(curBout.contenders[0].name)+' ('+esc(curBout.contenders[0].id)+') vs '+esc(curBout.contenders[1].name)+' ('+esc(curBout.contenders[1].id)+'), seed '+esc(String(curBout.seed))+'.');b.dataset.kind='src';}
+function olyRecSrc(){if(!curBout)return;var b=olyRecInfoBox();if(b.style.display==='block'&&b.dataset.kind==='src'){b.style.display='none';b.dataset.kind='';return;}olyRecShow('<b>SOURCE</b> — simulated bout from the Olympics bout engine: '+esc(curBout.contenders[0].name)+' ('+esc(curBout.contenders[0].id)+') vs '+esc(curBout.contenders[1].name)+' ('+esc(curBout.contenders[1].id)+'), seed '+esc(String(curBout.seed))+'.');b.dataset.kind='src';}
 function olyRecId(){if(!curBout)return;var b=olyRecInfoBox();olyRecShow('<b>ID</b> — '+esc(curBout.id)+(curBout.exhibition?' (exhibition — not in the record books)':''));b.dataset.kind='id';if(navigator.clipboard)navigator.clipboard.writeText(curBout.id).catch(function(){});}
-function olyRecVer(){var b=olyRecInfoBox();olyRecShow('<b>VERSION</b> — Olypics bout engine v'+esc(String((curBout&&curBout.engine_version)||'2.0'))+' · JAH-OLY-RECORD/'+((curBout&&curBout.battle_version)||2)+'.0 · deterministic: the same bout seed always replays the same fight.');b.dataset.kind='ver';}
+function olyRecVer(){var b=olyRecInfoBox();olyRecShow('<b>VERSION</b> — Olympics bout engine v'+esc(String((curBout&&curBout.engine_version)||'2.0'))+' · JAH-OLY-RECORD/'+((curBout&&curBout.battle_version)||2)+'.0 · deterministic: the same bout seed always replays the same fight.');b.dataset.kind='ver';}
 function olyRecShare(){var u=olyRecDeep();var b=olyRecInfoBox();if(navigator.share){navigator.share({title:document.title,url:u}).catch(function(){});return;}if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){olyRecShow('<b>SHARE</b> — battle link copied: '+esc(u));b.dataset.kind='share';},function(){olyRecShow('<b>SHARE</b> — battle link: '+esc(u));b.dataset.kind='share';});}else{olyRecShow('<b>SHARE</b> — battle link: '+esc(u));b.dataset.kind='share';}}
 function showLoader(){
   var l=document.getElementById('battleLoader');if(l)l.classList.add('on');
@@ -872,7 +872,7 @@ function dlBattle(kind){
    (checked by code/coherence_check.py). */
 function scribeProfile(){
  return {name:"Dome Scribe",id:"JAH-OLY-SCRIBE",
-  description:"I am the record-keeper of the AI Olypics battle dome. I read every bout record and answer your questions about it, plainly and honestly.",
+  description:"I am the record-keeper of the AI Olympics battle dome. I read every bout record and answer your questions about it, plainly and honestly.",
   abilities:["Tell you who won a battle and by what margin","Recite the stage, the mission, and the judging rubric","Summarize the findings and the derived invention records","Recall any round's result — every bout is deterministic and reproducible"],
   domain:"battle records",kind:"system"};
 }
@@ -969,8 +969,8 @@ document.addEventListener('click',function(e){ var t=e.target&&e.target.closest?
 <!-- JAH welcome overlay: centered first-visit guide (no scrolling, no spotlight) -->
 <div id="guideOverlay" aria-hidden="true"></div>
 <div id="guideCard" role="dialog" aria-modal="true" aria-labelledby="guideTitle" style="display:none">
-<h2 id="guideTitle">Welcome to AI Olypics 🏟️</h2>
-<p>The battle dome where <b>383 Signature AIs</b> face off in <b>8 Olypics events</b> — Wrestling, All-Around, Sprint, Marathon, Weightlifting, Gymnastics, Debate, and Puzzle Hunt. Every bout is a deterministic simulation: the same seed always replays the same fight. Here's how to use it:</p>
+<h2 id="guideTitle">Welcome to AI Olympics 🏟️</h2>
+<p>The battle dome where <b>383 Signature AIs</b> face off in <b>8 Olympics events</b> — Wrestling, All-Around, Sprint, Marathon, Weightlifting, Gymnastics, Debate, and Puzzle Hunt. Every bout is a deterministic simulation: the same seed always replays the same fight. Here's how to use it:</p>
 <ol>
 <li><b>Pick an event.</b> Tap one of the 8 event tiles. Each event sets its own arena and judging rules.</li>
 <li><b>Light the torch.</b> Choose two fighters (or tap 🎲 Surprise me), then hit the big <b>LIGHT THE TORCH — BATTLE!</b> button. The battle opens right there: the story, the AI record data, the findings, and derived invention ideas — plus read-aloud, copy, and download.</li>
@@ -987,7 +987,7 @@ document.addEventListener('click',function(e){ var t=e.target&&e.target.closest?
    button (top-left) re-opens it any time. Plain JS/CSS, phone-friendly. */
 (function(){
 'use strict';
-var LS_SEEN='jah-welcome-seen-olypics';
+var LS_SEEN='jah-welcome-seen-olympics';
 function seen(){try{return localStorage.getItem(LS_SEEN)==='1';}catch(e){return true;}}
 function mark(){try{localStorage.setItem(LS_SEEN,'1');}catch(e){}}
 function $(id){return document.getElementById(id);}

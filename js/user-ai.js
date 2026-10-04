@@ -1,4 +1,4 @@
-/* AI Olypics — "Add Your AI" (user-entered contenders).
+/* AI Olympics — "Add Your AI" (user-entered contenders).
  *
  * Fully client-side: the user defines their own contender (name, description,
  * traits/abilities, persona notes, stat sliders). It gets a local
@@ -159,7 +159,7 @@ function scorecard(aiId) {
 function exportData(aiId) {
   var data = {
     exported_at: new Date().toISOString(),
-    note: 'USER-ENTERED exhibitions only. Never part of the official AI Olypics archive.',
+    note: 'USER-ENTERED exhibitions only. Never part of the official AI Olympics archive.',
     ais: aiId ? [getAI(aiId)] : listAIs(),
     bouts: {}
   };

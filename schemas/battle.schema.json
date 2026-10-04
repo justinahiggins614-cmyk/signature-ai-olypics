@@ -249,7 +249,7 @@
         "object",
         "null"
       ],
-      "description": "Olypics event (engine v2.1+); null for pre-Olypics bouts"
+      "description": "Olympics event (engine v2.1+); null for pre-Olympics bouts"
     },
     "event_id": {
       "type": [

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shared bout-record utilities for the Olypics pipeline.
+"""Shared bout-record utilities for the Olympics pipeline.
 
 canon()/content_hash() MUST match code/qa_engine.js canonJSON/contentHash
 (sorted keys, no spaces, UTF-8, minus the content_hash field itself) and the

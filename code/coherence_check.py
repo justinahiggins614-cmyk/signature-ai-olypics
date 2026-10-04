@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""AI Olypics canon-coherence check (build-time, fails loudly).
+"""AI Olympics canon-coherence check (build-time, fails loudly).
 
 Verifies everything the battle dome presents about an AI matches the
 phone-book canon (jah-ai-models/ai-catalog.json) exactly:

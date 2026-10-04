@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Rebuild data/manifest.json (v2) from the current archive state.
-The ONE count source for AI Olypics. Safe to run any time; also called by
+The ONE count source for AI Olympics. Safe to run any time; also called by
 code/seed.py after each seeding run."""
 import json, os, gzip, hashlib
 import datetime

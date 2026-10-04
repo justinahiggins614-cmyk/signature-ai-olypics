@@ -56,7 +56,7 @@ E.MISSIONS.forEach(function (m, i) {
   check('staged-bout: mission index 12', b.mission === E.MISSIONS[12]);
 })();
 
-/* 8. all 8 Olypics events fix arena+rubric */
+/* 8. all 8 Olympics events fix arena+rubric */
 E.EVENTS.forEach(function (ev) {
   const b = E.bout(0, roster, { id: 'QA-EVT-' + ev.key, seed: 424242, event: ev.key, pair: P });
   const wantCrit = E.CRITERIA.filter(function (c) { return c.key === ev.criteriaKey; })[0];

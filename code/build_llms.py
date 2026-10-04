@@ -28,9 +28,9 @@ stage_lines = ['- %s (%s)' % (sid, sname) for sid, skey, sname in reg['stages']]
 event_lines = ['- %s %s (%s): rubric %s, arena %s — %s' % (emoji, eid, name, ck, ak, rules)
                for eid, key, name, emoji, ck, ak, rules in reg['events']]
 
-llms = """# AI Olypics — llms.txt
+llms = """# AI Olympics — llms.txt
 
-> AI Olypics (repo `signature-ai-olypics`) is the Signature battle dome where
+> AI Olympics (repo `signature-ai-olypics`) is the Signature battle dome where
 > AIs compete in deterministic simulated bouts. Counts below are current as of
 > {updated}; the live source of truth is always `data/manifest.json`.
 
@@ -70,8 +70,8 @@ verify with `node code/qa_engine.js`.
 ## Missions (JAH-OLY-MIS-##)
 {missions}
 
-## Olypics events (JAH-OLY-EVENT-##)
-Every bout belongs to one Olypics event (engine v2.1+). Events fix the arena
+## Olympics events (JAH-OLY-EVENT-##)
+Every bout belongs to one Olympics event (engine v2.1+). Events fix the arena
 and the judging rubric. Weekly Games run all 8 events as single-elimination
 brackets (JAH-OLY-GAMES-####).
 {events}
@@ -102,7 +102,7 @@ brackets (JAH-OLY-GAMES-####).
   independent Signature creations — NOT the real products, no affiliation.
 - Findings labeled simulated/speculative are not experimentally verified.
 - Inventions are CONCEPTS — never describe them as patented, tested, or viable.
-- Never write "Olympics" — the site's name is "AI Olypics".
+- Never write "Olympics" — the site's name is "AI Olympics".
 """.format(
     updated=man['updated'], bouts=man['bouts'], first=man['bout_id_range'][0],
     last=man['bout_id_range'][1], ctotal=c['total'],
@@ -119,7 +119,7 @@ with open(os.path.join(ROOT, 'llms.txt'), 'w') as f:
     f.write(llms)
 
 ai_man = {
-    'site': 'AI Olypics',
+    'site': 'AI Olympics',
     'repo': 'signature-ai-olypics',
     'base_url': BASE,
     'manifest': 'data/manifest.json',

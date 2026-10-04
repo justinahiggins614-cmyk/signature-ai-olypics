@@ -1,4 +1,4 @@
-/* AI Olypics bout engine — deterministic, runs in node AND browser.
+/* AI Olympics bout engine — deterministic, runs in node AND browser.
  * Same seed -> same bout, forever. No backend calls.
  * ENGINE_VERSION 2.0: formal JAH-OLY-STAGE/CRIT/MIS IDs + versions, structured
  * findings, invention status, contender stat overrides (for user-entered AIs).
@@ -99,8 +99,8 @@
   function missionId(i) { return 'JAH-OLY-MIS-' + String(i + 1).padStart(2, '0'); }
   var MISSION_VERSION = '1';
 
-  // ---------- Olypics event categories (engine v2.1) ----------
-  /* Every bout belongs to an Olypics event. Events are first-class citizens:
+  // ---------- Olympics event categories (engine v2.1) ----------
+  /* Every bout belongs to an Olympics event. Events are first-class citizens:
    * permanent JAH-OLY-EVENT-## IDs, each with a fixed judging rubric (one of
    * the 6 versioned rubrics above), a home arena, and published rules.
    * Order is frozen — never reorder. */
@@ -197,7 +197,7 @@
       if (i2 >= i1) i2++;
       c1 = roster[i1]; c2 = roster[i2];
     }
-    /* Olypics event (v2.1): opts.event = event key or index. The event fixes
+    /* Olympics event (v2.1): opts.event = event key or index. The event fixes
      * the arena and the judging rubric — no PRNG draws are consumed for them,
      * so event bouts stay fully deterministic from the seed alone.
      * Default path (no event): the frozen v1 draw order stage, criteria,
@@ -289,14 +289,14 @@
   function buildNarrative(id, c1, c2, stage, crit, mission, rounds, winner, loser, margin, t1, t2, bestDim, upset, event) {
     var L = [];
     L.push('BATTLE ' + id + ' — ' + stage.name.toUpperCase());
-    if (event) L.push('Olypics event: ' + event.emoji + ' ' + event.name + ' (' + event.id + ') — ' + event.tagline);
+    if (event) L.push('Olympics event: ' + event.emoji + ' ' + event.name + ' (' + event.id + ') — ' + event.tagline);
     L.push(stage.desc);
     L.push('Tonight the dome hosts ' + c1.name + ' (' + c1.type + ') against ' + c2.name + ' (' + c2.type + '). Judging: ' + crit.name + '. The mission: "' + mission + '." Three rounds. No mercy.');
     rounds.forEach(function (rd) {
       L.push('ROUND ' + rd.n + ': ' + rd.moves[0].name + ' ' + rd.moves[0].verb + ' ' + rd.moves[0].noun + ' (' + rd.moves[0].total + ' pts). ' + rd.moves[1].name + ' ' + rd.moves[1].verb + ' ' + rd.moves[1].noun + ' (' + rd.moves[1].total + ' pts). Round to ' + (rd.winner === c1.id ? c1.name : c2.name) + '.');
     });
     L.push('FINAL: ' + winner.name + ' defeats ' + loser.name + ', ' + Math.max(t1, t2) + ' to ' + Math.min(t1, t2) + ' — a margin of ' + margin + ' points. ' + (upset ? 'A stunning upset: the underdog takes the dome!' : 'The favorite holds the dome, as the odds demanded.'));
-    L.push('Decisive edge: ' + bestDim + '. The crowd files out buzzing — the Olypics never sleep.');
+    L.push('Decisive edge: ' + bestDim + '. The crowd files out buzzing — the Olympics never sleep.');
     return L.join('\n\n');
   }
 

@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://justinahiggins614-cmyk.github.io/signature-ai-olypics/schemas/manifest.schema.json",
   "title": "JAH-OLY Authoritative Manifest",
-  "description": "The ONE source of counts for AI Olypics. Never hard-code counts; read this.",
+  "description": "The ONE source of counts for AI Olympics. Never hard-code counts; read this.",
   "type": "object",
   "required": ["manifest_version", "site", "generated_at", "bouts", "goal",
     "bout_id_range", "contenders", "stages", "criteria", "missions",

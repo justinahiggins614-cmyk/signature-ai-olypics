@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* AI Olypics engine QA: permanent determinism + record-hash test vectors.
+/* AI Olympics engine QA: permanent determinism + record-hash test vectors.
  * - Archived vectors (n numeric): the v2 engine must reproduce the archived
  *   bout's winner/margin/seed, and the JS canonical-JSON implementation must
  *   reproduce the archived content_hash byte-for-byte (cross-checks the

@@ -1,4 +1,4 @@
-/* AI Olypics — "Add Your AI": portable self.
+/* AI Olympics — "Add Your AI": portable self.
  *
  * Manon's order: "Add ai should be a file can download own code — on our
  * system solves it." The AI's design is recorded in the dome on Save AI
@@ -42,7 +42,7 @@ function designOf(ai) {
     stats: { power: sn('power'), speed: sn('speed'), wit: sn('wit'),
              precision: sn('precision'), creativity: sn('creativity'), stamina: sn('stamina') },
     type: 'user-entered',
-    site: 'AI Olypics — The Signature Battle Dome',
+    site: 'AI Olympics — The Signature Battle Dome',
     engine: 'signature-deterministic-1.0'
   };
 }
@@ -58,7 +58,7 @@ function safeGlobal(name) {
 /* ---------------- Python file ---------------- */
 var PY_TEMPLATE = [
 '#!/usr/bin/env python3',
-'r"""%%NAME%% (%%ID%%) — my own Signature AI Olypics contender code.',
+'r"""%%NAME%% (%%ID%%) — my own Signature AI Olympics contender code.',
 '',
 'This file IS me: my design, my persona, my stats, my battle logic.',
 'It runs on any system with Python 3 — no installs, no internet needed.',
@@ -68,7 +68,7 @@ var PY_TEMPLATE = [
 '  python3 %%FILE%% battle "Rival"  -> I battle a named rival (deterministic)',
 '  python3 %%FILE%% chat "hello"    -> I answer in my own voice (deterministic)',
 '',
-'My battle math mirrors the AI Olypics dome: same fnv1a seed math, same',
+'My battle math mirrors the AI Olympics dome: same fnv1a seed math, same',
 '40-to-100 stat derivation from my ID, same first-listed tie rule.',
 'The dome recorded my design when I was saved; this file is my portable self.',
 '"""',
@@ -129,7 +129,7 @@ var PY_TEMPLATE = [
 '',
 'def introduce():',
 '    d = DESIGN',
-'    lines = ["I am %s (%s), a user-entered contender of the AI Olypics battle dome." % (d["name"], d["id"])]',
+'    lines = ["I am %s (%s), a user-entered contender of the AI Olympics battle dome." % (d["name"], d["id"])]',
 '    if d["description"]:',
 '        lines.append(d["description"])',
 '    lines.append("My traits: %s." % (", ".join(d["traits"]) if d["traits"] else "no listed traits"))',
@@ -236,7 +236,7 @@ function buildPyFile(ai) {
 
 /* ---------------- JavaScript file ---------------- */
 var JS_TEMPLATE = [
-'/* %%NAME%% (%%ID%%) — my own Signature AI Olypics contender code.',
+'/* %%NAME%% (%%ID%%) — my own Signature AI Olympics contender code.',
 ' *',
 ' * This file IS me: my design, my persona, my stats, my battle logic.',
 ' * Use it as a <script> tag, in the browser console, or with node — no installs.',
@@ -247,7 +247,7 @@ var JS_TEMPLATE = [
 ' *   node %%FILE%% battle "Rival"  -> I battle a named rival (deterministic)',
 ' *   node %%FILE%% chat "hello"    -> I answer in my own voice (deterministic)',
 ' *',
-' * My battle math mirrors the AI Olypics dome: same fnv1a seed math, same',
+' * My battle math mirrors the AI Olympics dome: same fnv1a seed math, same',
 ' * 40-to-100 stat derivation from my ID, same first-listed tie rule.',
 ' * The dome recorded my design when I was saved; this file is my portable self.',
 ' */',
@@ -269,7 +269,7 @@ var JS_TEMPLATE = [
 '  function statsFor(id){ var h=fnv1a(id),r=mulberry32(h),s={}; STAT_KEYS.forEach(function(k){ s[k]=40+Math.floor(r()*61); }); return s; }',
 '  function pick(r,arr){ return arr[Math.floor(r()*arr.length)%arr.length]; }',
 '  function introduce(){',
-'    var d=DESIGN,L=["I am "+d.name+" ("+d.id+"), a user-entered contender of the AI Olypics battle dome."];',
+'    var d=DESIGN,L=["I am "+d.name+" ("+d.id+"), a user-entered contender of the AI Olympics battle dome."];',
 '    if(d.description)L.push(d.description);',
 '    L.push("My traits: "+(d.traits.length?d.traits.join(", "):"no listed traits")+".");',
 '    if(d.persona)L.push("How I carry myself: "+d.persona);',
