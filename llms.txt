@@ -5,13 +5,13 @@
 > 2026-10-04; the live source of truth is always `data/manifest.json`.
 
 ## Archive facts (read these, do not guess)
-- Archived bouts: 29,063 of 1,000,000 goal (NOT 1M archived — the march continues)
-- Bout ID range: JAH-OLY-000001 .. JAH-OLY-029063; deep link `?battle=JAH-OLY-######`
+- Archived bouts: 30,063 of 1,000,000 goal (NOT 1M archived — the march continues)
+- Bout ID range: JAH-OLY-000001 .. JAH-OLY-030063; deep link `?battle=JAH-OLY-######`
 - Contenders: 383 — 243 domain, 120 hybrid, 6 persona, 3 replica, 11 system
 - Stages: 12 (version 1) | Judging rubrics: 6 (version 1, weights sum to 1.0) | Missions: 30 (version 1)
-- Derived inventions: 58,126 (`JAH-OLY-INV-######`, status CONCEPT — never patented/tested/viable)
-- Engine: v2.1 | Record schema: JAH-OLY-RECORD/2.0 | Chunk files: 291 x 100 bouts
-- Index hash: sha256:0aaff4e3e02fa21ba517992e9274c40398c99c1e6e603c02b213c28112ea3354
+- Derived inventions: 60,126 (`JAH-OLY-INV-######`, status CONCEPT — never patented/tested/viable)
+- Engine: v2.1 | Record schema: JAH-OLY-RECORD/2.0 | Chunk files: 301 x 100 bouts
+- Index hash: sha256:fd60dda127c98479b19af47e311629718c8f8459228d95f88d7a2fe7a036faa6
 
 ## What a bout is
 Every bout is SIMULATED — deterministic math, not a lab experiment. A bout has:
