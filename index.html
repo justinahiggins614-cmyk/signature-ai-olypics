@@ -991,7 +991,7 @@ var LS_SEEN='jah-welcome-seen-olympics';
 function seen(){try{return localStorage.getItem(LS_SEEN)==='1';}catch(e){return true;}}
 function mark(){try{localStorage.setItem(LS_SEEN,'1');}catch(e){}}
 function $(id){return document.getElementById(id);}
-function openGuide(){$('guideCard').style.display='block';$('guideOverlay').style.display='block';var b=$('guideOk');if(b)b.focus();}
+function openGuide(){$('guideCard').style.display='block';$('guideOverlay').style.display='block';var b=$('guideOk');if(b)b.focus({preventScroll:true});}
 function closeGuide(){$('guideCard').style.display='none';$('guideOverlay').style.display='none';mark();}
 if($('btnGuideFix'))$('btnGuideFix').onclick=openGuide;
 if($('guideOk'))$('guideOk').onclick=closeGuide;
