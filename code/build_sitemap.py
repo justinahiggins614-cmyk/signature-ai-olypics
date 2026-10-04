@@ -374,7 +374,7 @@ page = ('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
         '.recbadge{display:inline-block;border:2px solid #b36b00;background:#fff4e0;color:#8a4b00;border-radius:8px;padding:2px 10px;font-size:11px;font-weight:bold;letter-spacing:.06em}'
         + ARCH_CSS +
         '</style></head><body>'
-        '<p class="sitekicker"><b>SITE 17 OF 27</b> &middot; THE JAH NETWORK</p>'
+        '<p class="sitekicker"><b>SITE 17 OF 31</b> &middot; THE JAH NETWORK</p>'
         '<h1>AI Olympics &mdash; Bout Archive</h1>'
         '<p><b id="boutCount">%s</b> battles recorded. Every bout is a deterministic <span class="recbadge">SIMULATION</span> &mdash; no real AIs fought. The battles are the product: open an event, search the archive, pick a fight to relive. <a href="./">Back to the battle dome</a>.</p>'
         '<div class="archbox"><h2>&#128269; Search every battle</h2>'
