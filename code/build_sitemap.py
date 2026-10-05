@@ -4,9 +4,13 @@
 Outputs (idempotent, cheap):
   olypics-catalog.json  - one compact record per bout (id, contenders, winner,
                           stage, mission, url) - FIX-02 machine feed
-  bouts.html            - pre-rendered static HTML tables (100 bouts/table) so
-                          non-JS bots can ingest bout IDs, contenders, verdicts
-                          - FIX-03 static fallback
+  bouts.html            - the bout archive: search + A-Z collapsible event
+                          lists + medal charts + per-batch record tables.
+                          Manon's A-Z rule (2026-10-05): NO full DOM dumps —
+                          every batch table is a collapsed <details> that
+                          fetches its data/batches/batch-NNN.json on first
+                          open. Bots/crawlers use the per-batch JSON files,
+                          olypics-catalog.json, and the per-bout sitemaps.
   sitemap.xml           - sitemap INDEX pointing at sitemap-batch-*.xml
   sitemap-batch-N.xml   - modular sitemap batches (<=1000 bout URLs each) - FIX-02
 robots.txt already points at sitemap.xml (left untouched).
@@ -167,16 +171,42 @@ document.querySelectorAll(".azmode").forEach(function(b){b.addEventListener("cli
 document.addEventListener("click",function(e){var m=e.target&&e.target.getAttribute?e.target.getAttribute("data-azmore"):null;if(m){AZ.shown[m]=(AZ.shown[m]||0)+AZ_PAGE;azRenderPage(m);}});
 document.addEventListener("toggle",function(e){var d=e.target;if(d&&d.tagName==="DETAILS"&&d.classList.contains("azsec")&&d.open){azLoadLetter(d.getAttribute("data-letter"));}},true);
 azBuild();
-/* ---- Static record-table pagination (phone-friendly) ----
-   The bot-readable tables below stay fully pre-rendered, but only the first
-   two batches (200 bouts) show at load; a Load-more button reveals the rest
-   two batches (200 bouts) at a time so the page stays usable on a phone. */
+/* ---- Lazy per-batch record tables (Manon's A-Z rule: no full DOM dumps) ----
+   Each details.boutbatch fetches data/batches/batch-NNN.json on first open
+   and renders its 100-bout table. The toc nav links open + scroll to batches. */
+function olyBatchRow(r){return '<tr><td><a href="index.html?battle='+r.id+'">'+r.id+'</a></td><td>'+olyEsc(r.a)+'</td><td>'+olyEsc(r.b)+'</td><td><b>'+olyEsc(r.w)+'</b></td><td>'+olyEsc(r.s)+'</td><td>'+olyEsc(r.m)+'</td><td><span class="recbadge">SIMULATION</span></td></tr>';}
+function olyLoadBatch(det){
+  if(det.getAttribute('data-loaded')==='1')return;
+  det.setAttribute('data-loaded','1');
+  var body=det.querySelector('.batchbody');
+  var bno=det.getAttribute('data-batch');
+  var pad=String(bno);while(pad.length<3)pad='0'+pad;
+  body.innerHTML='<p class="note">Loading bouts&hellip;</p>';
+  fetch('data/batches/batch-'+pad+'.json').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(function(d){
+    var h='<table><tr><th>Bout</th><th>Contender A</th><th>Contender B</th><th>Winner</th><th>Stage</th><th>Mission</th><th>Record status</th></tr>';
+    d.rows.forEach(function(r){h+=olyBatchRow(r);});
+    body.innerHTML=h+'</table><p class="note">'+d.rows.length+' bouts in this batch.</p>';
+  }).catch(function(){
+    body.innerHTML='<p class="note">Could not load this batch &mdash; check your connection and reopen.</p>';
+    det.setAttribute('data-loaded','0');
+  });
+}
+document.addEventListener('toggle',function(e){
+  var d=e.target;
+  if(d&&d.tagName==='DETAILS'&&d.classList&&d.classList.contains('boutbatch')&&d.open)olyLoadBatch(d);
+},true);
 (function(){
-var BATCH=2, shown=0, secs=[], moreBtn=null;
-function secsOf(){return Array.prototype.slice.call(document.querySelectorAll('h2[id^="batch-"]')).map(function(h){return h.parentNode;});}
-function apply(){secs.forEach(function(s,i){s.style.display=i<shown?'':'none';});if(moreBtn)moreBtn.textContent=shown<secs.length?('LOAD MORE BOUTS ('+(secs.length-shown)*100+' REMAINING)'):'ALL BOUTS SHOWN';if(moreBtn&&shown>=secs.length)moreBtn.disabled=true;}
-function init(){secs=secsOf();if(!secs.length)return;shown=Math.min(BATCH,secs.length);moreBtn=document.createElement('button');moreBtn.type='button';moreBtn.className='azmore';moreBtn.id='batchmore';moreBtn.style.margin='14px auto 26px';moreBtn.onclick=function(){shown=Math.min(secs.length,shown+BATCH);apply();};var nav=document.querySelector('nav.toc');if(nav&&nav.parentNode)nav.parentNode.insertBefore(moreBtn,nav.nextSibling);apply();}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  var nav=document.querySelector('nav.toc');
+  if(!nav)return;
+  nav.addEventListener('click',function(e){
+    var a=e.target&&e.target.closest?e.target.closest('a[data-openbatch]'):null;
+    if(!a)return;
+    e.preventDefault();
+    var d=document.querySelector('details.boutbatch[data-batch="'+a.getAttribute('data-openbatch')+'"]');
+    if(!d)return;
+    d.open=true;olyLoadBatch(d);
+    if(d.scrollIntoView)d.scrollIntoView();
+  });
 })();
 </script>
 """
@@ -217,7 +247,14 @@ ARCH_CSS = ('.archbox{border:2px solid #b36b00;background:#fff8ec;border-radius:
             'text-overflow:ellipsis;max-width:32%}'
             '.azmore{display:block;margin:10px auto;padding:10px 22px;background:#fff8ec;'
             'border:1px solid #b36b00;color:#8a4b00;border-radius:8px;cursor:pointer;font-size:14px}'
-            '.azload,.azerr{color:#666;font-size:13px;text-align:center;padding:12px}')
+            '.azload,.azerr{color:#666;font-size:13px;text-align:center;padding:12px}'
+            'details.boutbatch{border:1px solid #999;border-radius:8px;margin:8px 0;background:#fff}'
+            'details.boutbatch summary{cursor:pointer;padding:12px;font-size:15px;list-style:none}'
+            'details.boutbatch summary::-webkit-details-marker{display:none}'
+            'details.boutbatch summary:before{content:"\\25B6  ";color:#b36b00}'
+            'details.boutbatch[open] summary:before{content:"\\25BC  "}'
+            'details.boutbatch summary .n{font-weight:normal;color:#666;font-size:13px}'
+            '.batchbody{padding:0 12px 12px;overflow-x:auto}')
 # --- TAB-WAVE (2026-10-04): calculator-style tab bar + Ask-the-AI box, baked into
 # every regenerated bouts.html (drip-proof).
 TABBAR_OLY = r"""<!-- JAH TAB BAR — Manon's 2026-10-04 order (calculator screenshot as spec).
@@ -342,41 +379,52 @@ document.getElementById("jah-askai-q").addEventListener("keydown",function(e){if
 </script>
 </div>
 """
-# --- FIX-03: bouts.html static tables (100 bouts per table) ---
-# CONSISTENCY PASS: every bout row carries the SIMULATION record-status badge.
-# NETWORK ORDER (Manon, 2026-10-04): the page opens with the full Bout Archive
-# (search + A-Z collapsible event lists + medal charts); the static record
-# tables stay below as the bot-readable fallback. The count is stamped from
-# len(catalog) — this script runs AFTER seed.py merges the new index rows in
-# the drip, so the stamp is never one run behind.
+# --- FIX-03: bouts.html record tables — LAZY per-batch (Manon's A-Z rule) ---
+# 2026-10-05: the old fully pre-rendered static tables (100 bouts/table,
+# ~33K rows / 10MB in the DOM) violated the A-Z rule: no full dumps, only
+# the opened section's records in the DOM. Each batch is now a collapsed
+# <details class="boutbatch"> whose table renders on first open from a
+# per-batch JSON file (data/batches/batch-NNN.json). Bots and crawlers read
+# the same per-batch JSON files, olypics-catalog.json, and the per-bout
+# sitemap batches — nothing is lost, phones just never parse 10MB of tables.
+# The count is stamped from len(catalog) — this script runs AFTER seed.py
+# merges the new index rows in the drip, so the stamp is never one run behind.
+BATCH_DIR = os.path.join(DATA, 'batches')
+os.makedirs(BATCH_DIR, exist_ok=True)
 parts = []
+batch_names = []
 for i in range(0, len(catalog), 100):
     batch = catalog[i:i + 100]
-    trs = ['<tr><th>Bout</th><th>Contender A</th><th>Contender B</th>'
-           '<th>Winner</th><th>Stage</th><th>Mission</th><th>Record status</th></tr>']
-    for b in batch:
-        trs.append('<tr><td><a href="index.html?battle=%s">%s</a></td><td>%s</td><td>%s</td>'
-                   '<td><b>%s</b></td><td>%s</td><td>%s</td>'
-                   '<td><span class="recbadge">SIMULATION</span></td></tr>' % (
-            esc(b['id']), esc(b['id']),
-            esc(b['contenders'][0]['name']), esc(b['contenders'][1]['name']),
-            esc(b['winner']['name']), esc(b['stage']['name']), esc(b['mission'])))
-    parts.append('<section><h2 id="batch-%d">Bouts %d&ndash;%d</h2>'
-                 '<table>%s</table></section>' % (
-        i // 100 + 1, i + 1, i + len(batch), ''.join(trs)))
-nav = ' '.join('<a href="#batch-%d">%d&ndash;%d</a>' % (i // 100 + 1, i + 1, min(i + 100, len(catalog)))
+    bno = i // 100 + 1
+    bname = 'batch-%03d.json' % bno
+    batch_names.append(bname)
+    with open(os.path.join(BATCH_DIR, bname), 'w') as f:
+        json.dump({'batch': bno, 'range': [i + 1, i + len(batch)],
+                   'bouts': len(batch),
+                   'rows': [{'id': b['id'],
+                             'a': b['contenders'][0]['name'],
+                             'b': b['contenders'][1]['name'],
+                             'w': b['winner']['name'],
+                             's': b['stage']['name'],
+                             'm': b['mission']} for b in batch]},
+                  f, ensure_ascii=False, separators=(',', ':'))
+    parts.append('<details class="boutbatch" data-batch="%d">'
+                 '<summary>Bouts %d&ndash;%d <span class="n">&middot; %d bouts</span></summary>'
+                 '<div class="batchbody"><p class="note">Open to load this batch&hellip;</p></div>'
+                 '</details>' % (bno, i + 1, i + len(batch), len(batch)))
+nav = ' '.join('<a href="#batch-%d" data-openbatch="%d">%d&ndash;%d</a>' % (i // 100 + 1, i // 100 + 1, i + 1, min(i + 100, len(catalog)))
                for i in range(0, len(catalog), 100))
 page = ('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
         '<title>AI Olympics — Bout Archive &amp; Record Tables</title>'
-        '<meta name="description" content="The full AI Olympics bout archive: every battle by Olympics event (A-Z), medal charts, search, and static record tables with bout ID, contenders, winner, stage, mission.">'
+        '<meta name="description" content="The full AI Olympics bout archive: every battle by Olympics event (A-Z), medal charts, search, and per-batch record tables (each batch loads on demand) with bout ID, contenders, winner, stage, mission.">'
         '<link rel="canonical" href="%s/bouts.html">' % BASE +
         '<script type="application/ld+json">' +
         json.dumps({"@context": "https://schema.org", "@type": "Dataset",
                     "name": "AI Olympics bout records",
                     "url": BASE + "/bouts.html",
                     "creator": {"@type": "Person", "name": "Justin Addam Higgins"},
-                    "description": "The full AI Olympics bout archive and static HTML record tables for every bout."}) +
+                    "description": "The full AI Olympics bout archive and per-batch bout record tables (each batch loads on demand)."}) +
         '</script><style>body{font-family:Arial,sans-serif;max-width:1100px;margin:0 auto;padding:16px}'
         'table{border-collapse:collapse;width:100%%;margin:12px 0;font-size:13px}'
         'th,td{border:1px solid #999;padding:6px 8px;text-align:left;vertical-align:top}'
@@ -407,7 +455,10 @@ page = ('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
         '<table class="med"><tr><th></th><th>Champion</th><th>&#129351;</th><th>&#129352;</th><th>&#129353;</th></tr>%s</table>'
         '<h3>Event leaders</h3>'
         '<table class="med"><tr><th>Event</th><th>Leader</th><th>&#129351;</th><th>&#129352;</th><th>&#129353;</th></tr>%s</table>'
-        '<h2 id="static">&#128203; Static record tables (bot-readable)</h2>'
+        '<h2 id="recordtables">&#128203; Bout record tables</h2>'
+        '<p class="note">Every battle below, in batches of 100 &mdash; open a batch and its table loads on demand, so the page stays fast on phones. '
+        'Every bout is a deterministic <span class="recbadge">SIMULATION</span> &mdash; no real AIs fought. '
+        'Crawlers and bots: the same records live machine-readable at <a href="olypics-catalog.json">olypics-catalog.json</a> and per-batch at data/batches/batch-NNN.json.</p>'
         '<nav class="toc" aria-label="Bout batches">%s</nav>%s' % (
         '{:,}'.format(len(catalog)),
         ''.join(details_html),
@@ -422,7 +473,8 @@ page = page.replace('results link straight to each battle.</p></div></div>',
                     'results link straight to each battle.</p></div></div>' + ASKAI_OLY, 1)
 with open(os.path.join(ROOT, 'bouts.html'), 'w') as f:
     f.write(page)
-print('bouts.html: %d static tables + %d event archive lists' % (len(parts), len(ev_az)))
+print('bouts.html: %d lazy batch tables + %d event archive lists'
+      % (len(parts), len(ev_az)))
 
 # --- FIX-02: modular sitemaps - index + batches of 1000 bout URLs ---
 urls = [BASE + '/', BASE + '/bouts.html', BASE + '/games.html', BASE + '/add-ai.html']
