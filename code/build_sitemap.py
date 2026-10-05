@@ -142,7 +142,7 @@ for key, name, emoji, eid in ev_az:
 ARCH_JS = r"""
 <script>
 function olyEsc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-function olyRow(r){var loser=r[3]===r[1]?r[2]:r[1];return '<li><a href="?battle='+r[0]+'">'+r[0]+'</a> &mdash; <b>'+olyEsc(r[3])+'</b> def. '+olyEsc(loser)+' &middot; '+olyEsc(r[4])+' &middot; <i>'+olyEsc(r[5])+'</i></li>';}
+function olyRow(r){var loser=r[3]===r[1]?r[2]:r[1];return '<li><a href="index.html?battle='+r[0]+'">'+r[0]+'</a> &mdash; <b>'+olyEsc(r[3])+'</b> def. '+olyEsc(loser)+' &middot; '+olyEsc(r[4])+' &middot; <i>'+olyEsc(r[5])+'</i></li>';}
 function olyLoadEv(det){var body=det.querySelector('.evbody');if(det.getAttribute('data-loaded')==='1')return;det.setAttribute('data-loaded','1');body.innerHTML='<p class="note">Loading bouts&hellip;</p>';fetch('data/events/'+det.getAttribute('data-ev')+'.json').then(function(r){return r.json();}).then(function(d){var h='<ul class="boutlist">';d.rows.forEach(function(r){h+=olyRow(r);});body.innerHTML=h+'</ul><p class="note">'+d.rows.length.toLocaleString()+' bouts in this event.</p>';}).catch(function(){body.innerHTML='<p class="note">Could not load this event\u2019s bouts. Check your connection and reopen.</p>';det.setAttribute('data-loaded','0');});}
 document.querySelectorAll('details.ev').forEach(function(det){det.addEventListener('toggle',function(){if(det.open)olyLoadEv(det);});});
 function olySearch(){var q=document.getElementById('olyq').value.trim().toLowerCase();var res=document.getElementById('olyres');if(q.length<2){res.innerHTML='<p class="note">Type at least 2 characters &mdash; a contender, winner, arena, mission, or JAH-OLY-&hellip;</p>';return;}res.innerHTML='<p class="note">Searching every battle&hellip;</p>';var keys=Array.prototype.map.call(document.querySelectorAll('details.ev'),function(d){return d.getAttribute('data-ev');});Promise.all(keys.map(function(k){return fetch('data/events/'+k+'.json').then(function(r){return r.json();});})).then(function(all){var hits=[];all.forEach(function(d){d.rows.forEach(function(r){if((r[0]+' '+r[1]+' '+r[2]+' '+r[3]+' '+r[4]+' '+r[5]).toLowerCase().indexOf(q)>=0)hits.push(r);});});if(!hits.length){res.innerHTML='<p class="note">No battles match.</p>';return;}var h='<ul class="boutlist">'+hits.slice(0,50).map(olyRow).join('')+'</ul>';if(hits.length>50)h+='<p class="note">Showing 50 of '+hits.length+' matches &mdash; narrow your search for more.</p>';res.innerHTML=h;}).catch(function(){res.innerHTML='<p class="note">Search failed &mdash; try again.</p>';});}
@@ -153,10 +153,10 @@ document.getElementById('olyq').addEventListener('keydown',function(e){if(e.key=
    games.json) are built by code/build_az.py, called from build_sitemap.py
    in the same chunk scan as the event lists, so the archive can never go
    stale. A letter's file loads only on first open. Entries deep-link to
-   ./?battle=<id> (the battle record); games deep-link to games.html?games=. */
+   index.html?battle=<id> (the battle record); games deep-link to games.html?games=. */
 var AZLETTERS="ABCDEFGHIJKLMNOPQRSTUVWXYZ#".split(""),AZ={counts:null,rows:{},shown:{},loading:{}},AZ_PAGE=250;
 function azGunzip(url){return fetch(url).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.arrayBuffer();}).then(function(ab){if(typeof DecompressionStream==="undefined")throw new Error("gzip unsupported");var ds=new DecompressionStream("gzip");return new Response(new Blob([ab]).stream().pipeThrough(ds)).text();});}
-function azItemHtml(r){return '<a class="azitem" href="./?battle='+r[0]+'"><span class="azid">'+r[0]+'</span><span class="aztitle">'+olyEsc(r[1])+'</span><span class="azcat">'+olyEsc(r[2]||"")+'</span></a>';}
+function azItemHtml(r){return '<a class="azitem" href="index.html?battle='+r[0]+'"><span class="azid">'+r[0]+'</span><span class="aztitle">'+olyEsc(r[1])+'</span><span class="azcat">'+olyEsc(r[2]||"")+'</span></a>';}
 function azRenderPage(L){var rows=AZ.rows[L]||[],shown=AZ.shown[L]||0;var body=document.querySelector('[data-azbody="'+L+'"]');if(!body)return;var h="",i;for(i=0;i<shown&&i<rows.length;i++)h+=azItemHtml(rows[i]);if(shown<rows.length){h+='<button type="button" class="azmore" data-azmore="'+L+'">SHOW MORE ('+(rows.length-shown).toLocaleString()+' REMAINING)</button>';}else{h+='<p class="note">End of letter '+olyEsc(L)+' \u2014 '+rows.length.toLocaleString()+' battles shown.</p>';}body.innerHTML=h;}
 function azLoadLetter(L){if(AZ.rows[L]||AZ.loading[L])return;AZ.loading[L]=true;var body=document.querySelector('[data-azbody="'+L+'"]');azGunzip("data/index/az/"+L+".json.gz").then(function(text){var rows=[];text.split("\n").forEach(function(ln){ln=ln.trim();if(!ln)return;try{rows.push(JSON.parse(ln));}catch(x){}});AZ.rows[L]=rows;AZ.shown[L]=Math.min(AZ_PAGE,rows.length);delete AZ.loading[L];azRenderPage(L);}).catch(function(){delete AZ.loading[L];if(body)body.innerHTML='<p class="azerr">Could not load letter '+olyEsc(L)+' \u2014 check your connection and reopen.</p>';});}
 function azHandleLetterParam(){var m=/[?&]letter=([A-Za-z#])/.exec(location.search);if(!m)return;var L=m[1].toUpperCase();var d=document.querySelector('#azletters details[data-letter="'+L+'"]');if(!d)return;d.open=true;azLoadLetter(L);}
@@ -167,6 +167,17 @@ document.querySelectorAll(".azmode").forEach(function(b){b.addEventListener("cli
 document.addEventListener("click",function(e){var m=e.target&&e.target.getAttribute?e.target.getAttribute("data-azmore"):null;if(m){AZ.shown[m]=(AZ.shown[m]||0)+AZ_PAGE;azRenderPage(m);}});
 document.addEventListener("toggle",function(e){var d=e.target;if(d&&d.tagName==="DETAILS"&&d.classList.contains("azsec")&&d.open){azLoadLetter(d.getAttribute("data-letter"));}},true);
 azBuild();
+/* ---- Static record-table pagination (phone-friendly) ----
+   The bot-readable tables below stay fully pre-rendered, but only the first
+   two batches (200 bouts) show at load; a Load-more button reveals the rest
+   two batches (200 bouts) at a time so the page stays usable on a phone. */
+(function(){
+var BATCH=2, shown=0, secs=[], moreBtn=null;
+function secsOf(){return Array.prototype.slice.call(document.querySelectorAll('h2[id^="batch-"]')).map(function(h){return h.parentNode;});}
+function apply(){secs.forEach(function(s,i){s.style.display=i<shown?'':'none';});if(moreBtn)moreBtn.textContent=shown<secs.length?('LOAD MORE BOUTS ('+(secs.length-shown)*100+' REMAINING)'):'ALL BOUTS SHOWN';if(moreBtn&&shown>=secs.length)moreBtn.disabled=true;}
+function init(){secs=secsOf();if(!secs.length)return;shown=Math.min(BATCH,secs.length);moreBtn=document.createElement('button');moreBtn.type='button';moreBtn.className='azmore';moreBtn.id='batchmore';moreBtn.style.margin='14px auto 26px';moreBtn.onclick=function(){shown=Math.min(secs.length,shown+BATCH);apply();};var nav=document.querySelector('nav.toc');if(nav&&nav.parentNode)nav.parentNode.insertBefore(moreBtn,nav.nextSibling);apply();}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init;
+})();
 </script>
 """
 
@@ -344,7 +355,7 @@ for i in range(0, len(catalog), 100):
     trs = ['<tr><th>Bout</th><th>Contender A</th><th>Contender B</th>'
            '<th>Winner</th><th>Stage</th><th>Mission</th><th>Record status</th></tr>']
     for b in batch:
-        trs.append('<tr><td><a href="?battle=%s">%s</a></td><td>%s</td><td>%s</td>'
+        trs.append('<tr><td><a href="index.html?battle=%s">%s</a></td><td>%s</td><td>%s</td>'
                    '<td><b>%s</b></td><td>%s</td><td>%s</td>'
                    '<td><span class="recbadge">SIMULATION</span></td></tr>' % (
             esc(b['id']), esc(b['id']),
