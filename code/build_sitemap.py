@@ -176,7 +176,7 @@ var BATCH=2, shown=0, secs=[], moreBtn=null;
 function secsOf(){return Array.prototype.slice.call(document.querySelectorAll('h2[id^="batch-"]')).map(function(h){return h.parentNode;});}
 function apply(){secs.forEach(function(s,i){s.style.display=i<shown?'':'none';});if(moreBtn)moreBtn.textContent=shown<secs.length?('LOAD MORE BOUTS ('+(secs.length-shown)*100+' REMAINING)'):'ALL BOUTS SHOWN';if(moreBtn&&shown>=secs.length)moreBtn.disabled=true;}
 function init(){secs=secsOf();if(!secs.length)return;shown=Math.min(BATCH,secs.length);moreBtn=document.createElement('button');moreBtn.type='button';moreBtn.className='azmore';moreBtn.id='batchmore';moreBtn.style.margin='14px auto 26px';moreBtn.onclick=function(){shown=Math.min(secs.length,shown+BATCH);apply();};var nav=document.querySelector('nav.toc');if(nav&&nav.parentNode)nav.parentNode.insertBefore(moreBtn,nav.nextSibling);apply();}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init;
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
 """
