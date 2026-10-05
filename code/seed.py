@@ -163,4 +163,19 @@ try:
 except Exception as e:
     print('marchCount stamp skipped: %s' % e)
 
+# --- keep the bout archive pages, per-event feeds, A-Z index and sitemaps in
+# sync (never one run behind): build_sitemap.py rewrites bouts.html's static
+# tables, data/events/*.json and data/index/az/. Warnings only — never break
+# the drip if the sitemap build fails.
+try:
+    r = subprocess.run([sys.executable, os.path.join(HERE, 'build_sitemap.py')],
+                       capture_output=True, text=True, cwd=ROOT)
+    tail = (r.stdout or '').strip() or (r.stderr or '').strip()
+    if tail:
+        print(tail)
+    if r.returncode != 0:
+        print('WARNING: build_sitemap.py failed (drip continues): %s' % tail[:300])
+except Exception as e:
+    print('WARNING: build_sitemap.py skipped: %s' % e)
+
 print(f"seeded {n} bouts ({start}..{start+n-1}); total {len(all_rows)}; chunks {chunk_no-1}")
