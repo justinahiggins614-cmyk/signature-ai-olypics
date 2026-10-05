@@ -56,6 +56,20 @@ table{width:100%;border-collapse:collapse;margin-top:16px}td,th{border:1px solid
               document.querySelector('header') ||
               document.body;
   if (window.JAHProfile && JAHProfile.ui) JAHProfile.ui.renderButton(mount);
+<script>
+(function () {
+  /* Profiles v2 "Make it mine": page greeting near the header; renders ONLY when personalization is live */
+  if (window.JAHProfile && JAHProfile.ui && typeof JAHProfile.ui.renderGreeting === 'function') {
+    var mount = document.querySelector('header .booksearch') ||
+                document.querySelector('nav.jtabbar') ||
+                document.querySelector('header nav') ||
+                document.querySelector('header') ||
+                document.body;
+    JAHProfile.ui.renderGreeting(mount);
+  }
+})();
+</script>
+
 })();
 </script>
 </body></html>
