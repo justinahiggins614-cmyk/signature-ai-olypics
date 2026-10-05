@@ -4,7 +4,7 @@
  "base_url": "https://justinahiggins614-cmyk.github.io/signature-ai-olypics/",
  "manifest": "data/manifest.json",
  "counts": {
-  "bouts": 30063,
+  "bouts": 31063,
   "goal": 1000000,
   "contenders": 383,
   "contenders_by_type": {
@@ -14,7 +14,7 @@
    "replica": 3,
    "hybrid": 120
   },
-  "inventions": 60126
+  "inventions": 62126
  },
  "versions": {
   "engine": "2.1",
@@ -55,5 +55,5 @@
   "Industry-style contenders are independent Signature creations, not affiliated.",
   "Inventions are CONCEPTS \u2014 never patented/tested/viable."
  ],
- "updated": "2026-10-04"
+ "updated": "2026-10-05"
 }

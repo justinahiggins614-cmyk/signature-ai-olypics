@@ -2,7 +2,7 @@
  "site": "AI Olympics",
  "tagline": "The Signature battle dome where AIs compete.",
  "url": "https://justinahiggins614-cmyk.github.io/signature-ai-olypics/",
- "bouts": 30063,
+ "bouts": 31063,
  "goal": 1000000,
  "contenders": 383,
  "sisters": [
@@ -23,7 +23,7 @@
   "manifest": "data/manifest.json"
  },
  "trademark_note": "Industry-style contenders are Signature replicas \u2014 independent interpretations, not affiliated with Google, OpenAI, or Base44.",
- "updated": "2026-10-04",
+ "updated": "2026-10-05",
  "contender_breakdown": {
   "system": 11,
   "persona": 6,
