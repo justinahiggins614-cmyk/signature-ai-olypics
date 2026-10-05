@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>try{var _jt=localStorage.getItem('jah-theme');if(_jt==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(_je){}</script>
+<script src="js/signin.js"></script>
+<script>window.PS=(function(){var s=(typeof JAHProfile!=='undefined')?JAHProfile.store:null;var l=null;try{l=localStorage}catch(_e){}return{get:function(k){try{return s?s.get(k):(l?l.getItem(k):null)}catch(e){return null}},set:function(k,v){try{if(s)s.set(k,v);else if(l)l.setItem(k,v)}catch(e){}},remove:function(k){try{if(s)s.remove(k);else if(l)l.removeItem(k)}catch(e){}},keys:function(){try{return s?s.keys():[]}catch(e){return[]}}}})();</script>
+<script>try{var _jt=PS.get('jah-theme');if(_jt==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(_je){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI Olympics — The Signature Battle Dome</title>
 <meta name="description" content="AI Olympics: the Signature battle dome where AIs compete. User-staged bouts or the Universal Pit. Every battle recorded in human-readable and AI-readable form, with findings and derived invention records. Marching to 1,000,000 battles.">
@@ -876,15 +878,16 @@ function scribeProfile(){
   abilities:["Tell you who won a battle and by what margin","Recite the stage, the mission, and the judging rubric","Summarize the findings and the derived invention records","Recall any round's result — every bout is deterministic and reproducible"],
   domain:"battle records",kind:"system"};
 }
+function _ckey(prof){var b='ai:'+(prof.id||prof.name);return (typeof JAHProfile!=='undefined')?JAHProfile.chatKey(b):b;}
 function scribeIntent(q){
  if(!window.JAHtalk)return null;
  var t=String(q||"").toLowerCase().trim(),prof=scribeProfile();
- if(/^(hi|hii+|hey|hello|yo|howdy|good\s?(morning|afternoon|evening|day)|greetings|sup|hiya)\b/.test(t)||(t.length<=4&&t.indexOf("hi")>=0))return JAHtalk.chatFor(prof,'ai:'+(prof.id||prof.name)).reply(t);
+ if(/^(hi|hii+|hey|hello|yo|howdy|good\s?(morning|afternoon|evening|day)|greetings|sup|hiya)\b/.test(t)||(t.length<=4&&t.indexOf("hi")>=0))return JAHtalk.chatFor(prof,_ckey(prof)).reply(t);
  if(/what are your duties|your duties|what is your duty|your job|your role|what do you do|what can you do|what are you for|explain your duties|duties/.test(t))return JAHtalk.duties(prof);
- if(/who are you|your name|introduce yourself|about yourself/.test(t))return JAHtalk.chatFor(prof,'ai:'+(prof.id||prof.name)).reply(t);
- if(/thank/.test(t)||t==="thx"||t==="ty")return JAHtalk.chatFor(prof,'ai:'+(prof.id||prof.name)).reply(t);
- if(/^(bye|goodbye|good night|see you|later|gtg)\b/.test(t))return JAHtalk.chatFor(prof,'ai:'+(prof.id||prof.name)).reply(t);
- if(/how are you|how's it going|how do you feel/.test(t))return JAHtalk.chatFor(prof,'ai:'+(prof.id||prof.name)).reply(t);
+ if(/who are you|your name|introduce yourself|about yourself/.test(t))return JAHtalk.chatFor(prof,_ckey(prof)).reply(t);
+ if(/thank/.test(t)||t==="thx"||t==="ty")return JAHtalk.chatFor(prof,_ckey(prof)).reply(t);
+ if(/^(bye|goodbye|good night|see you|later|gtg)\b/.test(t))return JAHtalk.chatFor(prof,_ckey(prof)).reply(t);
+ if(/how are you|how's it going|how do you feel/.test(t))return JAHtalk.chatFor(prof,_ckey(prof)).reply(t);
  return null;
 }
 function scribeGuarded(text){
@@ -944,8 +947,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 /* UX PASS: dark-mode toggle + session restore (localStorage only, nothing leaves this device) */
 (function(){
 'use strict';
-function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
-function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+function lsGet(k){try{return PS.get(k);}catch(e){return null;}}
+function lsSet(k,v){try{PS.set(k,v);}catch(e){}}
 /* dark-mode toggle */
 var tb=document.getElementById('jahThemeToggle');
 function paintToggle(){ if(tb) tb.textContent = document.documentElement.getAttribute('data-theme')==='dark' ? '◑' : '◐'; }
@@ -988,8 +991,8 @@ document.addEventListener('click',function(e){ var t=e.target&&e.target.closest?
 (function(){
 'use strict';
 var LS_SEEN='jah-welcome-seen-olympics';
-function seen(){try{return localStorage.getItem(LS_SEEN)==='1';}catch(e){return true;}}
-function mark(){try{localStorage.setItem(LS_SEEN,'1');}catch(e){}}
+function seen(){try{return PS.get(LS_SEEN)==='1';}catch(e){return true;}}
+function mark(){try{PS.set(LS_SEEN,'1');}catch(e){}}
 function $(id){return document.getElementById(id);}
 function openGuide(){$('guideCard').style.display='block';$('guideOverlay').style.display='block';var b=$('guideOk');if(b)b.focus({preventScroll:true});}
 function closeGuide(){$('guideCard').style.display='none';$('guideOverlay').style.display='none';mark();}
@@ -1001,6 +1004,16 @@ document.addEventListener('keydown',function(e){
 });
 /* first visit: show the welcome overlay once (not on shared battle deep links) */
 setTimeout(function(){if(!seen()&&location.search.indexOf('battle=')<0)openGuide();},900);
+})();
+</script>
+<script>
+(function () {
+  var mount = document.querySelector('header .booksearch') ||
+              document.querySelector('nav.jtabbar') ||
+              document.querySelector('header nav') ||
+              document.querySelector('header') ||
+              document.body;
+  if (window.JAHProfile && JAHProfile.ui) JAHProfile.ui.renderButton(mount);
 })();
 </script>
 </body>

@@ -13,14 +13,15 @@
  */
 (function () {
 'use strict';
+var PS=(function(){var s=(typeof JAHProfile!=='undefined')?JAHProfile.store:null;var l=null;try{l=localStorage}catch(_e){}return{get:function(k){try{return s?s.get(k):(l?l.getItem(k):null)}catch(e){return null}},set:function(k,v){try{if(s)s.set(k,v);else if(l)l.setItem(k,v)}catch(e){}},remove:function(k){try{if(s)s.remove(k);else if(l)l.removeItem(k)}catch(e){}},keys:function(){try{return s?s.keys():[]}catch(e){return[]}}}})();
 
 var LS_AIS = 'jah-oly-user-ais-v1';
 var LS_BOUTS = 'jah-oly-user-bouts-v1';
 var LS_SEQ = 'jah-oly-user-seq-v1';
 var STAT_KEYS = ['power', 'speed', 'wit', 'precision', 'creativity', 'stamina'];
 
-function lsGet(k, d) { try { var v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }
-function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+function lsGet(k, d) { try { var v = PS.get(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }
+function lsSet(k, v) { try { PS.set(k, JSON.stringify(v)); } catch (e) {} }
 
 function eng() { return window.OlyEngine; }
 function getRoster() { return window.roster || []; }

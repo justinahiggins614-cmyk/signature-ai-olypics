@@ -47,4 +47,15 @@ table{width:100%;border-collapse:collapse;margin-top:16px}td,th{border:1px solid
 <tr><td>file present: schemas/battle.schema.json</td><td class="ok">PASS</td><td></td></tr>
 </table>
 <p>Machine-readable: <a href="health.json">health.json</a> · counts source: <a href="data/manifest.json">data/manifest.json</a></p>
+<script src="js/signin.js"></script>
+<script>
+(function () {
+  var mount = document.querySelector('header .booksearch') ||
+              document.querySelector('nav.jtabbar') ||
+              document.querySelector('header nav') ||
+              document.querySelector('header') ||
+              document.body;
+  if (window.JAHProfile && JAHProfile.ui) JAHProfile.ui.renderButton(mount);
+})();
+</script>
 </body></html>

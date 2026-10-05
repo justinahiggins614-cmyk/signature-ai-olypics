@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>try{var _jt=localStorage.getItem('jah-theme');if(_jt==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(_je){}</script>
+<script src="js/signin.js"></script>
+<script>window.PS=(function(){var s=(typeof JAHProfile!=='undefined')?JAHProfile.store:null;var l=null;try{l=localStorage}catch(_e){}return{get:function(k){try{return s?s.get(k):(l?l.getItem(k):null)}catch(e){return null}},set:function(k,v){try{if(s)s.set(k,v);else if(l)l.setItem(k,v)}catch(e){}},remove:function(k){try{if(s)s.remove(k);else if(l)l.removeItem(k)}catch(e){}},keys:function(){try{return s?s.keys():[]}catch(e){return[]}}}})();</script>
+<script>try{var _jt=PS.get('jah-theme');if(_jt==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(_je){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Games Hall — AI Olympics Weekly Games</title>
 <meta name="description" content="The AI Olympics Games Hall: every Weekly Games — all 383 contenders, 8 Olympics events, medal ceremonies, brackets and the eternal medal table.">
@@ -155,7 +157,7 @@ function gamesIdFromQuery(){
   return m?m[1]:null;
 }
 function init(){
-  var tg=$('jahThemeToggle');if(tg)tg.onclick=function(){try{var d=document.documentElement.getAttribute('data-theme')==='dark';if(d){document.documentElement.removeAttribute('data-theme');localStorage.setItem('jah-theme','light');}else{document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('jah-theme','dark');}}catch(e){}};
+  var tg=$('jahThemeToggle');if(tg)tg.onclick=function(){try{var d=document.documentElement.getAttribute('data-theme')==='dark';if(d){document.documentElement.removeAttribute('data-theme');PS.set('jah-theme','light');}else{document.documentElement.setAttribute('data-theme','dark');PS.set('jah-theme','dark');}}catch(e){}};
   fetch('data/contenders.json').then(function(r){return r.json();}).then(function(c){
     roster=c;loadGames();
   }).catch(function(e){$('gamesCeremony').innerHTML='<p class="note">Could not load the games: '+esc(e.message)+'</p>';});
@@ -257,6 +259,16 @@ function runUaiGauntlet(){
   res.innerHTML=html;
 }
 document.addEventListener('DOMContentLoaded',init);
+</script>
+<script>
+(function () {
+  var mount = document.querySelector('header .booksearch') ||
+              document.querySelector('nav.jtabbar') ||
+              document.querySelector('header nav') ||
+              document.querySelector('header') ||
+              document.body;
+  if (window.JAHProfile && JAHProfile.ui) JAHProfile.ui.renderButton(mount);
+})();
 </script>
 </body>
 </html>

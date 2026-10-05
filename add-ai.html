@@ -273,5 +273,16 @@ function uaiInit(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',uaiInit);else uaiInit();
 </script>
+<script src="js/signin.js"></script>
+<script>
+(function () {
+  var mount = document.querySelector('header .booksearch') ||
+              document.querySelector('nav.jtabbar') ||
+              document.querySelector('header nav') ||
+              document.querySelector('header') ||
+              document.body;
+  if (window.JAHProfile && JAHProfile.ui) JAHProfile.ui.renderButton(mount);
+})();
+</script>
 </body>
 </html>
