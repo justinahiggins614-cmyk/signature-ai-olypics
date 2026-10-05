@@ -1,12 +1,12 @@
 {
  "manifest_version": "2.0",
  "site": "signature-ai-olypics",
- "generated_at": "2026-10-05T12:07:51+00:00",
- "bouts": 37063,
+ "generated_at": "2026-10-05T14:08:32+00:00",
+ "bouts": 38063,
  "goal": 1000000,
  "bout_id_range": [
   "JAH-OLY-000001",
-  "JAH-OLY-037063"
+  "JAH-OLY-038063"
  ],
  "contenders": {
   "total": 383,
@@ -56,18 +56,18 @@
   "latest": "0001"
  },
  "inventions": {
-  "count": 74126,
+  "count": 76126,
   "id_range": [
    "JAH-OLY-INV-000001",
-   "JAH-OLY-INV-074126"
+   "JAH-OLY-INV-076126"
   ]
  },
- "chunks": 371,
+ "chunks": 381,
  "per_chunk": 100,
  "engine_version": "2.1",
  "schema_version": "JAH-OLY-RECORD/2.0",
  "index_version": "1",
- "index_hash": "sha256:fd9b7236ff1ca7de7f378ec326719bb0509f28e1b8f716686b8d728518811083",
+ "index_hash": "sha256:f4b37f0ab829ba167f0bf1bcbef154d32333a9f74cb785966d4c623f8e6fdace",
  "archive_status": "ARCHIVED",
  "updated": "2026-10-05"
 }
