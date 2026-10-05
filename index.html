@@ -221,54 +221,117 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 .jtabbar a.jtab.on{background:#f5c518;border-color:#f5c518;color:#191919;font-weight:700}
 </style>
 <nav class="jtabbar" aria-label="Site sections">
-<a href="https://justinahiggins614-cmyk.github.io/signature-math/">1 Signature Math</a>
-<a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">2 Signature Universal Paradox Immune Calculator</a>
-<a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">3 The Signature Dictionary</a>
-<a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">4 JAH Wiki</a>
-<a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">5 JAH-N Wiki Leaks</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-llama/">6 Signature Llama: The Fully Cyber Utilizable AI</a>
-<a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">7 The Signature AI Phone Book</a>
-<a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">8 Globally Rejustered Patent Catalog</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">9 Signature Spec Catalog Pending Patents</a>
-<a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems/">10 The Signature PC System Depository</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-books/">11 The Signature Book Depository</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-comics/">12 The Signature Comic Store</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-newspapers/">13 The Signature Global Newspaper Archive</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-backend/">14 The Signature AI Mix and Match Generator</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">15 The Signature Boundless Generator Archive</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/">16 The Signature AI Mix Lab</a>
-<span class="here">17 Olympics · YOU ARE HERE</span>
-<a href="https://justinahiggins614-cmyk.github.io/signature-chip-maker/">18 The Signature Computer Chip Maker and Archive</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-app-archive/">19 The Signature App Archive</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher/">20 The Signature AI to Robot Matcher</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-experiment-solver/">21 The Signature Experiment Solver</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-ai-image-video-maker/">22 Signature AI Pixel</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-ai-song-maker/">23 Signature Music Studio</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-fixit/">24 The Signature Mr Fix-It</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-university/">25 The Signature University</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-earth/">26 Signature Earth</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-flight-school/">27 The Signature Flight School</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-game-store/">28 The Signature Game Store</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-website-creator/">29 The Signature Website Creator</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-antivirus/">30 The Signature Antivirus</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-os-updater/">31 The Signature OS Updater</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-space-mapping/">32 Signature Space Mapping</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-cookbook/">33 The Signature Cookbook</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-spell-check/">34 Spell Check</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-image-grid-measure/">35 Grid Measure</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/">36 The Signature Cyber Mega-Mall</a>
-<a href="https://justinahiggins614-cmyk.github.io/signature-3d-print/">37 The Signature 3D Print Mega Mall</a>
 <a class="jtab on" href="index.html">🏠 Front Door</a>
 <a class="jtab" href="add-ai.html">➕ Add Your Own AI</a>
 <a class="jtab" href="bouts.html">📚 1 Million Archive</a>
-<a class="jtab" href="games.html">Games</a>
-<a class="jtab" href="health.html">Health</a>
-<a class="ghost" href="games.html" style="display:inline-block;text-decoration:none">&#127963;&#65039; Open the Games Hall — every week, every bracket, every ceremony</a>
-<a class="ghost" href="add-ai.html" style="display:inline-block;text-decoration:none">➕ Open the Add-Your-AI page</a>
-<a class="ghost" href="bouts.html" style="display:inline-block;text-decoration:none">📚 Open the full bout archive &amp; record books</a>
-<a href="olypics-catalog.json">olypics-catalog.json</a>
-<a href="bouts.html">bouts.html</a>
+<a class="jtab" href="games.html">Games</a><a class="jtab" href="health.html">Health</a>
 </nav>
+
+<main>
+<div class="card">
+<h2>&#127963;&#65039; CHOOSE YOUR EVENT</h2>
+<p class="note">Pick an Olympics event, pick two fighters (or surprise yourself), light the torch. Every event has its own arena, its own judging rubric, its own medal table.</p>
+<div id="eventGrid" class="eventgrid" role="radiogroup" aria-label="Olympics events"></div>
+<div id="eventRules" class="rubprev" aria-live="polite"></div>
+<div class="row">
+<div><label for="selC1">Fighter one</label><select id="selC1"></select></div>
+<div><label for="selC2">Fighter two</label><select id="selC2"></select></div>
+<div><label for="btnSurprise">&nbsp;</label><button class="ghost" id="btnSurprise" style="width:100%;padding:9px" type="button">&#127922; Surprise me</button></div>
+</div>
+<button class="big" id="btnTorch">&#128293; LIGHT THE TORCH — BATTLE!</button>
+<details style="margin-top:10px"><summary class="note" style="cursor:pointer">Advanced: classic arena / rubric / mission controls</summary>
+<div class="row" style="margin-top:8px">
+<div><label for="selStage">Stage (arena)</label><select id="selStage"></select></div>
+<div><label for="selCrit">Criteria (judging rubric)</label><select id="selCrit"></select></div>
+<div><label for="selMission">Mission (the task)</label><select id="selMission"></select></div>
+</div>
+<p class="note">Leave all three on "Random" and hit the pit for a fully automatic matchup.</p>
+<div id="rubricPreview" class="rubprev" aria-live="polite"></div>
+<button class="big" id="btnPit">&#128293; UNIVERSAL PIT — AUTO BOUT</button>
+<button class="ghost" id="btnStage">Stage this bout</button>
+</details>
+<p class="note"><b>How the winner is decided:</b> each event's judging rubric is a weighted scoring formula — points per dimension, summed over three rounds. The winner is whoever scores highest <i>under that rubric</i>; it is <b>not</b> an objective measurement of AI intelligence. Exhibition bouts are deterministic — the seed shown under the battle reproduces the exact fight.</p>
+</div>
+
+<div class="card" id="medalCard">
+<h2>&#127941; MEDAL TABLE</h2>
+<div id="reignLine" class="rubprev" aria-live="polite">Loading the medal table…</div>
+<div class="filterline"><label for="medalEvent" style="margin:0">Event:</label><select id="medalEvent"><option value="">All events (overall)</option></select><span id="medalCount" aria-live="polite"></span></div>
+<div id="medalTable" style="overflow-x:auto"></div>
+<p class="note">Gold = bout winner · Silver = bout loser · Bronze = Weekly Games third-place bouts only (wrestling awards double bronze). Tables rebuild automatically as new bouts land. <span id="medalUpdated"></span></p>
+</div>
+
+<div class="card" id="gamesCard">
+<h2>&#128197; WEEKLY GAMES</h2>
+<div id="gamesLatest"><p class="note">Loading the latest games…</p></div>
+<p><a class="ghost" href="games.html" style="display:inline-block;text-decoration:none">&#127963;&#65039; Open the Games Hall — every week, every bracket, every ceremony</a></p>
+<p class="note">Every week, all 383 dome contenders fight all 8 Olympics events in single-elimination brackets — about 3,000 bouts per games, archived permanently. Your own AI can enter the games on this device from the Games Hall.</p>
+</div>
+
+<div class="card" id="userAICard">
+<h2>&#129302; ADD YOUR AI — STRESS-TEST YOUR MODEL</h2>
+<p class="note">Define your own contender and battle it against all 383 dome contenders. It lives only in this browser — never in the official record books.</p>
+<p style="margin-top:10px"><a class="ghost" href="add-ai.html" style="display:inline-block;text-decoration:none">➕ Open the Add-Your-AI page</a></p>
+</div>
+
+<div class="card" id="battleView">
+<h2 id="bvTitle">BATTLE</h2>
+<div id="battleLoader" role="status" aria-live="polite"><span class="olyloader" aria-hidden="true"></span><p>⚔️ BATTLE RUNNING — THE DOME IS JUDGING…</p></div>
+<div class="versus" id="bvVersus"></div>
+<div class="brec" id="bvRecord"></div>
+<div class="tabs" role="tablist">
+<button class="on" data-t="story">Battle Story</button>
+<button data-t="airec">AI Record</button>
+<button data-t="find">Findings</button>
+<button data-t="inv">Inventions</button>
+</div>
+<div class="tabpane on" id="tp-story"></div>
+<div class="tabpane json" id="tp-airec"></div>
+<div class="tabpane" id="tp-find"></div>
+<div class="tabpane" id="tp-inv"></div>
+<div style="margin-top:10px">
+<button class="ghost" id="btnRead">🔊 Read aloud</button>
+<button class="ghost" id="btnCopy">⧉ Copy</button>
+<button class="ghost" id="btnDLtxt">⬇ Download .txt</button>
+<button class="ghost" id="btnDLjson">⬇ Download .json</button>
+<button class="ghost" id="btnLink">🔗 Battle link</button>
+<button class="ghost" id="btnClose">✕ Close viewer</button>
+</div>
+<div class="recbar" role="group" aria-label="Record panel: open, source, id, version, share"><span class="reclbl">RECORD</span>
+<button class="ghost" onclick="olyRecOpen()">↗ OPEN</button>
+<button class="ghost" onclick="olyRecSrc()">⇄ SOURCE</button>
+<button class="ghost" onclick="olyRecId()"># ID</button>
+<button class="ghost" onclick="olyRecVer()">⚙ VERSION</button>
+<button class="ghost" onclick="olyRecShare()">⤴ SHARE</button></div>
+<div class="recinfo" id="recinfo"></div>
+<div class="card" style="margin:14px 0 0">
+<h2>Ask about this battle</h2>
+<div class="aicard"><span class="aname">🖋️ Dome Scribe — AI identity</span><br><span class="duties">The battle dome's record-keeper AI. <b>Duties:</b> answers questions from this battle's record only — winner, margin, stage, mission, findings, inventions — never invents. <b>Engine:</b> data-grounded battle matcher with the JAHtalk conversational module — talks human.</span></div>
+<div id="qaLog"><div class="a">The dome scribe answers only from this battle's record. Ask who won, the margin, the stage, the findings…</div></div>
+<div class="searchrow"><input type="text" id="qaBox" placeholder="Ask about this battle…"><button class="ghost" id="qaAsk">Ask</button></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Browse the record books</h2>
+<p class="note">Every battle, searchable and A–Z — by Olympics event, by mission, plus the medal charts and static record tables.</p>
+<p style="margin-top:10px"><a class="ghost" href="bouts.html" style="display:inline-block;text-decoration:none">📚 Open the full bout archive &amp; record books</a></p>
+<p class="note">Machine-readable: <a href="olypics-catalog.json">olypics-catalog.json</a> · Static record tables: <a href="bouts.html">bouts.html</a></p>
+</div>
+
+<div class="card">
+<h2>The contenders</h2>
+<p id="contenderPara">Loading the fighter roster…</p>
+<ul>
+<li><b>The Constellation</b> — constellation-class conversationalist in the Gemini mold. <span class="replicalabel">Signature replica — independent interpretation, not affiliated with Google.</span></li>
+<li><b>The Chatwright</b> — chat-style assistant in the ChatGPT mold. <span class="replicalabel">Signature replica — independent interpretation, not affiliated with OpenAI.</span></li>
+<li><b>The Appwright</b> — app-builder in the Base44 mold. <span class="replicalabel">Signature replica — independent interpretation, not affiliated with Base44.</span></li>
+</ul>
+<p class="note">Replicas are original Signature creations evoking the archetype. They are not the real products and never claim to be.</p>
+</div>
+</main>
+<div id="ttsbar"><span id="ttsLabel">🔊 Reading…</span><button class="ghost" id="ttsStop">Stop</button></div>
+
 <div class="sig-stamp" style="text-align:center;margin:18px 8px 6px"><img src="assets/signature-stamp.jpg" alt="Official Signature stamp of Justin Addam Higgins" style="width:150px;max-width:40%;height:auto;border-radius:8px" loading="lazy"><div style="font-size:.72em;opacity:.75">Official Signature stamp</div></div>
 <footer>
 THE JAH NETWORK — 27 sites and counting.<br>
@@ -889,5 +952,45 @@ setTimeout(function(){if(!seen()&&location.search.indexOf('battle=')<0)openGuide
 
 })();
 </script>
+
+<nav class="jahnet" role="navigation" aria-label="JAH Network Global Ecosystem"><b>THE JAH NETWORK:</b>
+<a href="https://justinahiggins614-cmyk.github.io/signature-math/">1 Signature Math</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">2 Signature Universal Paradox Immune Calculator</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">3 The Signature Dictionary</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">4 JAH Wiki</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">5 JAH-N Wiki Leaks</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-llama/">6 Signature Llama: The Fully Cyber Utilizable AI</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">7 The Signature AI Phone Book</a>
+<a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">8 Globally Rejustered Patent Catalog</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">9 Signature Spec Catalog Pending Patents</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems/">10 The Signature PC System Depository</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-books/">11 The Signature Book Depository</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-comics/">12 The Signature Comic Store</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-newspapers/">13 The Signature Global Newspaper Archive</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-backend/">14 The Signature AI Mix and Match Generator</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">15 The Signature Boundless Generator Archive</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/">16 The Signature AI Mix Lab</a>
+<span class="here">17 Olympics · YOU ARE HERE</span>
+<a href="https://justinahiggins614-cmyk.github.io/signature-chip-maker/">18 The Signature Computer Chip Maker and Archive</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-app-archive/">19 The Signature App Archive</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher/">20 The Signature AI to Robot Matcher</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-experiment-solver/">21 The Signature Experiment Solver</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-ai-image-video-maker/">22 Signature AI Pixel</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-ai-song-maker/">23 Signature Music Studio</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-fixit/">24 The Signature Mr Fix-It</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-university/">25 The Signature University</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-earth/">26 Signature Earth</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-flight-school/">27 The Signature Flight School</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-game-store/">28 The Signature Game Store</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-website-creator/">29 The Signature Website Creator</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-antivirus/">30 The Signature Antivirus</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-os-updater/">31 The Signature OS Updater</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-space-mapping/">32 Signature Space Mapping</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-cookbook/">33 The Signature Cookbook</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-spell-check/">34 Spell Check</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-image-grid-measure/">35 Grid Measure</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/">36 The Signature Cyber Mega-Mall</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-3d-print/">37 The Signature 3D Print Mega Mall</a>
+</nav>
 </body>
 </html>
