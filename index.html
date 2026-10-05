@@ -879,12 +879,12 @@ function scribeProfile(){
 function scribeIntent(q){
  if(!window.JAHtalk)return null;
  var t=String(q||"").toLowerCase().trim(),prof=scribeProfile();
- if(/^(hi|hii+|hey|hello|yo|howdy|good\s?(morning|afternoon|evening|day)|greetings|sup|hiya)\b/.test(t)||(t.length<=4&&t.indexOf("hi")>=0))return JAHtalk.reply(prof,t);
+ if(/^(hi|hii+|hey|hello|yo|howdy|good\s?(morning|afternoon|evening|day)|greetings|sup|hiya)\b/.test(t)||(t.length<=4&&t.indexOf("hi")>=0))return JAHtalk.chatFor(prof,'ai:'+(prof.id||prof.name)).reply(t);
  if(/what are your duties|your duties|what is your duty|your job|your role|what do you do|what can you do|what are you for|explain your duties|duties/.test(t))return JAHtalk.duties(prof);
- if(/who are you|your name|introduce yourself|about yourself/.test(t))return JAHtalk.reply(prof,t);
- if(/thank/.test(t)||t==="thx"||t==="ty")return JAHtalk.reply(prof,t);
- if(/^(bye|goodbye|good night|see you|later|gtg)\b/.test(t))return JAHtalk.reply(prof,t);
- if(/how are you|how's it going|how do you feel/.test(t))return JAHtalk.reply(prof,t);
+ if(/who are you|your name|introduce yourself|about yourself/.test(t))return JAHtalk.chatFor(prof,'ai:'+(prof.id||prof.name)).reply(t);
+ if(/thank/.test(t)||t==="thx"||t==="ty")return JAHtalk.chatFor(prof,'ai:'+(prof.id||prof.name)).reply(t);
+ if(/^(bye|goodbye|good night|see you|later|gtg)\b/.test(t))return JAHtalk.chatFor(prof,'ai:'+(prof.id||prof.name)).reply(t);
+ if(/how are you|how's it going|how do you feel/.test(t))return JAHtalk.chatFor(prof,'ai:'+(prof.id||prof.name)).reply(t);
  return null;
 }
 function scribeGuarded(text){
