@@ -4,7 +4,7 @@
  "base_url": "https://justinahiggins614-cmyk.github.io/signature-ai-olypics/",
  "manifest": "data/manifest.json",
  "counts": {
-  "bouts": 36063,
+  "bouts": 37063,
   "goal": 1000000,
   "contenders": 383,
   "contenders_by_type": {
@@ -14,7 +14,7 @@
    "replica": 3,
    "hybrid": 120
   },
-  "inventions": 72126
+  "inventions": 74126
  },
  "versions": {
   "engine": "2.1",
