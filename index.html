@@ -314,11 +314,8 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 
 <div class="card">
 <h2>Browse the record books</h2>
-<div class="browsebar">
-<div class="searchrow"><input type="text" id="q" placeholder="Search battles: contender, stage, mission, winner…"><button class="ghost" id="btnSearch">Search</button></div>
-<div class="filterline"><label for="fStage" style="margin:0">Arena:</label><select id="fStage"><option value="">All arenas</option></select><span id="hitCount" aria-live="polite"></span></div>
-</div>
-<div id="results"><p class="note" id="resultsNote">Loading the record books… Search above, or open any battle directly: <code>?battle=JAH-OLY-000001</code></p></div>
+<p class="note">Every battle, searchable and A–Z — by Olympics event, by mission, plus the medal charts and static record tables.</p>
+<p style="margin-top:10px"><a class="ghost" href="bouts.html" style="display:inline-block;text-decoration:none">📚 Open the full bout archive &amp; record books</a></p>
 <p class="note">Machine-readable: <a href="olypics-catalog.json">olypics-catalog.json</a> · Static record tables: <a href="bouts.html">bouts.html</a></p>
 </div>
 
@@ -498,8 +495,6 @@ function init(){
     roster=v[1];manifest=v[2];idxLoaded=true;
     $('marchCount').textContent=manifest.bouts.toLocaleString('en-US');
     /* P0: counts always from the manifest — never hard-coded */
-    var rn=$('resultsNote');
-    if(rn)rn.innerHTML=manifest.bouts.toLocaleString('en-US')+' bouts recorded. Search above, or open any battle directly: <code>?battle=JAH-OLY-000001</code>';
     var cp=$('contenderPara');
     if(cp&&manifest.contenders&&manifest.contenders.by_type){
       var cb=manifest.contenders.by_type;
@@ -509,11 +504,9 @@ function init(){
       if(nm&&nm.site_count){var sk=$('siteKicker');if(sk)sk.innerHTML='<b>SITE '+nm.site_number+' OF '+nm.site_count+'</b> · THE JAH NETWORK';}
     }).catch(function(){});
     var m=/[?&]battle=(JAH-OLY-(?:EXH-\d{5}|USER-\d{4}|\d{6}))/.exec(location.search);
-    /* SITE19-FIX-06: populate the arena filter from the bout index */
-    buildStageFilter();
     fillContenderSelects();loadMedals();loadGamesLatest();
     if(m)openBattle(m[1]);else openBattle(bindex[bindex.length-1][0]);
-  }).catch(function(e){$('results').innerHTML='<p class="note">Could not load the record books: '+esc(e.message)+'</p>';});
+  }).catch(function(e){var _b=$('battleView');if(_b)_b.style.display='block';$('bvRecord').innerHTML='<p class="note">Could not load the record books: '+esc(e.message)+'</p>';});
   $('btnPit').onclick=universalPit;
   $('btnStage').onclick=stagedBout;
   var bt=$('btnTorch');if(bt)bt.onclick=torchBattle;
@@ -525,12 +518,6 @@ function init(){
   $('btnLink').onclick=function(){var u=olyRecDeep();if(navigator.clipboard)navigator.clipboard.writeText(u);prompt('Battle link:',u);};
   $('btnClose').onclick=closeBattle;
   $('qaAsk').onclick=qaAsk;$('qaBox').addEventListener('keydown',function(e){if(e.key==='Enter')qaAsk();});
-  /* SITE19-FIX-06: real-time search (150ms debounce) + arena filter */
-  $('btnSearch').onclick=function(){doSearch();};
-  var qbox=$('q'),qdt=null;
-  qbox.addEventListener('input',function(){if(qdt)clearTimeout(qdt);qdt=setTimeout(doSearch,150);});
-  qbox.addEventListener('keydown',function(e){if(e.key==='Enter'){if(qdt)clearTimeout(qdt);doSearch();}});
-  var fs=$('fStage');if(fs)fs.addEventListener('change',doSearch);
 }
 /* GEMINI-FIX: judging criteria visible BEFORE the battle */
 function showRubric(){
@@ -678,23 +665,6 @@ function hideLoader(){
   var l=document.getElementById('battleLoader');if(l)l.classList.remove('on');
   var bp=$('btnPit'),bs=$('btnStage');if(bp)bp.disabled=false;if(bs)bs.disabled=false;
 }
-/* SITE19-FIX-06: arena filter options from the bout index */
-var stageNameCache={};
-function buildStageFilter(){
-  var fs=$('fStage');if(!fs)return;
-  var seen={},keys=[];
-  bindex.forEach(function(r){if(!seen[r[5]]){seen[r[5]]=1;keys.push(r[5]);}});
-  keys.sort();
-  fs.innerHTML='<option value="">All arenas</option>'+keys.map(function(k){
-    return '<option value="'+esc(k)+'">'+esc(stageNameCache[k]||k)+'</option>';
-  }).join('');
-}
-function cacheStageName(key,name){
-  if(!key||!name||stageNameCache[key])return;
-  stageNameCache[key]=name;
-  var fs=$('fStage');if(!fs)return;
-  Array.prototype.forEach.call(fs.options,function(o){if(o.value===key)o.textContent=name;});
-}
 function exhibitionBout(opts){
   var E=OlyEngine;
   opts=opts||{};
@@ -729,7 +699,8 @@ function openBattle(id){
   if(uu){
     /* deep link to a user-entered AI: open its scorecard on this device */
     if(window.UserAI&&UserAI.getAI(id)){location.href='add-ai.html?ai='+encodeURIComponent(id);return;}
-    $('results').innerHTML='<p class="note">No AI '+esc(id)+' on this device — user-entered AIs live only in the browser where they were created.</p>';return;
+    var _bv=$('battleView');if(_bv)_bv.style.display='block';
+    $('bvRecord').innerHTML='<p class="note">No AI '+esc(id)+' on this device — user-entered AIs live only in the browser where they were created.</p>';return;
   }
   var ex=/^JAH-OLY-EXH-(\d{5})$/.exec(id||'');
   if(ex){
@@ -739,7 +710,8 @@ function openBattle(id){
     if(um&&om&&window.UserAI){
       var ub=UserAI.getBout(um[1].toUpperCase(),om[1].toUpperCase());
       if(ub){var bv=$('battleView');bv.style.display='block';renderBout(ub);window.scrollTo(0,$('battleView').offsetTop-10);return;}
-      $('results').innerHTML='<p class="note">That USER-ENTERED bout was recorded on another device — this browser has no AI '+esc(um[1].toUpperCase())+'. User-AI bouts live only where they were created.</p>';return;
+      var _bv2=$('battleView');if(_bv2)_bv2.style.display='block';
+      $('bvRecord').innerHTML='<p class="note">That USER-ENTERED bout was recorded on another device — this browser has no AI '+esc(um[1].toUpperCase())+'. User-AI bouts live only where they were created.</p>';return;
     }
     /* exhibition bouts live outside the record books: regenerate deterministically.
      * A &seed= param reproduces the EXACT shared bout; a bare EXH link falls back
@@ -751,22 +723,21 @@ function openBattle(id){
     renderBout(exhibitionBout({seed:sd,event:evm?evm[1]:null}));window.scrollTo(0,$('battleView').offsetTop-10);return;
   }
   var n=parseInt(id.slice(8),10);
-  if(!n||n<1||n>manifest.bouts){$('results').innerHTML='<p class="note">No battle '+esc(id)+' in the record books yet.</p>';return;}
+  if(!n||n<1||n>manifest.bouts){var _b2=$('battleView');if(_b2)_b2.style.display='block';$('bvRecord').innerHTML='<p class="note">No battle '+esc(id)+' in the record books yet.</p>';return;}
   var cn=Math.floor((n-1)/100)+1, key='c'+cn;
   var bv=$('battleView');bv.style.display='block';showLoader();
   $('bvTitle').textContent='BATTLE — LOADING '+esc(id)+'…';
   var got=chunkCache[key]?Promise.resolve(chunkCache[key]):gz('data/chunks/bouts-c'+String(cn).padStart(5,'0')+'.jsonl.gz').then(function(t){chunkCache[key]=t;return t;});
   got.then(function(t){
     var line=t.split('\n').filter(function(l){return l.indexOf('"id":"'+id+'"')===0;})[0];
-    if(!line){hideLoader();$('results').innerHTML='<p class="note">Battle not found in chunk.</p>';return;}
+    if(!line){hideLoader();var _b3=$('battleView');if(_b3)_b3.style.display='block';$('bvRecord').innerHTML='<p class="note">Battle not found in chunk.</p>';return;}
     renderBout(JSON.parse(line));window.scrollTo(0,$('battleView').offsetTop-10);
-  }).catch(function(e){hideLoader();$('results').innerHTML='<p class="note">Could not load battle: '+esc(e.message)+'</p>';});
+  }).catch(function(e){hideLoader();var _b4=$('battleView');if(_b4)_b4.style.display='block';$('bvRecord').innerHTML='<p class="note">Could not load battle: '+esc(e.message)+'</p>';});
 }
 function renderBout(b,asModal){
   curBout=b;
   hideLoader(); /* SITE19-FIX-05 */
   setBattleHead(b); /* SITE19-FIX-01 */
-  cacheStageName(b.stage.key,b.stage.name); /* SITE19-FIX-06 */
   var bv=$('battleView');
   bv.style.display='block';
   /* FIX-04: user-opened bouts get a scrim + scroll-lock; the initial boot render stays inline */
@@ -918,28 +889,6 @@ function qaAsk(){
   a=scribeGuarded(a);
   log.innerHTML+='<div class="q">You: '+esc($('qaBox').value.trim())+'</div><div class="a">Scribe: '+esc(a)+'</div>';
   log.scrollTop=log.scrollHeight;$('qaBox').value='';
-}
-/* ---- search: real-time + arena filter + counts ---- */
-function doSearch(){
-  var q=$('q').value.trim().toLowerCase();
-  var fs=$('fStage'),stage=fs?fs.value:'';
-  var hc=$('hitCount');
-  /* CONSISTENCY PASS: honest "Loading…" while the index resolves — never "No battles match" during load */
-  if(!idxLoaded){if(hc)hc.textContent='';$('results').innerHTML='<p class="note">Loading the record books…</p>';return;}
-  /* exact-ID fast path: a full battle ID jumps straight to the bout */
-  var rawQ=$('q').value.trim().toUpperCase();
-  if(/^(JAH-OLY-\d{6}|JAH-OLY-EXH-\d{5}|JAH-OLY-USER-\d{4})$/.test(rawQ)){openBattle(rawQ);return;}
-  if(!q&&!stage){if(hc)hc.textContent='';return;}
-  var hits=bindex.filter(function(r){
-    if(stage&&r[5]!==stage)return false;
-    return !q||r.join(' ').toLowerCase().indexOf(q)>=0;
-  });
-  var shown=hits.slice(0,20);
-  if(hc)hc.textContent=hits.length+' bout'+(hits.length===1?'':'s');
-  $('results').innerHTML=hits.length?shown.map(function(r){
-    var loser=r[3]===r[1]?r[4]:r[3];
-    return '<div class="hit"><span class="recbadge sim mini">SIMULATION</span><a href="?battle='+r[0]+'">'+r[0]+'</a> — '+esc(r[2])+' def. '+esc(loser)+' · '+esc(stageNameCache[r[5]]||r[5])+' · '+esc(r[6])+'…</div>';
-  }).join('')+(hits.length>20?'<p class="note">Showing 20 of '+hits.length+' — refine your search.</p>':''):'<p class="note">No battles match. Try a contender name, a stage, or a mission word.</p>';
 }
 
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
