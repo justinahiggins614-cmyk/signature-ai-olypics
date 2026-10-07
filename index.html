@@ -402,7 +402,7 @@ function surpriseFighters(){
 function torchBattle(){
   var c1=contenderById($('selC1').value),c2=contenderById($('selC2').value);
   if(!c1||!c2)return;
-  if(c1.id===c2.id){alert('Pick two different fighters — or hit Surprise me.');return;}
+  if(c1.id===c2.id){jahToast('Pick two different fighters — or hit Surprise me.');return;}
   var bv=$('battleView');bv.style.display='block';showLoader();
   $('bvTitle').textContent='BATTLE — JUDGING…';
   window.scrollTo(0,bv.offsetTop-10);
@@ -992,5 +992,11 @@ setTimeout(function(){if(!seen()&&location.search.indexOf('battle=')<0)openGuide
 <a href="https://justinahiggins614-cmyk.github.io/signature-3d-print/">37 3D Mall</a>
 <span class="here">17 Olympics · YOU ARE HERE</span>
 </nav>
+<style>#jah-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1c2940;color:#fff;padding:12px 20px;border-radius:10px;border:1px solid #35e0ff;z-index:99999;max-width:90vw;display:none;box-shadow:0 4px 20px rgba(0,0,0,.5);font-size:.95em}</style>
+<script>
+function jahToast(m){var t=document.getElementById('jah-toast');if(!t){t=document.createElement('div');t.id='jah-toast';document.body.appendChild(t)}t.textContent=String(m);t.style.display='block';clearTimeout(t._x);t._x=setTimeout(function(){t.style.display='none'},3000)}
+function jahConfirm(msg,cb){var o=document.getElementById('jah-confirm');if(o)o.remove();o=document.createElement('div');o.id='jah-confirm';o.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px';var box=document.createElement('div');box.style.cssText='background:#1c2940;border:1px solid #35e0ff;border-radius:12px;padding:20px;max-width:92vw;color:#fff';var p=document.createElement('p');p.style.margin='0 0 16px';p.textContent=String(msg);var row=document.createElement('div');row.style.cssText='display:flex;gap:10px;justify-content:flex-end';var no=document.createElement('button');no.textContent='Cancel';no.style.cssText='padding:10px 18px;border-radius:8px;border:1px solid #666;background:#222;color:#fff;font-size:1em';var yes=document.createElement('button');yes.textContent='Confirm';yes.style.cssText='padding:10px 18px;border-radius:8px;border:none;background:#35e0ff;color:#000;font-weight:bold;font-size:1em';no.onclick=function(){o.remove();cb(false)};yes.onclick=function(){o.remove();cb(true)};row.appendChild(no);row.appendChild(yes);box.appendChild(p);box.appendChild(row);o.appendChild(box);document.body.appendChild(o);yes.focus()}
+</script>
+
 </body>
 </html>
