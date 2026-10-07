@@ -71,6 +71,7 @@ footer{color:#8a6f52;font-size:.82em;text-align:center;padding:26px 12px;font-fa
 <div>
 <label for="uaiName">AI name</label>
 <input type="text" id="uaiName" maxlength="60" placeholder="e.g. Logic Forge" autocomplete="off">
+<div id="uaiNameErr" role="alert" style="display:none;color:#ff7b7b;font-size:.9em;margin-top:4px"></div>
 </div>
 <div>
 <label for="uaiBlurb">Description — what does it do?</label>
@@ -144,7 +145,9 @@ function uaiShowForm(){
 function uaiHideForm(){$('uaiForm').style.display='none';$('btnUaiAdd').style.display='';}
 function uaiSave(){
   var name=$('uaiName').value.trim();
-  if(!name){alert('Give your AI a name.');return;}
+  var nerr=$('uaiNameErr');
+  if(!name){if(nerr){nerr.textContent='Give your AI a name.';nerr.style.display='block';}$('uaiName').focus();return;}
+  if(nerr){nerr.textContent='';nerr.style.display='none';}
   var stats={};
   UserAI.STAT_KEYS.forEach(function(k){stats[k]=+$('uaiS_'+k).value;});
   var ai=UserAI.addAI({
@@ -196,7 +199,7 @@ function showUserAI(id){
   $('btnUaiLink').onclick=function(){
     var u=BASE+'add-ai.html?ai='+encodeURIComponent(id);
     if(navigator.clipboard)navigator.clipboard.writeText(u);
-    prompt('AI link (works on this device):',u);
+    jahToast('AI link copied — works on this device.');
   };
   if(!UserAI.buildPyFile){var b1=$('btnUaiPy'),b2=$('btnUaiJs');if(b1)b1.style.display='none';if(b2)b2.style.display='none';}
   $('btnUaiPy').onclick=function(){
@@ -283,6 +286,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
               document.querySelector('header') ||
               document.body;
   if (window.JAHProfile && JAHProfile.ui) JAHProfile.ui.renderButton(mount);
+})();
+</script>
 <script>
 (function () {
   /* Profiles v2 "Make it mine": page greeting near the header; renders ONLY when personalization is live */

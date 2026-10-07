@@ -487,7 +487,7 @@ function init(){
   document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.tabs button').forEach(function(x){x.classList.remove('on');});document.querySelectorAll('.tabpane').forEach(function(x){x.classList.remove('on');});b.classList.add('on');$('tp-'+b.getAttribute('data-t')).classList.add('on');};});
   $('btnRead').onclick=readAloud;$('ttsStop').onclick=ttsStop;
   $('btnCopy').onclick=copyBattle;$('btnDLtxt').onclick=function(){dlBattle('txt');};$('btnDLjson').onclick=function(){dlBattle('json');};
-  $('btnLink').onclick=function(){var u=olyRecDeep();if(navigator.clipboard)navigator.clipboard.writeText(u);prompt('Battle link:',u);};
+  $('btnLink').onclick=function(){var u=olyRecDeep();if(navigator.clipboard)navigator.clipboard.writeText(u);jahToast('Battle link copied to clipboard.');};
   $('btnClose').onclick=closeBattle;
   $('qaAsk').onclick=qaAsk;$('qaBox').addEventListener('keydown',function(e){if(e.key==='Enter')qaAsk();});
 }
@@ -798,7 +798,7 @@ function readAloud(){
   }
   tryHost();
 }
-function copyBattle(){if(!curBout)return;var t=curBout.narrative+'\n\nFINDINGS\n'+curBout.findings.map(findingText).join('\n');if(navigator.clipboard)navigator.clipboard.writeText(t);prompt('Copy the battle:',t.slice(0,200)+'…');}
+function copyBattle(){if(!curBout)return;var t=curBout.narrative+'\n\nFINDINGS\n'+curBout.findings.map(findingText).join('\n');if(navigator.clipboard){navigator.clipboard.writeText(t);jahToast('Battle copied to clipboard.');}else{jahToast('Clipboard unavailable on this browser.');}}
 function dlBattle(kind){
   if(!curBout)return;
   var body=curBout.narrative+'\n\nFINDINGS\n'+curBout.findings.map(findingText).join('\n');
@@ -936,6 +936,8 @@ setTimeout(function(){if(!seen()&&location.search.indexOf('battle=')<0)openGuide
               document.querySelector('header') ||
               document.body;
   if (window.JAHProfile && JAHProfile.ui) JAHProfile.ui.renderButton(mount);
+})();
+</script>
 <script>
 (function () {
   /* Profiles v2 "Make it mine": page greeting near the header; renders ONLY when personalization is live */

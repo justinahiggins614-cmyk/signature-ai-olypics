@@ -494,14 +494,38 @@
         var all = list();
         for (i = 0; i < all.length; i++) { drop.appendChild(profileRow(doc, all[i])); }
         drop.appendChild(actionRow(doc, '\uFF0B New profile\u2026', function () {
-          var name = '';
-          try {
-            if (typeof prompt === 'function') name = prompt('Profile name:', '');
-            else if (root.prompt) name = root.prompt('Profile name:', '');
-          } catch (e) {}
-          if (name == null) return;
-          createProfile(name);
-          _reloadPage();
+          /* In-page profile-name form (native prompt() is suppressed in
+             Facebook's in-app browser and unreliable on mobile). */
+          var form = doc.createElement('div');
+          form.setAttribute('style', 'padding:7px 8px;display:flex;gap:6px;align-items:center;');
+          var inp = doc.createElement('input');
+          inp.setAttribute('type', 'text');
+          inp.setAttribute('placeholder', 'Profile name');
+          inp.setAttribute('maxlength', '40');
+          inp.setAttribute('aria-label', 'Profile name');
+          inp.setAttribute('style', 'flex:1;min-width:0;padding:8px 10px;border-radius:8px;border:1px solid #999;font-size:14px;');
+          var ok = doc.createElement('button');
+          ok.textContent = 'Create';
+          ok.setAttribute('style', 'padding:8px 12px;border-radius:8px;border:none;background:#0b5bd3;color:#fff;font-weight:600;font-size:14px;');
+          var no = doc.createElement('button');
+          no.textContent = 'Cancel';
+          no.setAttribute('style', 'padding:8px 12px;border-radius:8px;border:1px solid #999;background:#fff;font-size:14px;');
+          function rebuild() { try { refresh(); } catch (e) { _reloadPage(); } }
+          function done(name) {
+            if (name == null) { rebuild(); return; }
+            createProfile(name);
+            _reloadPage();
+          }
+          ok.addEventListener('click', function (ev) { if (ev && ev.stopPropagation) ev.stopPropagation(); done(inp.value); });
+          no.addEventListener('click', function (ev) { if (ev && ev.stopPropagation) ev.stopPropagation(); rebuild(); });
+          inp.addEventListener('keydown', function (ev) {
+            if (ev.key === 'Enter') { ev.preventDefault(); done(inp.value); }
+            else if (ev.key === 'Escape') { rebuild(); }
+          });
+          inp.addEventListener('click', function (ev) { if (ev && ev.stopPropagation) ev.stopPropagation(); });
+          form.appendChild(inp); form.appendChild(ok); form.appendChild(no);
+          drop.appendChild(form);
+          try { inp.focus(); } catch (e) {}
         }));
         if (c) {
           drop.appendChild(actionRow(doc, 'Sign out (use public)', function () {
